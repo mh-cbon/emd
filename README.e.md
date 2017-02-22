@@ -25,9 +25,9 @@
 
 # Usage
 
-{{cli "build/emd" "-help"}}
+{{cli "emd" "-help"}}
 
-{{cli "build/emd" "gen" "-help"}}
+{{cli "emd" "gen" "-help"}}
 
 # Cli examples
 
