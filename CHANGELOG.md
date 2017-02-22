@@ -1,5 +1,29 @@
 # Changelog - emd
 
+### 0.0.2
+
+__Changes__
+
+- README: fix appveyor badge
+- badge(update): fix url
+- README: fix appveyor badge
+- badge(fix): fix appveyor badge
+- README: add appveyor badge
+- badge(update): update text displayed in ci badges
+- README(fix): use correct bin path
+- bump(fix): emd gen command was wrong
+- changelog: 0.0.1
+- changelog: 0.0.1
+- changelog: init
+
+__Contributors__
+
+- mh-cbon
+
+Released by mh-cbon, Wed 22 Feb 2017 -
+[see the diff](https://github.com/mh-cbon/emd/compare/0.0.1...0.0.2#diff)
+______________
+
 ### 0.0.1
 
 __Changes__
