@@ -41,7 +41,7 @@ emd gen -out README.md
 #### Data
 
 | Key | Description |
-| -- | -- |
+| --- | --- |
 | Name | Project directory name (filepath.Base(cwd)). |
 | User | Project directory name (filepath.Base(cwd)). |
 | ProviderURL | The vcs provider url (example: github.com). |
@@ -52,15 +52,15 @@ emd gen -out README.md
 #### Function
 
 | Name | Description |
-| -- | -- |
+| --- | --- |
 | file(f string) | read and display a file enclosed with triples backquotes. The highlight defaults to `go`. |
 | cli(bin string, args ...string) | execute and display a command line enclosed with triples backquotes. The highlight defaults to `sh`. |
 | pkgdoc(files ...string) | reads the first of files, lookup for its package comment and shows it as plain text. |
 
 #### Templates
 
-| Name | Description
-| -- | --
+| Name | Description |
+| --- | --- |
 | gh/releases | Show a text to link the release page. |
 | badge/travis | Show a travis badge. |
 | badge/appveyor | Show an appveyor badge. |
