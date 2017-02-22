@@ -9,11 +9,39 @@ Enhanced Markdown template processor.
 
 # Install
 
+#### Go
 
 ```sh
 go get github.com/mh-cbon/emd
 ```
 
+
+#### Chocolatey
+
+```sh
+choco install emd
+```
+
+#### linux rpm/deb repository
+
+```sh
+wget -O - https://raw.githubusercontent.com/mh-cbon/latest/master/source.sh \
+| GH=mh-cbon/emd sh -xe
+# or
+curl -L https://raw.githubusercontent.com/mh-cbon/latest/master/source.sh \
+| GH=mh-cbon/emd sh -xe
+```
+
+#### linux rpm/deb standalone package
+
+```sh
+curl -L https://raw.githubusercontent.com/mh-cbon/latest/master/install.sh \
+| GH=mh-cbon/emd sh -xe
+# or
+wget -q -O - --no-check-certificate \
+https://raw.githubusercontent.com/mh-cbon/latest/master/install.sh \
+| GH=mh-cbon/emd sh -xe
+```
 
 # Usage
 
@@ -46,6 +74,7 @@ Command "gen": Process an emd file.
     	Input src file (default "README.e.md")
   -out string
     	Output destination, defaults to stdout (default "-")
+success
 ```
 
 # Cli examples
