@@ -88,6 +88,8 @@ func main() {
 					cmd.getFn()(cmd),
 					name+" failed: %v",
 				)
+				fmt.Println("success")
+				return
 			}
 		}
 	}
