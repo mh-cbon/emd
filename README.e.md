@@ -6,6 +6,8 @@
 
 # Install
 
+{{template "gh/releases" .}}
+
 #### Go
 {{template "go/install" .}}
 

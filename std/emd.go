@@ -34,6 +34,10 @@ __$ ` + fbin + ` ` + strings.Join(args, " ") + `__
 		return res, err
 	})
 
+	g.AddTemplate(`{{define "gh/releases" -}}
+Check the [release page](https://github.com/{{.User}}/{{.Name}}/releases)!
+{{- end}}`)
+
 	g.AddTemplate(`{{define "badge/travis" -}}
 [![Build Status](https://travis-ci.org/{{.User}}/{{.Name}}.svg?branch={{.Branch}})](https://travis-ci.org/{{.User}}/{{.Name}})
 {{- end}}`)

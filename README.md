@@ -9,6 +9,8 @@ Enhanced Markdown template processor.
 
 # Install
 
+Check the [release page](https://github.com/mh-cbon/emd/releases)!
+
 #### Go
 
 ```sh
