@@ -36,7 +36,7 @@ after_deploy:
   - go-msi.exe choco --input %APPVEYOR_BUILD_FOLDER%\%APPVEYOR_PROJECT_NAME%-%GOARCH%.msi --version %APPVEYOR_REPO_TAG_NAME%
   - choco push -k="'%CHOCOKEY%'" %APPVEYOR_PROJECT_NAME%.%APPVEYOR_REPO_TAG_NAME%.nupkg
 
-test:
+script:
   - go test emd/*
 
 artifacts:
