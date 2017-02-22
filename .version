@@ -9,7 +9,7 @@ postversion: \
   666 changelog md -o CHANGELOG.md --guess \
   && 666 commit -q -m "changelog: !newversion!" -f CHANGELOG.md \
   && 666 go install \
-  && 666 emd -out README.md \
+  && 666 emd gen -out README.md \
   && 666 commit -q -m "README: !newversion!" -f README.md \
   && 666 git push && 666 git push --tags \
   && 666 gh-api-cli create-release -n release -o mh-cbon --guess \
