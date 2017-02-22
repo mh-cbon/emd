@@ -17,11 +17,9 @@ before_install:
   - sudo apt-get -qq update
   - mkdir -p ${GOPATH}/bin
   - cd ~
-  - curl https://glide.sh/get | sh
 
 install:
   - cd $GOPATH/src/github.com/mh-cbon/$MYAPP
-  - glide install
   - go install
 
 test:
