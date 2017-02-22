@@ -22,7 +22,7 @@ install:
   - curl -fsSL -o C:\latest.bat https://raw.githubusercontent.com/mh-cbon/latest/master/latest.bat?a=1
   - cmd /C C:\latest.bat mh-cbon go-msi amd64
   - set PATH=C:\Program Files\go-msi\;%PATH%
-  - go test emd/*
+  - go test github.om/mh-cbon/emd -v
 
 build_script:
   - glide install
