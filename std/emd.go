@@ -43,7 +43,7 @@ Check the [release page](https://github.com/{{.User}}/{{.Name}}/releases)!
 {{- end}}`)
 
 	g.AddTemplate(`{{define "badge/appveyor" -}}
-[![appveyor Status](https://ci.appveyor.com/api/projects/status/.ProviderName/{{.User}}/{{.Name}}?branch={{.Branch}}&svg=true)](https://ci.appveyor.com/api/projects/status/.ProviderName/{{.User}}/{{.Name}}?branch={{.Branch}}&svg=true)
+[![appveyor Status](https://ci.appveyor.com/api/projects/status/{{.ProviderName}}/{{.User}}/{{.Name}}?branch={{.Branch}}&svg=true)](https://ci.appveyor.com/api/projects/status/{{.ProviderName}}/{{.User}}/{{.Name}}?branch={{.Branch}}&svg=true)
 {{- end}}`)
 
 	g.AddTemplate(`{{define "choco/install" -}}
