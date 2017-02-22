@@ -1,4 +1,15 @@
 
+0.0.3
+
+  * travis(token): update ghtoken
+  * changelog: 0.0.2
+
+  - mh-cbon <mh-cbon@users.noreply.github.com>
+
+-- mh-cbon <mh-cbon@users.noreply.github.com>; Wed, 22 Feb 2017 22:05:07 +0100
+
+
+
 0.0.2
 
   * README: fix appveyor badge
