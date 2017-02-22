@@ -88,7 +88,6 @@ func main() {
 					cmd.getFn()(cmd),
 					name+" failed: %v",
 				)
-				fmt.Println("success")
 				return
 			}
 		}
@@ -196,6 +195,9 @@ func generate(s interface{}) error {
 	if err := gen.Execute(out); err != nil {
 		return fmt.Errorf("Generator failed: %v", err)
 	}
+
+	fmt.Println("success")
+
 	return nil
 }
 

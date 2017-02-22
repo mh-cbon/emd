@@ -76,7 +76,6 @@ Command "gen": Process an emd file.
     	Input src file (default "README.e.md")
   -out string
     	Output destination, defaults to stdout (default "-")
-success
 ```
 
 # Cli examples

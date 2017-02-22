@@ -1,4 +1,15 @@
 
+UNRELEASED
+
+  * changelog: typos
+  * README: add template helpers documentation
+
+  - mh-cbon <mh-cbon@users.noreply.github.com>
+
+-- mh-cbon <mh-cbon@users.noreply.github.com>; Wed, 22 Feb 2017 22:18:19 +0100
+
+
+
 0.0.3
 
   * travis(token): update ghtoken
