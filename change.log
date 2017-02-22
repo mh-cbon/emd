@@ -2,7 +2,6 @@
 0.0.3
 
   * travis(token): update ghtoken
-  * changelog: 0.0.2
 
   - mh-cbon <mh-cbon@users.noreply.github.com>
 
@@ -20,9 +19,6 @@
   * badge(update): update text displayed in ci badges
   * README(fix): use correct bin path
   * bump(fix): emd gen command was wrong
-  * changelog: 0.0.1
-  * changelog: 0.0.1
-  * changelog: init
 
   - mh-cbon <mh-cbon@users.noreply.github.com>
 
@@ -37,5 +33,3 @@
   - mh-cbon <mh-cbon@users.noreply.github.com>
 
 -- mh-cbon <mh-cbon@users.noreply.github.com>; Wed, 22 Feb 2017 21:07:17 +0100
-
-
