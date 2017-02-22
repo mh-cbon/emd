@@ -22,8 +22,7 @@ install:
   - cd $GOPATH/src/github.com/mh-cbon/$MYAPP
   - go install
 
-test:
-  - go test emd/*
+script: go test emd/*
 
 before_deploy:
   - mkdir -p build/{386,amd64}
