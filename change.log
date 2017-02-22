@@ -1,4 +1,24 @@
 
+0.0.2
+
+  * README: fix appveyor badge
+  * badge(update): fix url
+  * README: fix appveyor badge
+  * badge(fix): fix appveyor badge
+  * README: add appveyor badge
+  * badge(update): update text displayed in ci badges
+  * README(fix): use correct bin path
+  * bump(fix): emd gen command was wrong
+  * changelog: 0.0.1
+  * changelog: 0.0.1
+  * changelog: init
+
+  - mh-cbon <mh-cbon@users.noreply.github.com>
+
+-- mh-cbon <mh-cbon@users.noreply.github.com>; Wed, 22 Feb 2017 21:26:29 +0100
+
+
+
 0.0.1
 
   * project initialization
