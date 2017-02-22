@@ -1,0 +1,53 @@
+sudo: required
+
+services:
+  - docker
+
+language: go
+go:
+  - tip
+
+env:
+  global:
+    - MYAPP=emd
+    - MYEMAIL=mh-cbon@users.noreply.github.com
+    - secure: Aze0dgazElsiZJmFCN/j5hnzn9vcBoUVnHYkz37wWJ1KyDftxFw9VkVXKJslS9+WV+DFs4CFm2IAxh9BB3gXk8GgCyIkwKrrgIYk4qtTDhvI4wLaMn7pwCbsk1H8a+P6gdEyDVV4YXqvXJDPr9nXdJXjiAiLOitZHXjAyijedcCUImJ7oqL6F7/+O8cSMH7YYAxeln82Zn3Kcko6GBJPxCeeFWA27jZfOsQDPkDFz+YJvSafOW101QCSieqQK53rWLGUwgknCLp0/s9yTe2gmdnpYjU1QgFjxIatWoilbJNvXTwZ+XO2S+6QPICnoOQ7BQmJg4KLIz+LPKkF7qPXaoYPdd7pbGraHY92UDcNSCgsD3RX27PUxMX6SE2tEUTxLcGMLZ592Kb+ZUldJ+oTdA40RopGE2DLdpkKHX7LhyBDPq+XCNE2LF/8neqCI8Y42egkl+6gZCIQe4N8yQmrTqaEl6CNYRMmM+FgYNnrr44ItawlgNgvKEmHgl0O1TAIld/j50aULEX+RKjv1XAsm+9zNAMdhjWEyiyXd5tZbLO9okGkqhS0QIm6g+stExdifknjvnaXf0TNA/q+ZUq0wLPYRpJxgQl0leCXJDLZvm8QXFGLRbqpa9ReF7aTfkvw8cS5zI6T/Ttaf+t5xaKfuDZfGdG3lo8GSrCroh2+GoE=
+
+before_install:
+  - sudo apt-get -qq update
+  - mkdir -p ${GOPATH}/bin
+  - cd ~
+  - curl https://glide.sh/get | sh
+
+install:
+  - cd $GOPATH/src/github.com/mh-cbon/$MYAPP
+  - glide install
+  - go install
+
+test:
+  - go test emd/*
+
+before_deploy:
+  - mkdir -p build/{386,amd64}
+  - GOOS=linux GOARCH=386 go build --ldflags "-X main.VERSION=${TRAVIS_TAG}" -o build/386/$MYAPP main.go
+  - GOOS=linux GOARCH=amd64 go build --ldflags "-X main.VERSION=${TRAVIS_TAG}" -o build/amd64/$MYAPP main.go
+  - curl -L https://raw.githubusercontent.com/mh-cbon/go-bin-deb/master/create-pkg.sh | GH=mh-cbon/$MYAPP sh -xe
+  - curl -L https://raw.githubusercontent.com/mh-cbon/go-bin-rpm/master/create-pkg.sh | GH=mh-cbon/$MYAPP sh -xe
+
+after_deploy:
+  - curl -L https://raw.githubusercontent.com/mh-cbon/go-bin-deb/master/setup-repository.sh | GH=mh-cbon/$MYAPP EMAIL=$MYEMAIL sh -xe
+  - curl -L https://raw.githubusercontent.com/mh-cbon/go-bin-rpm/master/setup-repository.sh | GH=mh-cbon/$MYAPP EMAIL=$MYEMAIL sh -xe
+
+deploy:
+  provider: releases
+  api_key:
+    secure: em4nCHJdPAXZ+jP/uDflyFfELb9Yn5B3C7rqjBYm1SdTi1KZVZyyOohckoPmljoHt2kva1ls5yszp8pFCj8mFXi1kY6UVV77VC6tYmcrGmP9FXz2iY+X3q2wulu8bU7f+mcG/whfOKPVU/hxLm6iNfcUw3oWNvH8vdZodtBse5UwFi4VkWZBa08Oj9JRR2P0JSMyHsDbvTNeC25xz8j9ytHcv2+j7pvOQf+Swam3z/FknRkG5hxpklMiFCBxKo4FkMKmSNWaH7F2AXGwTyqBgCj4uOEAJsp2Gi27Gw+dC8OOKxx/t9e4l38i5QqWVGVuSFW+wOLwr2StT5rVVG+QDxv61nkh5vLsXckRe7zxA4D2ldf8KtkyLP4vNaAtbUFTmyRJ+I8LhicAn6j4vjOtYpB+CwkGI21if1GEU7fygF7fyIqBss9TOHb4OJUNK16ZVA0do+ZGDcwTgPx11zcgd2Emxl4z2I/ue7OXXJ1hz95tHqMZz8z0hKffdxmVOgp3pQ9w8VoZfBxicGRrWKnr35vH2vkx3R2mmLj7MW3DpDrCRD3qSQ2A7hu4vEiTY0c1yzy6OEWwgfJsx7hnRSU29iaw9Ep0ScXxf/2DtWA6DxY6A/sWd1jGePPlPhOTpx5fdLEiITR0DyHKpe5tHDfXJl6Jn0fwl8nwCc4+bGSAMqk=
+  file_glob: true
+  file:
+    - $MYAPP-386.deb
+    - $MYAPP-amd64.deb
+    - $MYAPP-386.rpm
+    - $MYAPP-amd64.rpm
+  skip_cleanup: true
+  on:
+    tags: true
