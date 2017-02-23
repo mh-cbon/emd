@@ -1,5 +1,5 @@
 
-UNRELEASED
+0.0.4
 
   * changelog: typos
   * README: add template helpers documentation
@@ -44,3 +44,5 @@ UNRELEASED
   - mh-cbon <mh-cbon@users.noreply.github.com>
 
 -- mh-cbon <mh-cbon@users.noreply.github.com>; Wed, 22 Feb 2017 21:07:17 +0100
+
+
