@@ -14,9 +14,11 @@ func Register(g *emd.Generator) error {
 
 	g.AddFunc("file", func(f string) (string, error) {
 		s, err := ioutil.ReadFile(f)
+		ext := filepath.Ext(f)
+		ext = strings.TrimPrefix(ext, ".")
 		res := `
 __> ` + f + `__
-` + "```go" + `
+` + "```" + ext + `
 ` + strings.TrimSpace(string(s)) + `
 ` + "```"
 		return res, err
