@@ -1,11 +1,25 @@
 # Changelog - emd
 
+### 0.0.4
+
+__Changes__
+
+- changelog: typos
+- README: add template helpers documentation
+
+__Contributors__
+
+- mh-cbon
+
+Released by mh-cbon, Wed 22 Feb 2017 -
+[see the diff](https://github.com/mh-cbon/emd/compare/0.0.3...0.0.4#diff)
+______________
+
 ### 0.0.3
 
 __Changes__
 
 - travis(token): update ghtoken
-- changelog: 0.0.2
 
 __Contributors__
 
@@ -27,9 +41,6 @@ __Changes__
 - badge(update): update text displayed in ci badges
 - README(fix): use correct bin path
 - bump(fix): emd gen command was wrong
-- changelog: 0.0.1
-- changelog: 0.0.1
-- changelog: init
 
 __Contributors__
 
