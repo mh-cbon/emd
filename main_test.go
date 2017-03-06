@@ -7,7 +7,7 @@ import (
 	"github.com/mh-cbon/emd/std"
 )
 
-var xyz = "dummy"
+var projectName = "dummy"
 
 // ExampleGenerate demonstrates the generation
 // of the given README.e.md source file
@@ -21,7 +21,7 @@ func Example() {
 	gen.AddTemplate("{{.Name}}")
 
 	// set the data available in templates.
-	gen.SetDataMap(map[string]interface{}{"Name": "projectname"})
+	gen.SetDataMap(map[string]interface{}{"Name": projectName})
 
 	// register a plugin
 	if err := std.Register(gen); err != nil {
@@ -32,5 +32,5 @@ func Example() {
 	if err := gen.Execute(os.Stdout); err != nil {
 		panic(err)
 	}
-	// Output: projectname
+	// Output: dummy
 }
