@@ -1,5 +1,23 @@
 # Changelog - emd
 
+### 0.0.6
+
+__Changes__
+
+- template functions (std): add a new render template function to define additional values (fixes #2)
+- template function (std): file takes a new argument to define the colorizer (fixes #1)
+- emd: add new methods to access template, out and data
+- release: fix missing version to the emd build
+- README: multiple improvements.
+
+__Contributors__
+
+- mh-cbon
+
+Released by mh-cbon, Mon 06 Mar 2017 -
+[see the diff](https://github.com/mh-cbon/emd/compare/0.0.5...0.0.6#diff)
+______________
+
 ### 0.0.5
 
 __Changes__
