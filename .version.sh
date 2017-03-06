@@ -12,7 +12,7 @@ PREVERSION=
 POSTVERSION=
   666 changelog md -o CHANGELOG.md --guess
   666 commit -q -m "changelog: !newversion!" -f CHANGELOG.md
-  666 go install
+  666 go install --ldflags "-X main.VERSION=!newversion!"
   666 emd gen -out README.md
   666 commit -q -m "README: !newversion!" -f README.md
   666 git push
