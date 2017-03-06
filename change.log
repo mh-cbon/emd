@@ -1,4 +1,18 @@
 
+0.0.5
+
+  * badges: add codeship
+  * Funcs cli/file: changed the MD template to add support for html anchors (before they was using bold tag, now they use a title tag)
+  * command gen: prints success message only if out is not stdout
+  * README: added a section to show HTML generation, and a recipe to bump the package.
+  * release: change bump script format
+
+  - mh-cbon <mh-cbon@users.noreply.github.com>
+
+-- mh-cbon <mh-cbon@users.noreply.github.com>; Mon, 06 Mar 2017 15:20:40 +0100
+
+
+
 0.0.4
 
   * changelog: typos
