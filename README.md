@@ -50,7 +50,7 @@ https://raw.githubusercontent.com/mh-cbon/latest/master/install.sh \
 
 ###### $ emd -help
 ```sh
-emd - 0.0.0
+emd - 0.0.6
 
 Usage
   -h	Show help
@@ -66,7 +66,7 @@ Commands
 
 ###### $ emd gen -help
 ```sh
-emd - 0.0.0
+emd - 0.0.6
 
 Command "gen": Process an emd file.
   -data string
