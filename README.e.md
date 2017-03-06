@@ -78,7 +78,7 @@ emd gen -out README.md --data='{"CsUUID":"xxxx"}'
 
 # API example
 
-{{file "main_example.go"}}
+{{file "main_test.go"}}
 
 # Recipes
 
