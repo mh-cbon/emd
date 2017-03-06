@@ -48,11 +48,12 @@ https://raw.githubusercontent.com/mh-cbon/latest/master/install.sh \
 # Usage
 
 
-__$ emd -help__
+###### $ emd -help
 ```sh
 emd - 0.0.0
 
 Usage
+  -h	Show help
   -help
     	Show help
   -version
@@ -63,13 +64,14 @@ Commands
 ```
 
 
-__$ emd gen -help__
+###### $ emd gen -help
 ```sh
 emd - 0.0.0
 
 Command "gen": Process an emd file.
   -data string
     	JSON map of data
+  -h	Show help
   -help
     	Show help
   -in string
@@ -108,21 +110,22 @@ emd gen -out README.md
 
 #### Templates
 
-| Name | Description |
-| --- | --- |
-| gh/releases | Show a text to link the release page. |
-| badge/travis | Show a travis badge. |
-| badge/appveyor | Show an appveyor badge. |
-| choco/install | Show an sh snippet to install the package with chocolatey. |
-| linux/gh_src_repo | Show an sh snippet to install the package via linux repositories (deb/rpm). |
-| linux/gh_pkg | Show an sh snippet to install the package via linux packages (deb/rpm). |
-| glide/install | Show an sh snippet to install the package via `glide`. |
-| go/install | Show an sh snippet to install the package via `go get`. |
+| Name | Description | Params |
+| --- | --- | --- |
+| gh/releases | Show a text to link the release page. | |
+| badge/travis | Show a travis badge. | |
+| badge/appveyor | Show an appveyor badge. | |
+| badge/codeship | Show acodeship badge. | __CsUUID__: the codeship project UUID. Add it with `--data '{"CsUUID": "xxxxxx"}'` |
+| choco/install | Show an sh snippet to install the package with chocolatey. | |
+| linux/gh_src_repo | Show an sh snippet to install the package via linux repositories (deb/rpm). | |
+| linux/gh_pkg | Show an sh snippet to install the package via linux packages (deb/rpm). | |
+| glide/install | Show an sh snippet to install the package via `glide`. | |
+| go/install | Show an sh snippet to install the package via `go get`. | |
 
 # API example
 
 
-__> main_example.go__
+###### > main_example.go
 ```go
 // Demonstrates the generation
 // of the given README.e.md source file
@@ -160,4 +163,13 @@ func genExample() {
 		panic(err)
 	}
 }
+```
+
+# Recipes
+
+To directly generate HTML content out of `emd` output, for example, with `gh-markdown-cli`,
+
+```sh
+npm install gh-markdown-cli -g
+emd gen | mdown
 ```
