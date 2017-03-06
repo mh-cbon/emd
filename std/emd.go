@@ -17,7 +17,7 @@ func Register(g *emd.Generator) error {
 		ext := filepath.Ext(f)
 		ext = strings.TrimPrefix(ext, ".")
 		res := `
-__> ` + f + `__
+###### > ` + f + `
 ` + "```" + ext + `
 ` + strings.TrimSpace(string(s)) + `
 ` + "```"
@@ -29,7 +29,7 @@ __> ` + f + `__
 		out, err := cmd.CombinedOutput()
 		fbin := filepath.Base(bin)
 		res := `
-__$ ` + fbin + ` ` + strings.Join(args, " ") + `__
+###### $ ` + fbin + ` ` + strings.Join(args, " ") + `
 ` + "```sh" + `
 ` + strings.TrimSpace(string(out)) + `
 ` + "```"
