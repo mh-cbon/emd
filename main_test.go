@@ -7,7 +7,7 @@ import (
 	"github.com/mh-cbon/emd/std"
 )
 
-var _ = "dummy"
+var xyz = "dummy"
 
 // ExampleGenerate demonstrates the generation
 // of the given README.e.md source file
