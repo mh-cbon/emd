@@ -7,6 +7,8 @@ import (
 	"github.com/mh-cbon/emd/std"
 )
 
+var _ = "dummy"
+
 // ExampleGenerate demonstrates the generation
 // of the given README.e.md source file
 // to os.Stdout.
