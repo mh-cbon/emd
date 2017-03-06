@@ -39,7 +39,7 @@ type gencommand struct {
 }
 
 func init() {
-	gen := &gencommand{Command: cli.NewCommand("gen", "Process an emd file.", generate)}
+	gen := &gencommand{Command: cli.NewCommand("gen", "Process an emd file.", Generate)}
 	gen.Set.StringVar(&gen.in, "in", "README.e.md", "Input src file")
 	gen.Set.StringVar(&gen.out, "out", "-", "Output destination, defaults to stdout")
 	gen.Set.StringVar(&gen.data, "data", "", "JSON map of data")
@@ -49,7 +49,8 @@ func init() {
 	program.Add(gen)
 }
 
-func generate(s cli.Commander) error {
+// Generate is the cli command implementation of gen.
+func Generate(s cli.Commander) error {
 
 	cmd, ok := s.(*gencommand)
 	if ok == false {
