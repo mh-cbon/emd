@@ -48,6 +48,10 @@ Check the [release page](https://github.com/{{.User}}/{{.Name}}/releases)!
 [![appveyor Status](https://ci.appveyor.com/api/projects/status/{{.ProviderName}}/{{.User}}/{{.Name}}?branch={{.Branch}}&svg=true)](https://ci.appveyor.com/project/{{.User}}/{{.Name}})
 {{- end}}`)
 
+	g.AddTemplate(`{{define "badge/codeship" -}}
+[![codeship Status](https://codeship.com/projects/{{.CsUUID}}/status?branch={{.Branch}})](https://codeship.com/{{.CsUUID}})
+{{- end}}`)
+
 	g.AddTemplate(`{{define "choco/install" -}}
 ` + "```sh" + `
 choco install {{.Name}}
