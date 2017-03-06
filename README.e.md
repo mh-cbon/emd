@@ -31,9 +31,14 @@
 
 # Cli examples
 
-to generate a README file,
 ```sh
+
+# Reads content of README.e.md, outputs to README.md
 emd gen -out README.md
+
+# same with data injections,
+emd gen -out README.md --data='{"CsUUID":"xxxx"}'
+
 ```
 
 # Templates helper

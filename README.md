@@ -50,7 +50,7 @@ https://raw.githubusercontent.com/mh-cbon/latest/master/install.sh \
 
 ###### $ emd -help
 ```sh
-emd - 0.0.0
+emd - 1.1.1
 
 Usage
   -h	Show help
@@ -66,7 +66,7 @@ Commands
 
 ###### $ emd gen -help
 ```sh
-emd - 0.0.0
+emd - 1.1.1
 
 Command "gen": Process an emd file.
   -data string
@@ -82,9 +82,14 @@ Command "gen": Process an emd file.
 
 # Cli examples
 
-to generate a README file,
 ```sh
+
+# Reads content of README.e.md, outputs to README.md
 emd gen -out README.md
+
+# same with data injections,
+emd gen -out README.md --data='{"CsUUID":"xxxx"}'
+
 ```
 
 # Templates helper
