@@ -1,3 +1,4 @@
+// Package gononstd contains go non-standard helpers.
 package gononstd
 
 import "github.com/mh-cbon/emd/emd"

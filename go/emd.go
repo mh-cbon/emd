@@ -1,3 +1,4 @@
+// Package gostd contains go standard helpers.
 package gostd
 
 import (

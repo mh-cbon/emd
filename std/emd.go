@@ -1,3 +1,4 @@
+// Package std contains standard helpers.
 package std
 
 import (

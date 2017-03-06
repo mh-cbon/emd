@@ -1,3 +1,4 @@
+// Package emd provides support to process .md files.
 package emd
 
 import (
