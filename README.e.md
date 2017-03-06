@@ -59,17 +59,27 @@ emd gen -out README.md
 
 #### Templates
 
-| Name | Description |
-| --- | --- |
-| gh/releases | Show a text to link the release page. |
-| badge/travis | Show a travis badge. |
-| badge/appveyor | Show an appveyor badge. |
-| choco/install | Show an sh snippet to install the package with chocolatey. |
-| linux/gh_src_repo | Show an sh snippet to install the package via linux repositories (deb/rpm). |
-| linux/gh_pkg | Show an sh snippet to install the package via linux packages (deb/rpm). |
-| glide/install | Show an sh snippet to install the package via `glide`. |
-| go/install | Show an sh snippet to install the package via `go get`. |
+| Name | Description | Params |
+| --- | --- | --- |
+| gh/releases | Show a text to link the release page. | |
+| badge/travis | Show a travis badge. | |
+| badge/appveyor | Show an appveyor badge. | |
+| badge/codeship | Show acodeship badge. | __CsUUID__: the codeship project UUID. Add it with `--data '{"CsUUID": "xxxxxx"}'` |
+| choco/install | Show an sh snippet to install the package with chocolatey. | |
+| linux/gh_src_repo | Show an sh snippet to install the package via linux repositories (deb/rpm). | |
+| linux/gh_pkg | Show an sh snippet to install the package via linux packages (deb/rpm). | |
+| glide/install | Show an sh snippet to install the package via `glide`. | |
+| go/install | Show an sh snippet to install the package via `go get`. | |
 
 # API example
 
 {{file "main_example.go"}}
+
+# Recipes
+
+To directly generate HTML content out of `emd` output, for example, with `gh-markdown-cli`,
+
+```sh
+npm install gh-markdown-cli -g
+emd gen | mdown
+```
