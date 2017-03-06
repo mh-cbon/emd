@@ -122,7 +122,10 @@ func generate(s cli.Commander) error {
 		return fmt.Errorf("Generator failed: %v", err)
 	}
 
-	fmt.Println("success")
+	if cmd.out != "-" {
+		fmt.Println("")
+		fmt.Println("Success")
+	}
 
 	return nil
 }
