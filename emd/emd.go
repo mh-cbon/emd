@@ -10,6 +10,7 @@ import (
 //Generator generates an emd content.
 type Generator struct {
 	t     *template.Template
+	o     io.Writer
 	tpls  []string
 	funcs map[string]interface{}
 	data  map[string]interface{}
@@ -63,15 +64,41 @@ func (g *Generator) AddFileTemplate(t string) error {
 	return nil
 }
 
+//GetTemplate returns the compiled templates.
+//It is available only during Execute.
+func (g Generator) GetTemplate() *template.Template {
+	return g.t
+}
+
+//GetOut returns the out writer.
+//It is available only during Execute.
+func (g Generator) GetOut() io.Writer {
+	return g.o
+}
+
+//GetData returns a copy of the template's data.
+//It is available only during Execute.
+func (g Generator) GetData() map[string]interface{} {
+	ret := map[string]interface{}{}
+	for k, v := range g.data {
+		ret[k] = v
+	}
+	return ret
+}
+
 //Execute the template to out.
 func (g *Generator) Execute(out io.Writer) error {
+	g.o = out
 	var err error
-	t := template.New("").Funcs(g.funcs)
+	g.t = template.New("").Funcs(g.funcs)
 	for _, tpl := range g.tpls {
-		t, err = t.Parse(tpl)
+		g.t, err = g.t.Parse(tpl)
 		if err != nil {
 			return err
 		}
 	}
-	return t.Execute(out, g.data)
+	err = g.t.Execute(g.o, g.data)
+	g.t = nil
+	g.o = nil
+	return err
 }
