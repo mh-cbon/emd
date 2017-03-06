@@ -4,12 +4,12 @@ package main
 
 import (
 	"encoding/json"
-	"flag"
 	"fmt"
 	"os"
 	"path/filepath"
 	"strings"
 
+	"github.com/mh-cbon/emd/cli"
 	"github.com/mh-cbon/emd/emd"
 	gostd "github.com/mh-cbon/emd/go"
 	gononstd "github.com/mh-cbon/emd/go-nonstd"
@@ -19,119 +19,45 @@ import (
 // VERSION defines the running build id.
 var VERSION = "0.0.0"
 
-type commander interface {
-	getDesc() string
-	getName() string
-	getSet() *flag.FlagSet
-	getFn() func(s interface{}) error
-}
-type command struct {
-	name string
-	desc string
-	set  *flag.FlagSet
-	fn   func(s interface{}) error
-}
-
-func (c *command) getDesc() string {
-	return c.desc
-}
-func (c *command) getName() string {
-	return c.name
-}
-func (c *command) getSet() *flag.FlagSet {
-	return c.set
-}
-func (c *command) getFn() func(s interface{}) error {
-	return c.fn
-}
-
-func newCommand(name string, desc string, fn func(s interface{}) error) *command {
-	return &command{name, desc, flag.NewFlagSet(name, flag.ExitOnError), fn}
-}
-
-type gencommand struct {
-	*command
-	in   string
-	out  string
-	data string
-	help bool
-}
-
-func newGenCommand(desc string) *gencommand {
-	return &gencommand{command: newCommand("gen", desc, generate)}
-}
+var program = cli.NewProgram("emd", VERSION)
 
 func main() {
-
-	flag.Bool("help", false, "Show help")
-	versionFlag := flag.Bool("version", false, "Show version")
-
-	cmds := map[string]commander{}
-
-	g := newGenCommand("Process an emd file.")
-	g.set.StringVar(&g.in, "in", "README.e.md", "Input src file")
-	g.set.StringVar(&g.out, "out", "-", "Output destination, defaults to stdout")
-	g.set.StringVar(&g.data, "data", "", "JSON map of data")
-	g.set.BoolVar(&g.help, "help", false, "Show help")
-	cmds["gen"] = g
-
-	if len(os.Args) > 1 {
-		if cmd, ok := cmds[os.Args[1]]; ok {
-			cmd.getSet().Parse(os.Args[2:])
-		} else {
-			flag.Parse()
-		}
-
-		for name, cmd := range cmds {
-			if cmd.getSet().Parsed() {
-				mustNotPanic(
-					cmd.getFn()(cmd),
-					name+" failed: %v",
-				)
-				return
-			}
-		}
-	}
-
-	if *versionFlag {
-		vers("emd")
-	} else {
-		usage("emd", "", cmds)
+	program.Bind()
+	if err := program.Run(os.Args); err != nil {
+		panic(err)
 	}
 }
 
-func vers(name string) {
-	fmt.Fprintf(os.Stderr, "%s - %v\n", name, VERSION)
-}
-func usage(name string, cmd string, cmds map[string]commander) {
-	if cmd == "" {
-		vers(name)
-		fmt.Fprintln(os.Stderr, "\nUsage")
-		flag.PrintDefaults()
-		fmt.Fprintln(os.Stderr, "\nCommands")
-		for name, c := range cmds {
-			fmt.Fprintf(os.Stderr, "\t%v\t%v\n", name, c.getDesc())
-		}
-	} else {
-		usagecmd(name, cmds[cmd])
-	}
-}
-func usagecmd(name string, cmd commander) {
-	vers(name)
-	fmt.Fprintf(os.Stderr, "\nCommand %q: %v\n", cmd.getName(), cmd.getDesc())
-	cmd.getSet().PrintDefaults()
+// gen sub command
+type gencommand struct {
+	*cli.Command
+	in        string
+	out       string
+	data      string
+	help      bool
+	shortHelp bool
 }
 
-func generate(s interface{}) error {
+func init() {
+	gen := &gencommand{Command: cli.NewCommand("gen", "Process an emd file.", generate)}
+	gen.Set.StringVar(&gen.in, "in", "README.e.md", "Input src file")
+	gen.Set.StringVar(&gen.out, "out", "-", "Output destination, defaults to stdout")
+	gen.Set.StringVar(&gen.data, "data", "", "JSON map of data")
+	gen.Set.BoolVar(&gen.help, "help", false, "Show help")
+	gen.Set.BoolVar(&gen.shortHelp, "h", false, "Show help")
+
+	program.Add(gen)
+}
+
+func generate(s cli.Commander) error {
 
 	cmd, ok := s.(*gencommand)
 	if ok == false {
 		return fmt.Errorf("Invalid command type %T", s)
 	}
 
-	if cmd.help {
-		usagecmd("emd", cmd)
-		return nil
+	if cmd.help || cmd.shortHelp {
+		return program.ShowCmdUsage(cmd)
 	}
 
 	out := os.Stdout
@@ -229,16 +155,6 @@ func getProviderURL(s string) string {
 	}
 	// etc
 	return ""
-}
-
-func mustNotPanic(err error, formats ...string) {
-	if err != nil {
-		format := "err is not nil: %v"
-		if len(formats) > 0 {
-			format = formats[0]
-		}
-		panic(fmt.Errorf(format, err))
-	}
 }
 
 var defTemplate = `# {{.Name}}
