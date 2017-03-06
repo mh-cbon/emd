@@ -1,5 +1,23 @@
 # Changelog - emd
 
+### 0.0.5
+
+__Changes__
+
+- badges: add codeship
+- Funcs cli/file: changed the MD template to add support for html anchors (before they was using bold tag, now they use a title tag)
+- command gen: prints success message only if out is not stdout
+- README: added a section to show HTML generation, and a recipe to bump the package.
+- release: change bump script format
+
+__Contributors__
+
+- mh-cbon
+
+Released by mh-cbon, Mon 06 Mar 2017 -
+[see the diff](https://github.com/mh-cbon/emd/compare/0.0.4...0.0.5#diff)
+______________
+
 ### 0.0.4
 
 __Changes__
