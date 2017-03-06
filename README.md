@@ -175,11 +175,8 @@ To directly generate HTML content out of `emd` output, for example, with `gh-mar
 npm install gh-markdown-cli -g
 emd gen | mdown
 ```
-# Recipes
 
 #### Release the project
-
-To directly generate HTML content out of `emd` output, for example, with `gh-markdown-cli`,
 
 ```sh
 gump patch -d # check
