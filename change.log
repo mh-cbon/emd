@@ -1,4 +1,18 @@
 
+0.0.6
+
+  * template functions (std): add a new render template function to define additional values (fixes #2)
+  * template function (std): file takes a new argument to define the colorizer (fixes #1)
+  * emd: add new methods to access template, out and data
+  * release: fix missing version to the emd build
+  * README: multiple improvements.
+
+  - mh-cbon <mh-cbon@users.noreply.github.com>
+
+-- mh-cbon <mh-cbon@users.noreply.github.com>; Mon, 06 Mar 2017 19:18:04 +0100
+
+
+
 0.0.5
 
   * badges: add codeship
