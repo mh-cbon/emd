@@ -10,7 +10,7 @@ import (
 // ExampleMain demonstrates the generation
 // of the given README.e.md source file
 // to os.Stdout.
-func ExampleMain() {
+func Example() {
 
 	// make a new instance of emd.Generator.
 	gen := emd.NewGenerator()
