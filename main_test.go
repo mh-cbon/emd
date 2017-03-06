@@ -1,6 +1,3 @@
-// Demonstrates the generation
-// of the given README.e.md source file
-// to os.Stdout.
 package main_test
 
 import (
@@ -10,7 +7,9 @@ import (
 	"github.com/mh-cbon/emd/std"
 )
 
-// ExampleMain ...
+// ExampleMain demonstrates the generation
+// of the given README.e.md source file
+// to os.Stdout.
 func ExampleMain() {
 
 	// make a new instance of emd.Generator.
