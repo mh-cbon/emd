@@ -2,6 +2,7 @@
 package std
 
 import (
+	"fmt"
 	"io/ioutil"
 	"os/exec"
 	"path/filepath"
@@ -26,6 +27,33 @@ func Register(g *emd.Generator) error {
 ` + strings.TrimSpace(string(s)) + `
 ` + "```"
 		return res, err
+	})
+
+	g.AddFunc("render", func(name string, data map[string]interface{}, keyValuesMap ...interface{}) (string, error) {
+
+		extraData := map[string]interface{}{}
+		for k, v := range data {
+			extraData[k] = v
+		}
+		if len(keyValuesMap) > 0 {
+			if len(keyValuesMap)%2 != 0 {
+				return "", fmt.Errorf("Incorrect arguments number in call to render template function, args are: %#v", keyValuesMap)
+			}
+			for i := 0; i < len(keyValuesMap); i += 2 {
+				key, ok := keyValuesMap[i].(string)
+				if ok == false {
+					return "", fmt.Errorf("Incorrect key type %T of arg %#v in call to render template function, expected a string, args are: %#v",
+						keyValuesMap[i],
+						keyValuesMap[i],
+						keyValuesMap)
+				}
+				extraData[key] = keyValuesMap[i+1]
+			}
+		}
+
+		err := g.GetTemplate().ExecuteTemplate(g.GetOut(), name, extraData)
+
+		return "", err
 	})
 
 	g.AddFunc("cli", func(bin string, args ...string) (string, error) {
