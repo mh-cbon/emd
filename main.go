@@ -171,10 +171,10 @@ var defTemplate = `# {{.Name}}
 {{goinstall}}
 `
 
-// Example demonstrates the generation
+// ExampleMain demonstrates the generation
 // of the given README.e.md source file
 // to os.Stdout.
-func Example() {
+func ExampleMain() {
 
 	// make a new instance of emd.Generator.
 	gen := emd.NewGenerator()
