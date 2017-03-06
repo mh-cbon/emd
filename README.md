@@ -50,7 +50,7 @@ https://raw.githubusercontent.com/mh-cbon/latest/master/install.sh \
 
 ###### $ emd -help
 ```sh
-emd - 1.1.1
+emd - 0.0.0
 
 Usage
   -h	Show help
@@ -66,7 +66,7 @@ Commands
 
 ###### $ emd gen -help
 ```sh
-emd - 1.1.1
+emd - 0.0.0
 
 Command "gen": Process an emd file.
   -data string
@@ -98,8 +98,8 @@ emd gen -out README.md --data='{"CsUUID":"xxxx"}'
 
 | Key | Description |
 | --- | --- |
-| Name | Project directory name (filepath.Base(cwd)). |
-| User | Project directory name (filepath.Base(cwd)). |
+| Name | Project name based on the cwd (example: emd). |
+| User | User name based on the cwd (example: mh-cbon). |
 | ProviderURL | The vcs provider url (example: github.com). |
 | ProviderName | The vcs provider name (example: github). |
 | URL | Project url as determined by the cwd (example: github.com/mh-cbon/emd). |
@@ -109,9 +109,10 @@ emd gen -out README.md --data='{"CsUUID":"xxxx"}'
 
 | Name | Description |
 | --- | --- |
-| file(f string) | read and display a file enclosed with triples backquotes. The highlight defaults to `go`. |
+| file(f string[, colorizer string]) | read and display a file enclosed with triples backquotes. If `colorizer` is empty, it defaults to the file extension. |
 | cli(bin string, args ...string) | execute and display a command line enclosed with triples backquotes. The highlight defaults to `sh`. |
-| pkgdoc(files ...string) | reads the first of files, lookup for its package comment and shows it as plain text. |
+| pkgdoc(files ...string) | reads the first of the files, lookup for its package comment and shows it as plain text. |
+| render(name string, data interface{}, keyValues ...interface{}) | renders given template name, using data as template data, it allows to declare additionnal data values using `keyValues ...interface{}` such as `render("x", data, "key1", "val1", "key2", "val2")`. |
 
 #### Templates
 
@@ -120,7 +121,7 @@ emd gen -out README.md --data='{"CsUUID":"xxxx"}'
 | gh/releases | Show a text to link the release page. | |
 | badge/travis | Show a travis badge. | |
 | badge/appveyor | Show an appveyor badge. | |
-| badge/codeship | Show acodeship badge. | __CsUUID__: the codeship project UUID. Add it with `--data '{"CsUUID": "xxxxxx"}'` |
+| badge/codeship | Show a codeship badge. | __CsUUID__: the codeship project UUID. Within your `e.md` file use the `render` function, `{render "badge/codeship" . "CsUUID" "xxxxxx"}`. Via cli, add it with `--data '{"CsUUID": "xxxxxx"}'`. |
 | choco/install | Show an sh snippet to install the package with chocolatey. | |
 | linux/gh_src_repo | Show an sh snippet to install the package via linux repositories (deb/rpm). | |
 | linux/gh_pkg | Show an sh snippet to install the package via linux packages (deb/rpm). | |
@@ -130,13 +131,9 @@ emd gen -out README.md --data='{"CsUUID":"xxxx"}'
 # API example
 
 
-###### > main_example.go
+###### > main_test.go
 ```go
-// Demonstrates the generation
-// of the given README.e.md source file
-// to os.Stdout.
-
-package main
+package main_test
 
 import (
 	"os"
@@ -145,18 +142,21 @@ import (
 	"github.com/mh-cbon/emd/std"
 )
 
-func genExample() {
+var projectName = "dummy"
+
+// ExampleGenerate demonstrates the generation
+// of the given README.e.md source file
+// to os.Stdout.
+func Example() {
 
 	// make a new instance of emd.Generator.
 	gen := emd.NewGenerator()
 
 	// set the main template.
-	if err := gen.AddFileTemplate("README.e.md"); err != nil {
-		panic(err)
-	}
+	gen.AddTemplate("{{.Name}}")
 
 	// set the data available in templates.
-	gen.SetDataMap(map[string]interface{}{"Name": "projectname"})
+	gen.SetDataMap(map[string]interface{}{"Name": projectName})
 
 	// register a plugin
 	if err := std.Register(gen); err != nil {
@@ -167,6 +167,7 @@ func genExample() {
 	if err := gen.Execute(os.Stdout); err != nil {
 		panic(err)
 	}
+	// Output: dummy
 }
 ```
 
