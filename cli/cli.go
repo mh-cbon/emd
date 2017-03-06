@@ -88,7 +88,7 @@ func (p *Program) Run(args []string) error {
 			if cmd.getSet().Parsed() {
 				err := cmd.getFn()(cmd)
 				if err != nil {
-					err = fmt.Errorf("command %q failed with %v", name, err)
+					err = fmt.Errorf("command %q failed: %v", name, err)
 				}
 				return err
 			}
