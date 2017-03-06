@@ -13,10 +13,13 @@ import (
 // Register standard helpers to the generator.
 func Register(g *emd.Generator) error {
 
-	g.AddFunc("file", func(f string) (string, error) {
+	g.AddFunc("file", func(f string, exts ...string) (string, error) {
 		s, err := ioutil.ReadFile(f)
 		ext := filepath.Ext(f)
 		ext = strings.TrimPrefix(ext, ".")
+		if len(exts) > 0 {
+			ext = exts[0]
+		}
 		res := `
 ###### > ` + f + `
 ` + "```" + ext + `
