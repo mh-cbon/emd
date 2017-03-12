@@ -1,6 +1,6 @@
 # {{.Name}}
 
-{{template "badge/travis" .}}{{template "badge/appveyor" .}}{{template "badge/godoc" .}}
+{{template "badge/travis" .}}{{template "badge/appveyor" .}}{{template "badge/goreport" .}}{{template "badge/godoc" .}}
 
 {{pkgdoc}}
 
