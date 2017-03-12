@@ -7,6 +7,8 @@
 Enhanced Markdown template processor.
 
 
+See [emd README file](https://raw.githubusercontent.com/mh-cbon/emd/master/README.e.md)
+
 # Install
 
 Check the [release page](https://github.com/mh-cbon/emd/releases)!
@@ -19,13 +21,11 @@ go get github.com/mh-cbon/emd
 
 
 #### Chocolatey
-
 ```sh
 choco install emd
 ```
 
 #### linux rpm/deb repository
-
 ```sh
 wget -O - https://raw.githubusercontent.com/mh-cbon/latest/master/source.sh \
 | GH=mh-cbon/emd sh -xe
@@ -35,7 +35,6 @@ curl -L https://raw.githubusercontent.com/mh-cbon/latest/master/source.sh \
 ```
 
 #### linux rpm/deb standalone package
-
 ```sh
 curl -L https://raw.githubusercontent.com/mh-cbon/latest/master/install.sh \
 | GH=mh-cbon/emd sh -xe
@@ -50,7 +49,7 @@ https://raw.githubusercontent.com/mh-cbon/latest/master/install.sh \
 
 ###### $ emd -help
 ```sh
-emd - 0.0.6
+emd - 0.0.7
 
 Usage
   -h	Show help
@@ -66,7 +65,7 @@ Commands
 
 ###### $ emd gen -help
 ```sh
-emd - 0.0.6
+emd - 0.0.7
 
 Command "gen": Process an emd file.
   -data string
@@ -116,6 +115,8 @@ emd gen -out README.md --data='{"CsUUID":"xxxx"}'
 
 #### Templates
 
+##### std
+
 | Name | Description | Params |
 | --- | --- | --- |
 | gh/releases | Show a text to link the release page. | |
@@ -125,8 +126,21 @@ emd gen -out README.md --data='{"CsUUID":"xxxx"}'
 | choco/install | Show an sh snippet to install the package with chocolatey. | |
 | linux/gh_src_repo | Show an sh snippet to install the package via linux repositories (deb/rpm). | |
 | linux/gh_pkg | Show an sh snippet to install the package via linux packages (deb/rpm). | |
-| glide/install | Show an sh snippet to install the package via `glide`. | |
+
+##### go
+
+| Name | Description | Params |
+| --- | --- | --- |
 | go/install | Show an sh snippet to install the package via `go get`. | |
+| badge/godoc | Show a godoc badge. | |
+| badge/goreport | Show a goreport badge. | |
+
+##### go-nonstd
+
+| Name | Description | Params |
+| --- | --- | --- |
+| glide/install | Show an sh snippet to install the package via `glide`. | |
+
 
 # API example
 
