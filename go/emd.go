@@ -40,5 +40,9 @@ go get {{.ProviderURL}}/{{.User}}/{{.Name}}
 [![GoDoc](https://godoc.org/{{.ProviderURL}}/{{.User}}/{{.Name}}?status.svg)](http://godoc.org/{{.ProviderURL}}/{{.User}}/{{.Name}})
 {{end}}`)
 
+	g.AddTemplate(`{{define "badge/goreport"}}
+[![Go Report Card](https://goreportcard.com/badge/{{.ProviderURL}}/{{.User}}/{{.Name}}))](https://goreportcard.com/report/{{.ProviderURL}}/{{.User}}/{{.Name}}))
+{{end}}`)
+
 	return nil
 }
