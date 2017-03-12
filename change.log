@@ -1,4 +1,15 @@
 
+0.0.7
+
+  * improve template documentation
+  * goreport: add template (fixes #4)
+
+  - mh-cbon <mh-cbon@users.noreply.github.com>
+
+-- mh-cbon <mh-cbon@users.noreply.github.com>; Sun, 12 Mar 2017 01:23:58 +0100
+
+
+
 0.0.6
 
   * template functions (std): add a new render template function to define additional values (fixes #2)
