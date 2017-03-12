@@ -41,7 +41,7 @@ go get {{.ProviderURL}}/{{.User}}/{{.Name}}
 {{end}}`)
 
 	g.AddTemplate(`{{define "badge/goreport"}}
-[![Go Report Card](https://goreportcard.com/badge/{{.ProviderURL}}/{{.User}}/{{.Name}}))](https://goreportcard.com/report/{{.ProviderURL}}/{{.User}}/{{.Name}}))
+[![Go Report Card](https://goreportcard.com/badge/{{.ProviderURL}}/{{.User}}/{{.Name}})](https://goreportcard.com/report/{{.ProviderURL}}/{{.User}}/{{.Name}})
 {{end}}`)
 
 	return nil
