@@ -65,6 +65,8 @@ emd gen -out README.md --data='{"CsUUID":"xxxx"}'
 
 #### Templates
 
+##### std
+
 | Name | Description | Params |
 | --- | --- | --- |
 | gh/releases | Show a text to link the release page. | |
@@ -74,8 +76,21 @@ emd gen -out README.md --data='{"CsUUID":"xxxx"}'
 | choco/install | Show an sh snippet to install the package with chocolatey. | |
 | linux/gh_src_repo | Show an sh snippet to install the package via linux repositories (deb/rpm). | |
 | linux/gh_pkg | Show an sh snippet to install the package via linux packages (deb/rpm). | |
-| glide/install | Show an sh snippet to install the package via `glide`. | |
+
+##### go
+
+| Name | Description | Params |
+| --- | --- | --- |
 | go/install | Show an sh snippet to install the package via `go get`. | |
+| badge/godoc | Show a godoc badge. | |
+| badge/goreport | Show a goreport badge. | |
+
+##### go-nonstd
+
+| Name | Description | Params |
+| --- | --- | --- |
+| glide/install | Show an sh snippet to install the package via `glide`. | |
+
 
 # API example
 
