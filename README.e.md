@@ -4,6 +4,8 @@
 
 {{pkgdoc}}
 
+See [emd README file](https://raw.githubusercontent.com/mh-cbon/emd/master/README.e.md)
+
 # Install
 
 {{template "gh/releases" .}}
@@ -12,15 +14,12 @@
 {{template "go/install" .}}
 
 #### Chocolatey
-
 {{template "choco/install" .}}
 
 #### linux rpm/deb repository
-
 {{template "linux/gh_src_repo" .}}
 
 #### linux rpm/deb standalone package
-
 {{template "linux/gh_pkg" .}}
 
 # Usage
