@@ -1,5 +1,20 @@
 # Changelog - emd
 
+### 0.0.7
+
+__Changes__
+
+- improve template documentation
+- goreport: add template (fixes #4)
+
+__Contributors__
+
+- mh-cbon
+
+Released by mh-cbon, Sun 12 Mar 2017 -
+[see the diff](https://github.com/mh-cbon/emd/compare/0.0.6...0.0.7#diff)
+______________
+
 ### 0.0.6
 
 __Changes__
