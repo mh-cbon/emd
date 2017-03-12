@@ -1,5 +1,19 @@
 # Changelog - emd
 
+### 0.0.8
+
+__Changes__
+
+- fix goreport badge template
+
+__Contributors__
+
+- mh-cbon
+
+Released by mh-cbon, Sun 12 Mar 2017 -
+[see the diff](https://github.com/mh-cbon/emd/compare/0.0.7...0.0.8#diff)
+______________
+
 ### 0.0.7
 
 __Changes__
