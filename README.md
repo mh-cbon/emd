@@ -95,6 +95,26 @@ emd gen -out README.md --data='{"CsUUID":"xxxx"}'
 
 # Templates helper
 
+#### Define data
+
+It is possible to define data directly into the `README` file,
+
+insert a prelude such as
+
+```
+---
+title: "Easygen - Easy to use universal code/text generator"
+date: "2016-01-01T22:13:12-05:00"
+categories: ["Tech"]
+tags: ["go","programming","easygen","CLI"]
+---
+{ {.categories} }
+```
+
+directly followed by yout content.
+
+The keys are injected into the template `dot`, the value are `json` decoded.
+
 #### Data
 
 | Key | Description |
@@ -213,3 +233,6 @@ emd gen | mdown
 gump patch -d # check
 gump patch # bump
 ```
+
+<no value>
+

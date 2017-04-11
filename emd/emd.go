@@ -2,8 +2,11 @@
 package emd
 
 import (
+	"encoding/json"
+	"fmt"
 	"io"
 	"io/ioutil"
+	"strings"
 	"text/template"
 )
 
@@ -60,7 +63,39 @@ func (g *Generator) AddFileTemplate(t string) error {
 	if err != nil {
 		return err
 	}
-	g.AddTemplate(string(s))
+
+	// read the prelude
+	k := strings.Split(string(s), "\n")
+	i := 0
+	prelude := ""
+	if len(k) > 1 && k[0] == "---" {
+		i++
+		for _, l := range k[1:] {
+			i++
+			if l == "---" {
+				break
+			}
+			z := strings.Index(l, ":")
+			name := l[0:z]
+			val := l[z+1:]
+			prelude += fmt.Sprintf("%q:%v,\n", name, val)
+		}
+
+		prelude = "{" + prelude[:len(prelude)-2] + "}"
+
+		var v map[string]interface{}
+		if err := json.Unmarshal([]byte(prelude), &v); err != nil {
+			return err
+		}
+		g.SetDataMap(v)
+	}
+
+	c := ""
+	for _, l := range k[i:] {
+		c += fmt.Sprintf("%v\n", l)
+	}
+
+	g.AddTemplate(c)
 	return nil
 }
 
