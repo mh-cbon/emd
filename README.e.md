@@ -24,9 +24,9 @@ See [emd README file](https://raw.githubusercontent.com/mh-cbon/emd/master/READM
 
 # Usage
 
-{{cli "emd" "-help"}}
+{{exec "emd" "-help" | color "sh"}}
 
-{{cli "emd" "gen" "-help"}}
+{{exec "emd" "gen" "-help" | color "sh"}}
 
 # Cli examples
 
@@ -57,10 +57,18 @@ emd gen -out README.md --data='{"CsUUID":"xxxx"}'
 
 | Name | Description |
 | --- | --- |
+| color(color string, contet string]) | Embed given content wiht triple backquote syntax colorizer support. |
+| cat(f string[, colorizer string]) | Displays a file header. Reads and returns the file body. |
+| exec(bin string, args ...string) | Displays a command line header. Executes and returns the command line response. |
+| pkgdoc(files ...string) | Reads the first of the files, or `main.go`, lookup for its package comment and returns it as plain text. |
+| render(name string, data interface{}, keyValues ...interface{}) | Renders given template name, using data as its data. Additionnal data values can be declared using `keyValues ...interface{}` signature, such as `render("x", data, "key1", "val1", "key2", "val2")`. |
+
+__deprecated helpers__
+
+| Name | Description |
+| --- | --- |
 | file(f string[, colorizer string]) | read and display a file enclosed with triples backquotes. If `colorizer` is empty, it defaults to the file extension. |
 | cli(bin string, args ...string) | execute and display a command line enclosed with triples backquotes. The highlight defaults to `sh`. |
-| pkgdoc(files ...string) | reads the first of the files, lookup for its package comment and shows it as plain text. |
-| render(name string, data interface{}, keyValues ...interface{}) | renders given template name, using data as template data, it allows to declare additionnal data values using `keyValues ...interface{}` such as `render("x", data, "key1", "val1", "key2", "val2")`. |
 
 #### Templates
 
@@ -93,7 +101,7 @@ emd gen -out README.md --data='{"CsUUID":"xxxx"}'
 
 # API example
 
-{{file "main_test.go"}}
+{{cat "main_test.go" | color "go"}}
 
 # Recipes
 

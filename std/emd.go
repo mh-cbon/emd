@@ -21,25 +21,28 @@ func (c *CliError) Error() string {
 	return fmt.Sprintf("%v\n\nThe command was:\n%v", c.Err, c.Cmd)
 }
 
+func getCmdStr(bin string, args []string) string {
+	s := bin
+	for _, a := range args {
+		if strings.Index(a, "\"") > -1 {
+			a = strings.Replace(a, "\"", "\\\"", -1)
+		}
+		s += fmt.Sprintf(" %v", a)
+	}
+	return s
+}
+
 // Register standard helpers to the generator.
 func Register(g *emd.Generator) error {
 
-	g.AddFunc("file", func(f string, exts ...string) (string, error) {
+	g.AddFunc("cat", func(f string) (string, error) {
 		s, err := ioutil.ReadFile(f)
 		if err != nil {
 			return "", err
 		}
-		ext := filepath.Ext(f)
-		ext = strings.TrimPrefix(ext, ".")
-		if len(exts) > 0 {
-			ext = exts[0]
-		}
-		res := `
-###### > ` + f + `
-` + "```" + ext + `
-` + strings.TrimSpace(string(s)) + `
-` + "```"
-		return res, err
+		title := "\n###### > " + f + "\n"
+		_, err = g.GetOut().Write([]byte(title))
+		return strings.TrimSpace(string(s)), err
 	})
 
 	g.AddFunc("render", func(name string, data map[string]interface{}, keyValuesMap ...interface{}) (string, error) {
@@ -69,26 +72,24 @@ func Register(g *emd.Generator) error {
 		return "", err
 	})
 
-	g.AddFunc("cli", func(bin string, args ...string) (string, error) {
+	g.AddFunc("exec", func(bin string, args ...string) (string, error) {
 		cmd := exec.Command(bin, args...)
 		out, err := cmd.CombinedOutput()
+		cmdStr := getCmdStr(filepath.Base(bin), args)
 		if err != nil {
-			s := bin
-			for _, a := range args {
-				if strings.Index(a, "\"") > -1 {
-					a = strings.Replace(a, "\"", "\\\"", -1)
-				}
-				s += fmt.Sprintf(" %v", a)
-			}
-			return "", &CliError{Err: err, Cmd: s}
+			return "", &CliError{Err: err, Cmd: cmdStr}
 		}
-		fbin := filepath.Base(bin)
-		res := `
-###### $ ` + fbin + ` ` + strings.Join(args, " ") + `
-` + "```sh" + `
-` + strings.TrimSpace(string(out)) + `
-` + "```"
-		return res, err
+		title := "\n###### $ " + cmdStr + "\n"
+		_, err = g.GetOut().Write([]byte(title))
+		return strings.TrimSpace(string(out)), err
+	})
+
+	g.AddFunc("color", func(syntax, content string) string {
+		if content == "" && syntax != "" {
+			content = syntax
+			syntax = "sh" // set the default color
+		}
+		return fmt.Sprintf("```%v\n%v\n```", syntax, content)
 	})
 
 	g.AddTemplate(`{{define "gh/releases" -}}
