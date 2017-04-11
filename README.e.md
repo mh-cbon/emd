@@ -61,6 +61,7 @@ emd gen -out README.md --data='{"CsUUID":"xxxx"}'
 | cat(f string[, colorizer string]) | Displays a file header. Reads and returns the file body. |
 | exec(bin string, args ...string) | Displays a command line header. Executes and returns the command line response. |
 | pkgdoc(files ...string) | Reads the first of the files, or `main.go`, lookup for its package comment and returns it as plain text. |
+| gotest(run string, args ...string) | Executes `go test -v -run <run> <args>` and returns its output. |
 | render(name string, data interface{}, keyValues ...interface{}) | Renders given template name, using data as its data. Additionnal data values can be declared using `keyValues ...interface{}` signature, such as `render("x", data, "key1", "val1", "key2", "val2")`. |
 
 __deprecated helpers__
