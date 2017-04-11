@@ -4,11 +4,13 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"io"
 	"os"
 	"path/filepath"
 	"strings"
 
 	"github.com/mh-cbon/emd/cli"
+	"github.com/mh-cbon/emd/deprecated"
 	"github.com/mh-cbon/emd/emd"
 	gostd "github.com/mh-cbon/emd/go"
 	gononstd "github.com/mh-cbon/emd/go-nonstd"
@@ -60,23 +62,24 @@ func Generate(s cli.Commander) error {
 		return program.ShowCmdUsage(cmd)
 	}
 
-	out := os.Stdout
-
-	if cmd.out != "-" {
-		f, err := os.Create(cmd.out)
-		if err != nil {
-			f, err = os.Open(cmd.out)
-			if err != nil {
-				return fmt.Errorf("Cannot open out destination: %v", err)
-			}
-		}
-		defer f.Close()
-		out = f
+	out, err := getStdout(cmd.out)
+	if err != nil {
+		return err
+	}
+	if x, ok := out.(io.Closer); ok {
+		defer x.Close()
 	}
 
 	cwd, err := os.Getwd()
 	if err != nil {
 		return fmt.Errorf("Failed to determmine cwd: %v", err)
+	}
+
+	plugins := map[string]func(*emd.Generator) error{
+		"std":        std.Register,
+		"gostd":      gostd.Register,
+		"gononstd":   gononstd.Register,
+		"deprecated": deprecated.Register,
 	}
 
 	data := map[string]interface{}{
@@ -106,16 +109,10 @@ func Generate(s cli.Commander) error {
 
 	gen.SetDataMap(data)
 
-	if err := std.Register(gen); err != nil {
-		return fmt.Errorf("Failed to register std package: %v", err)
-	}
-
-	if err := gostd.Register(gen); err != nil {
-		return fmt.Errorf("Failed to register gostd package: %v", err)
-	}
-
-	if err := gononstd.Register(gen); err != nil {
-		return fmt.Errorf("Failed to register gononstd package: %v", err)
+	for name, plugin := range plugins {
+		if err := plugin(gen); err != nil {
+			return fmt.Errorf("Failed to register %v package: %v", name, err)
+		}
 	}
 
 	if err := gen.Execute(out); err != nil {
@@ -128,6 +125,23 @@ func Generate(s cli.Commander) error {
 	}
 
 	return nil
+}
+
+func getStdout(out string) (io.Writer, error) {
+
+	ret := os.Stdout
+
+	if out != "-" {
+		f, err := os.Create(out)
+		if err != nil {
+			f, err = os.Open(out)
+			if err != nil {
+				return nil, fmt.Errorf("Cannot open out destination: %v", err)
+			}
+		}
+		ret = f
+	}
+	return ret, nil
 }
 
 func getProjectUser(s string) string {
