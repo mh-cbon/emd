@@ -11,12 +11,12 @@ __Changes__
 
 - added __cat/exec/shell/color/gotest/toc__ func
 
-  1. __cat__(file string): to display the file content.
-  2. __exec__(bin string, args ...string): to exec a program.
-  3. __shell__(s string): to exec a command line on the underlying shell (it is not cross compatible).
-  4. __color__(color string, content string): to embed content in a block code with color.
-  5. __gotest__(rpkg string, run string, args ...string): exec `go test <rpkg> -v -run <run> <args...>`.
-  6. __toc__(maximportance string, title string): display a TOC.
+  - __cat__(file string): to display the file content.
+  - __exec__(bin string, args ...string): to exec a program.
+  - __shell__(s string): to exec a command line on the underlying shell (it is not cross compatible).
+  - __color__(color string, content string): to embed content in a block code with color.
+  - __gotest__(rpkg string, run string, args ...string): exec `go test <rpkg> -v -run <run> <args...>`.
+  - __toc__(maximportance string, title string): display a TOC.
 
 - close #7: deprecated __file/cli__ func
 
@@ -35,7 +35,7 @@ __Changes__
 
 - close #9: add new gotest helper func
 - close #12: add toc func
-- close#10: ensure unquoted strings are read properly
+- close #10: ensure unquoted strings are read properly
 - close #11: add shell func helper.
 
 __Contributors__
@@ -174,5 +174,8 @@ __Contributors__
 Released by mh-cbon, Wed 22 Feb 2017 -
 [see the diff](https://github.com/mh-cbon/emd/compare/9b73c280847b824e4e366bcf3276d4eefecde4de...0.0.1#diff)
 ______________
+
+
+__
 
 
