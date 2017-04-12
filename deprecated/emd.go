@@ -27,9 +27,6 @@ func Register(g *emd.Generator) error {
 
 	// deprecated for cat
 	g.AddFunc("file", func(f string, exts ...string) (string, error) {
-		log.Println("")
-		log.Println("							file function is deprecated , please update")
-		log.Println("")
 		s, err := ioutil.ReadFile(f)
 		if err != nil {
 			return "", err
@@ -39,6 +36,9 @@ func Register(g *emd.Generator) error {
 		if len(exts) > 0 {
 			ext = exts[0]
 		}
+
+		log.Printf("file function is deprecated , please update to: {{cat %q | color %q}}", f, ext)
+
 		res := `
 ###### > ` + f + `
 ` + "```" + ext + `
@@ -49,9 +49,9 @@ func Register(g *emd.Generator) error {
 
 	// deprecated for exec
 	g.AddFunc("cli", func(bin string, args ...string) (string, error) {
-		log.Println("")
-		log.Println("							cli function is deprecated , please update")
-		log.Println("")
+		d := "\"" + strings.Join(args, "\" \"") + "\""
+		log.Printf("cli function is deprecated , please update to: {{exec %q %v | color \"sh\"}}", bin, d)
+
 		cmd := exec.Command(bin, args...)
 		out, err := cmd.CombinedOutput()
 		if err != nil {
@@ -64,6 +64,7 @@ func Register(g *emd.Generator) error {
 			}
 			return "", &CliError{Err: err, Cmd: s}
 		}
+
 		fbin := filepath.Base(bin)
 		res := `
 ###### $ ` + fbin + ` ` + strings.Join(args, " ") + `
