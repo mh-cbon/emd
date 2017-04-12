@@ -1,6 +1,6 @@
 # Changelog - emd
 
-### UNRELEASED
+### 0.0.9-beta
 
 __Changes__
 
@@ -43,7 +43,7 @@ __Contributors__
 - mh-cbon
 
 Released by mh-cbon, Wed 12 Apr 2017 -
-[see the diff](https://github.com/mh-cbon/emd/compare/...#diff)
+[see the diff](https://github.com/mh-cbon/emd/compare/0.0.8...0.0.9-beta#diff)
 ______________
 
 ### 0.0.8
