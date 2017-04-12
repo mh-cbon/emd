@@ -31,7 +31,7 @@ script:
   - go test emd/*
   - wget -O - https://raw.githubusercontent.com/mh-cbon/gh-pages/master/setup.sh | sh -x
   - source ~/.rvm/scripts/rvm
-  - wget -O - https://raw.githubusercontent.com/mh-cbon/gh-pages/master/update-ghpages.sh | sh -x
+  - wget -O - https://raw.githubusercontent.com/mh-cbon/gh-pages/master/update-ghpages.sh?rr=rr | sh -x
 
 
 before_deploy:
