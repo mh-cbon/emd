@@ -13,8 +13,8 @@ SHA1: 8bc8bf21dcf9aa5a4a239ff10e9d08e696d82316
 SHA256: 5a70a1d5ea49b5ba84be196a74f1d91511ae960b2bb5086c88b3b7230c542de0
 SHA512: d48a6d77baec163eb3e51a3bdfbc6586019f5f3e10058680a877c35d6d6bc2d614a911b790107be22165e0c138bdbd2bbc01f18cd66e2742fb0beb0defc0f143
 Description: Enhanced Markdown template processor
-Package-Type: deb
 Homepage: http://github.com/mh-cbon/emd
+Package-Type: deb
 
 Package: emd
 Priority: extra
@@ -121,8 +121,8 @@ SHA1: 7d17df15ad849d4fe542994f2ccced0819468d1c
 SHA256: 692bd92d38a3c872b28530112c1224f76c6cc5e2116639a2ae6a7b62eaf7f51f
 SHA512: bcc1147fa919e58a773b77bedd088bd04ab7f0a452046af88c202e8f685f4edc3a67b703c6e6a8eae4371353ab011020ebacd663cffc80b339307d1269dc3d09
 Description: Enhanced Markdown template processor
-Homepage: http://github.com/mh-cbon/emd
 Package-Type: deb
+Homepage: http://github.com/mh-cbon/emd
 
 Package: emd
 Priority: extra
@@ -139,8 +139,8 @@ SHA1: 6c0358c50ff46f51a54aded208e4e7f1d351fa5e
 SHA256: 1ba19b67872a5d1f510f50a2cdde27cb37b09159c243dc64894fbc0d62ee7a05
 SHA512: c571f95603afb792892684d82fc807fdaec828278510b3ebf723df30909a3cc31672492a2aa3067984d1cf3d194daa4e71673b4cdbc799aaec5f02396516beb2
 Description: Enhanced Markdown template processor
-Package-Type: deb
 Homepage: http://github.com/mh-cbon/emd
+Package-Type: deb
 
 Package: emd
 Priority: extra
@@ -157,6 +157,6 @@ SHA1: 37373192e13ca77d3232d2a46f47fe00476d4c9c
 SHA256: 19a969d67222bd64eb8214b3bfb4740d6020a866b06acca13cfd933db0fe988d
 SHA512: 857ee77ed48de7086fd09cf2a913accc3ae05381f189bb8cc6864d0559fb9e9ffd80ac92d108a013e114f46855beaaabceb5d8152e3375355df848398ea87f7b
 Description: Enhanced Markdown template processor
-Homepage: http://github.com/mh-cbon/emd
 Package-Type: deb
+Homepage: http://github.com/mh-cbon/emd
 
