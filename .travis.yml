@@ -9,6 +9,8 @@ go:
 
 env:
   global:
+    - GH=mh-cbon/emd
+    - JEKYLL=pietromenna/jekyll-cayman-theme
     - MYAPP=emd
     - MYEMAIL=mh-cbon@users.noreply.github.com
     - secure: ojhYDaFGbkS3pVxhwqMKFZXcQtkoayb3LrB7Bc3VHE2Qc5RS3LkAu37/yBxpfpr/gYkKbdWgSbhTL7k4YrCXY44/msVdLAmaMj83fbIUiwW6sxQtidydmDWAzXZdj2PRgp9RGlyAG0LB3jQjnBafsKcOWncni/ZTqewpI0DJOp+NL8VK/IRpmnucE9vpkr811M4aUTWFbPlqY9Rp70ou82unWWKsWsmc6rGA06zG5TNdzcpC3akdngsdknhDhKw8SbJs4kWYxMQvmhQ8j9trWDnS0R4ET3aPLtdQMuV/Ym8eN3MFJp6TGvjoHWJ06t35fWFh1ETSNzGKsp+MCIahtj9CbhHmKh7EtGPI+XdK8gmJHAfAIjTdJ79bvzBMnSHjSTBNsKPGlmXwamfEczfYfeHL2/R5yIn3JziNhitNgfyBC8IsIVLFPaJdcVZvwL3A8BpzBZyTW5APPI9UBs2FbCv7Ktk1CNahBpLGrJZHyliE/c+CqFxdWT44ZX/iWe8pfybI76UNJg9SXjLyCz0a8u+n9ZrNhG12qZa367fu4647WPpV5KiYozUZr0sQg9LKS8i9ce6VY1XeP+BG/FXSjdzXuPVwAur4qsaj1NjmSruIbDWZsW7laMlFXS6jhENfVp32Rza0qKRyEbMbcTrlf2kWucpqFNH74CD6oKjs5dU=
@@ -17,12 +19,20 @@ before_install:
   - sudo apt-get -qq update
   - mkdir -p ${GOPATH}/bin
   - cd ~
+  - rvm use 2.2 --install --binary --fuzzy
+  - gem update --system
+  - gem --version
 
 install:
   - cd $GOPATH/src/github.com/mh-cbon/$MYAPP
   - go install
 
-script: go test emd/*
+script:
+  - go test emd/*
+  - wget -O - https://raw.githubusercontent.com/mh-cbon/gh-pages/master/setup.sh | sh -x
+  - source ~/.rvm/scripts/rvm
+  - wget -O - https://raw.githubusercontent.com/mh-cbon/gh-pages/master/update-ghpages.sh | sh -x
+
 
 before_deploy:
   - mkdir -p build/{386,amd64}
