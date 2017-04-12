@@ -4,6 +4,7 @@ package std
 import (
 	"fmt"
 	"io/ioutil"
+	"log"
 	"regexp"
 	"strings"
 
@@ -91,15 +92,17 @@ func Register(g *emd.Generator) error {
 		return fmt.Sprintf("```%v\n%v\n```", syntax, content)
 	})
 
+	replaceIndex := 0
 	// generate a toc
 	g.AddFunc("toc", func(depth int, toctitles ...string) string {
 		toctitle := "TOC"
 		if len(toctitles) > 0 {
 			toctitle = toctitles[0]
 		}
-		replaceToken := "REPLACETOKENGOESHERE"
-		g.AddPostProcess(func(s string) string {
+		replaceToken := fmt.Sprintf("%v%v", "REPLACETOKENGOESHERE", replaceIndex)
+		replaceIndex++
 
+		g.AddPostProcess(func(s string) string {
 			// a quick and dirty md parser of titles (###) and block (```)
 			lineIndex := -1
 			lines := []string{}
@@ -164,9 +167,15 @@ func Register(g *emd.Generator) error {
 					toc += fmt.Sprintf("%v- [%v](#%v)\n", strings.Repeat("  ", e), title.t, link)
 				}
 			}
-			lines[lineIndex] = strings.Replace(lines[lineIndex], replaceToken, toctitle, -1)
-			lines = append(lines[:lineIndex+1], lines[lineIndex:]...)
-			lines[lineIndex+1] = toc
+
+			// should not be needed, but who knows.
+			if lineIndex > -1 {
+				lines[lineIndex] = strings.Replace(lines[lineIndex], replaceToken, toctitle, -1)
+				lines = append(lines[:lineIndex+1], lines[lineIndex:]...)
+				lines[lineIndex+1] = toc
+			} else {
+				log.Println("weird, a toc was generated, but it was not added to the final content.")
+			}
 
 			return strings.Join(lines, "")
 		})
