@@ -1,4 +1,18 @@
 
+UNRELEASED
+
+  * close #10: added feature to read, decode and registers the prelude data
+  * close #9: add new gotest helper func
+  * close #7: deprecated file/cli func, added cat/exec/color func
+  * close #8: improved cli error output
+  * code refactoring in main
+
+  - mh-cbon <mh-cbon@users.noreply.github.com>
+
+-- mh-cbon <mh-cbon@users.noreply.github.com>; Tue, 11 Apr 2017 23:28:08 +0200
+
+
+
 0.0.8
 
   * fix goreport badge template
@@ -93,5 +107,3 @@
   - mh-cbon <mh-cbon@users.noreply.github.com>
 
 -- mh-cbon <mh-cbon@users.noreply.github.com>; Wed, 22 Feb 2017 21:07:17 +0100
-
-

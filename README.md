@@ -11,6 +11,24 @@ Enhanced Markdown template processor.
 
 See [emd README file](https://raw.githubusercontent.com/mh-cbon/emd/master/README.e.md)
 
+# TOC
+- [Install](#install)
+  - [Go](#go)
+  - [Chocolatey](#chocolatey)
+  - [linux rpm/deb repository](#linux-rpmdeb-repository)
+  - [linux rpm/deb standalone package](#linux-rpmdeb-standalone-package)
+- [Usage](#usage)
+- [Cli examples](#cli-examples)
+- [Templates helper](#templates-helper)
+  - [Define data](#define-data)
+  - [Data](#data)
+  - [Function](#function)
+  - [Templates](#templates)
+- [API example](#api-example)
+- [Recipes](#recipes)
+  - [Generate HTML content](#generate-html-content)
+  - [Release the project](#release-the-project)
+
 # Install
 
 Check the [release page](https://github.com/mh-cbon/emd/releases)!
@@ -130,8 +148,8 @@ The keys are injected into the template `dot`, the value are `json` decoded.
 
 | Name | Description |
 | --- | --- |
-| color(color string, contet string]) | Embed given content wiht triple backquote syntax colorizer support. |
-| cat(f string[, colorizer string]) | Displays a file header. Reads and returns the file body. |
+| color(color string, content string]) | Embed given content wiht triple backquote syntax colorizer support. |
+| cat(f string) | Displays a file header. Reads and returns the file body. |
 | exec(bin string, args ...string) | Displays a command line header. Executes and returns the command line response. |
 | pkgdoc(files ...string) | Reads the first of the files, or `main.go`, lookup for its package comment and returns it as plain text. |
 | gotest(run string, args ...string) | Executes `go test -v -run <run> <args>` and returns its output. |
@@ -233,6 +251,4 @@ emd gen | mdown
 gump patch -d # check
 gump patch # bump
 ```
-
-<no value>
 

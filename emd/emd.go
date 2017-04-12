@@ -2,6 +2,7 @@
 package emd
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -17,6 +18,7 @@ type Generator struct {
 	tpls  []string
 	funcs map[string]interface{}
 	data  map[string]interface{}
+	post  []func(string) string
 }
 
 // NewGenerator creates Generator Pointers.
@@ -26,6 +28,12 @@ func NewGenerator() *Generator {
 		funcs: map[string]interface{}{},
 		data:  map[string]interface{}{},
 	}
+}
+
+//AddPostProcess registers a post process function.
+// Post process are registered by template func call and are removed after next template generation.
+func (g *Generator) AddPostProcess(f func(string) string) {
+	g.post = append(g.post, f)
 }
 
 //AddFunc registers a template function.
@@ -123,7 +131,8 @@ func (g Generator) GetData() map[string]interface{} {
 
 //Execute the template to out.
 func (g *Generator) Execute(out io.Writer) error {
-	g.o = out
+	var b bytes.Buffer
+	g.o = &b
 	var err error
 	g.t = template.New("").Funcs(g.funcs)
 	for _, tpl := range g.tpls {
@@ -135,5 +144,12 @@ func (g *Generator) Execute(out io.Writer) error {
 	err = g.t.Execute(g.o, g.data)
 	g.t = nil
 	g.o = nil
+	s := b.String()
+	b.Truncate(0)
+	for _, p := range g.post {
+		s = p(s)
+	}
+	g.post = g.post[:0]
+	out.Write([]byte(s))
 	return err
 }
