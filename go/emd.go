@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"go/parser"
 	"go/token"
+	"os"
+	"path/filepath"
 	"strings"
 
 	"github.com/mh-cbon/emd/emd"
@@ -32,13 +34,31 @@ func Register(g *emd.Generator) error {
 		return f.Comments[0].Text(), nil
 	})
 
-	g.AddFunc("gotest", func(run string, args ...string) (string, error) {
-		args = append([]string{"test", "-v", "-run", run}, args...)
-		out, err := utils.Exec("go", args)
+	g.AddFunc("gotest", func(rpkg, run string, args ...string) (string, error) {
+		if rpkg != "" {
+			if _, err := os.Stat(rpkg); !os.IsNotExist(err) {
+				rpkg, err = filepath.Abs(rpkg)
+				if err != nil {
+					return "", err
+				}
+				g := filepath.Join(os.Getenv("GOPATH"), "src")
+				rpkg = strings.Replace(rpkg, g, "", -1)
+				rpkg = strings.Replace(rpkg, "\\", "/", -1) // windows..
+			}
+		}
+		nargs := []string{"test", "-v"}
+		if rpkg != "" {
+			nargs = append(nargs, rpkg[1:]) // rm front /
+		}
+		if run != "" {
+			nargs = append(nargs, []string{"-run", run}...)
+		}
+		nargs = append(nargs, args...)
+		out, err := utils.Exec("go", nargs)
 		if err != nil {
 			return "", err
 		}
-		title := "\n###### $ " + utils.GetCmdStr("go", args) + "\n"
+		title := "\n###### $ " + utils.GetCmdStr("go", nargs) + "\n"
 		_, err = g.GetOut().Write([]byte(title))
 		return strings.TrimSpace(string(out)), err
 	})

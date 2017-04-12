@@ -138,30 +138,32 @@ The keys are injected into the template `dot`, the value are `json` decoded.
 
 | Key | Description |
 | --- | --- |
-| Name | Project name based on the cwd (example: emd). |
-| User | User name based on the cwd (example: mh-cbon). |
-| ProviderURL | The vcs provider url (example: github.com). |
-| ProviderName | The vcs provider name (example: github). |
-| URL | Project url as determined by the cwd (example: github.com/mh-cbon/emd). |
-| Branch | Current vcs branch name (defaults to master). |
+| __Name__ | Project name based on the cwd (example: emd). |
+| __User__ | User name based on the cwd (example: mh-cbon). |
+| __ProviderURL__ | The vcs provider url (example: github.com). |
+| __ProviderName__ | The vcs provider name (example: github). |
+| __URL__ | Project url as determined by the cwd (example: github.com/mh-cbon/emd). |
+| __Branch__ | Current vcs branch name (defaults to master). |
 
 #### Function
 
 | Name | Description |
 | --- | --- |
-| color(color string, content string]) | Embed given content wiht triple backquote syntax colorizer support. |
-| cat(f string) | Displays a file header. Reads and returns the file body. |
-| exec(bin string, args ...string) | Displays a command line header. Executes and returns the command line response. |
-| pkgdoc(files ...string) | Reads the first of the files, or `main.go`, lookup for its package comment and returns it as plain text. |
-| gotest(run string, args ...string) | Executes `go test -v -run <run> <args>` and returns its output. |
-| render(name string, data interface{}, keyValues ...interface{}) | Renders given template name, using data as its data. Additionnal data values can be declared using `keyValues ...interface{}` signature, such as `render("x", data, "key1", "val1", "key2", "val2")`. |
+| __color__(color string, content string]) | Embed given content with triple backquote syntax colorizer support. |
+| __cat__(f string) | Displays a file header. Reads and returns the file body. |
+| __exec__(bin string, args ...string) | Displays a command line header. Executes and returns its response. |
+| __shell__(s string) | Displays a command line header. Executes the command on a shell, and returns the its response. |
+| __toc__(maxImportance int, title ...string) | Displays a `TOC` of the `README` file being processed. `maxImportance` defines the titles to select by their numbers of `#`. `titles` define the title to display, defaults to `TOC`. Titles displayed before the call to `{ {toc x}}` are automatically ignored.|
+| __pkgdoc__(files ...string) | Reads the first of the files, or `main.go`, lookup for its package comment and returns it as plain text. |
+| __gotest__(rpkg string, run string, args ...string) | Executes `go test <rpkg> -v -run <run> <args>` and returns its output. `rpkg` can be a path to a relative folder like `./emd` would resolve to `github.com/mh-cbon/emd/emd`|
+| __render__(name string, data interface{}, keyValues ...interface{}) | Renders given template name, using data as its data. Additionnal data values can be declared using `keyValues ...interface{}` signature, such as `render("x", data, "key1", "val1", "key2", "val2")`. |
 
 __deprecated helpers__
 
 | Name | Description |
 | --- | --- |
-| file(f string[, colorizer string]) | read and display a file enclosed with triples backquotes. If `colorizer` is empty, it defaults to the file extension. |
-| cli(bin string, args ...string) | execute and display a command line enclosed with triples backquotes. The highlight defaults to `sh`. |
+| __file__(f string[, colorizer string]) | read and display a file enclosed with triples backquotes. If `colorizer` is empty, it defaults to the file extension. |
+| __cli__(bin string, args ...string) | execute and display a command line enclosed with triples backquotes. The highlight defaults to `sh`. |
 
 #### Templates
 
@@ -169,27 +171,27 @@ __deprecated helpers__
 
 | Name | Description | Params |
 | --- | --- | --- |
-| gh/releases | Show a text to link the release page. | |
-| badge/travis | Show a travis badge. | |
-| badge/appveyor | Show an appveyor badge. | |
-| badge/codeship | Show a codeship badge. | __CsUUID__: the codeship project UUID. Within your `e.md` file use the `render` function, `{render "badge/codeship" . "CsUUID" "xxxxxx"}`. Via cli, add it with `--data '{"CsUUID": "xxxxxx"}'`. |
-| choco/install | Show an sh snippet to install the package with chocolatey. | |
-| linux/gh_src_repo | Show an sh snippet to install the package via linux repositories (deb/rpm). | |
-| linux/gh_pkg | Show an sh snippet to install the package via linux packages (deb/rpm). | |
+| __gh/releases__ | Show a text to link the release page. | |
+| __badge/travis__ | Show a travis badge. | |
+| __badge/appveyor__ | Show an appveyor badge. | |
+| __badge/codeship__ | Show a codeship badge. | __CsUUID__: the codeship project UUID. Within your `e.md` file use the `render` function, `{render "badge/codeship" . "CsUUID" "xxxxxx"}`. Via cli, add it with `--data '{"CsUUID": "xxxxxx"}'`. |
+| __choco/install__ | Show an sh snippet to install the package with chocolatey. | |
+| __linux/gh_src_repo__ | Show an sh snippet to install the package via linux repositories (deb/rpm). | |
+| __linux/gh_pkg__ | Show an sh snippet to install the package via linux packages (deb/rpm). | |
 
 ##### go
 
 | Name | Description | Params |
 | --- | --- | --- |
-| go/install | Show an sh snippet to install the package via `go get`. | |
-| badge/godoc | Show a godoc badge. | |
-| badge/goreport | Show a goreport badge. | |
+| __go/install__ | Show an sh snippet to install the package via `go get`. | |
+| __badge/godoc__ | Show a godoc badge. | |
+| __badge/goreport__ | Show a goreport badge. | |
 
 ##### go-nonstd
 
 | Name | Description | Params |
 | --- | --- | --- |
-| glide/install | Show an sh snippet to install the package via `glide`. | |
+| __glide/install__ | Show an sh snippet to install the package via `glide`. | |
 
 
 # API example
