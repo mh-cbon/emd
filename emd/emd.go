@@ -3,12 +3,11 @@ package emd
 
 import (
 	"bytes"
-	"encoding/json"
-	"fmt"
 	"io"
 	"io/ioutil"
-	"strings"
 	"text/template"
+
+	"github.com/mh-cbon/emd/utils"
 )
 
 //Generator generates an emd content.
@@ -73,37 +72,14 @@ func (g *Generator) AddFileTemplate(t string) error {
 	}
 
 	// read the prelude
-	k := strings.Split(string(s), "\n")
-	i := 0
-	prelude := ""
-	if len(k) > 1 && k[0] == "---" {
-		i++
-		for _, l := range k[1:] {
-			i++
-			if l == "---" {
-				break
-			}
-			z := strings.Index(l, ":")
-			name := l[0:z]
-			val := l[z+1:]
-			prelude += fmt.Sprintf("%q:%v,\n", name, val)
-		}
-
-		prelude = "{" + prelude[:len(prelude)-2] + "}"
-
-		var v map[string]interface{}
-		if err := json.Unmarshal([]byte(prelude), &v); err != nil {
-			return err
-		}
-		g.SetDataMap(v)
+	newT, newData, err := utils.GetPrelude(string(s))
+	if err != nil {
+		return err
 	}
+	g.SetDataMap(newData)
 
-	c := ""
-	for _, l := range k[i:] {
-		c += fmt.Sprintf("%v\n", l)
-	}
-
-	g.AddTemplate(c)
+	// add the template string.
+	g.AddTemplate(newT)
 	return nil
 }
 
@@ -132,7 +108,7 @@ func (g Generator) GetData() map[string]interface{} {
 //Execute the template to out.
 func (g *Generator) Execute(out io.Writer) error {
 	var b bytes.Buffer
-	g.o = &b
+	g.o = &b // becasue of post process, we need to buffer out.
 	var err error
 	g.t = template.New("").Funcs(g.funcs)
 	for _, tpl := range g.tpls {
