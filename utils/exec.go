@@ -32,9 +32,8 @@ func GetCmdStr(bin string, args []string) string {
 func Exec(bin string, args []string) (string, error) {
 	cmd := exec.Command(bin, args...)
 	out, err := cmd.CombinedOutput()
-	cmdStr := GetCmdStr(bin, args)
 	if err != nil {
-		return "", &CliError{Err: err, Cmd: cmdStr}
+		return "", &CliError{Err: err, Cmd: GetCmdStr(bin, args)}
 	}
 	return string(out), nil
 }

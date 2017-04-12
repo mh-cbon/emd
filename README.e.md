@@ -28,7 +28,7 @@ See [emd README file](https://raw.githubusercontent.com/mh-cbon/emd/master/READM
 
 {{exec "emd" "-help" | color "sh"}}
 
-{{exec "emd" "gen" "-help" | color "sh"}}
+{{shell "emd gen -help" | color "sh"}}
 
 # Cli examples
 
@@ -50,15 +50,16 @@ It is possible to define data directly into the `README` file,
 
 insert a prelude such as
 
-```
+```yml
 ---
 title: "Easygen - Easy to use universal code/text generator"
 date: "2016-01-01T22:13:12-05:00"
 categories: ["Tech"]
 tags: ["go","programming","easygen","CLI"]
 ---
-{ {.categories} }
 ```
+
+Then you can access thos data by their keys `{ {.categories} }`, `{ {.tags} }`
 
 directly followed by yout content.
 

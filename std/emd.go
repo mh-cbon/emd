@@ -71,6 +71,17 @@ func Register(g *emd.Generator) error {
 		return strings.TrimSpace(out), err
 	})
 
+	// exec a program with args.
+	g.AddFunc("shell", func(s string) (string, error) {
+		out, err := utils.Shell("", s)
+		if err != nil {
+			return "", err
+		}
+		title := "\n###### $ " + s + "\n"
+		_, err = g.GetOut().Write([]byte(title))
+		return strings.TrimSpace(string(out)), err
+	})
+
 	// surround a text block with markdown triple backquotes syntax makrup.
 	g.AddFunc("color", func(syntax, content string) string {
 		if content == "" && syntax != "" {
