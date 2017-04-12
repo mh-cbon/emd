@@ -1,4 +1,14 @@
 
+UNRELEASED
+
+  * deprecation: improve error messages
+
+  - mh-cbon <mh-cbon@users.noreply.github.com>
+
+-- mh-cbon <mh-cbon@users.noreply.github.com>; Wed, 12 Apr 2017 17:15:39 +0200
+
+
+
 0.0.9-beta
 
   * close #10: added feature to read, decode and registers the prelude data

@@ -146,3 +146,7 @@ emd gen | mdown
 gump patch -d # check
 gump patch # bump
 ```
+
+# History
+
+[CHANGELOG](CHANGELOG.md)

@@ -28,6 +28,7 @@ See [emd README file](https://raw.githubusercontent.com/mh-cbon/emd/master/READM
 - [Recipes](#recipes)
   - [Generate HTML content](#generate-html-content)
   - [Release the project](#release-the-project)
+- [History](#history)
 
 # Install
 
@@ -69,7 +70,7 @@ https://raw.githubusercontent.com/mh-cbon/latest/master/install.sh \
 
 ###### $ emd -help
 ```sh
-emd - 0.0.9-beta
+emd - 0.0.0
 
 Usage
   -h	Show help
@@ -85,7 +86,7 @@ Commands
 
 ###### $ emd gen -help
 ```sh
-emd - 0.0.9-beta
+emd - 0.0.0
 
 Command "gen": Process an emd file.
   -data string
@@ -254,4 +255,8 @@ emd gen | mdown
 gump patch -d # check
 gump patch # bump
 ```
+
+# History
+
+[CHANGELOG](CHANGELOG.md)
 
