@@ -1,5 +1,5 @@
 
-UNRELEASED
+0.0.9-beta1
 
   * deprecation: improve error messages
 
@@ -145,3 +145,5 @@ UNRELEASED
   - mh-cbon <mh-cbon@users.noreply.github.com>
 
 -- mh-cbon <mh-cbon@users.noreply.github.com>; Wed, 22 Feb 2017 21:07:17 +0100
+
+
