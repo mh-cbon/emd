@@ -1,5 +1,5 @@
 
-UNRELEASED
+0.0.9-beta
 
   * close #10: added feature to read, decode and registers the prelude data
 
@@ -29,7 +29,7 @@ UNRELEASED
     Before the output error was not displaying
     the command line entirely when it was too long.
     Now the error is updated to always display the command line with full length.
-    
+
   * close #9: add new gotest helper func
   * close #12: add toc func
   * close#10: ensure unquoted strings are read properly
@@ -135,3 +135,5 @@ UNRELEASED
   - mh-cbon <mh-cbon@users.noreply.github.com>
 
 -- mh-cbon <mh-cbon@users.noreply.github.com>; Wed, 22 Feb 2017 21:07:17 +0100
+
+
