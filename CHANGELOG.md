@@ -1,5 +1,19 @@
 # Changelog - emd
 
+### 0.0.9-beta1
+
+__Changes__
+
+- deprecation: improve error messages
+
+__Contributors__
+
+- mh-cbon
+
+Released by mh-cbon, Wed 12 Apr 2017 -
+[see the diff](https://github.com/mh-cbon/emd/compare/0.0.9-beta...0.0.9-beta1#diff)
+______________
+
 ### 0.0.9-beta
 
 __Changes__
@@ -174,8 +188,5 @@ __Contributors__
 Released by mh-cbon, Wed 22 Feb 2017 -
 [see the diff](https://github.com/mh-cbon/emd/compare/9b73c280847b824e4e366bcf3276d4eefecde4de...0.0.1#diff)
 ______________
-
-
-__
 
 
