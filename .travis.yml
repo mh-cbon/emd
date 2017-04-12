@@ -21,7 +21,7 @@ before_install:
 install:
   - cd $GOPATH/src/github.com/mh-cbon/$MYAPP
   - go install
-  - curl -L https://raw.githubusercontent.com/mh-cbon/go-bin-deb/master/setup-repository.sh?zzz=rrxcxccxcxcxccxr | GH=mh-cbon/$MYAPP EMAIL=$MYEMAIL sh -xe
+  - curl -L https://raw.githubusercontent.com/mh-cbon/go-bin-deb/master/setup-repository.sh?zzz=rrxcxccxcxccxr | GH=mh-cbon/$MYAPP EMAIL=$MYEMAIL sh -xe
 
 script: go test emd/*
 
