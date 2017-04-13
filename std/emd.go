@@ -144,26 +144,29 @@ func Register(g *emd.Generator) error {
 			e := -1
 			ww := -1
 			for _, title := range k {
-				link := strings.ToLower(title.t)
-				link = strings.Replace(link, "/", "", -1)
-				link = strings.Replace(link, "$", "", -1)
-				link = strings.Replace(link, ">", "", -1)
-				link = strings.Replace(link, ".", "", -1)
-				link = strings.Replace(link, " ", "-", -1)
-				if title.w != ww {
-					// inc/dec e when title change from # to ## or ### to #
-					if title.w > ww {
-						e++
-					} else if title.w < ww {
-						e--
-					}
-					// if e> len(###), e is set to len(###)
-					if e >= title.w {
-						e = title.w - 1
-					}
-					ww = title.w
-				}
 				if title.w < depth {
+					link := strings.ToLower(title.t)
+					link = strings.Replace(link, "/", "", -1)
+					link = strings.Replace(link, "$", "", -1)
+					link = strings.Replace(link, ">", "", -1)
+					link = strings.Replace(link, ".", "", -1)
+					link = strings.Replace(link, " ", "-", -1)
+					if title.w != ww {
+						// inc/dec e when title change from # to ## or ### to #
+						if title.w > ww {
+							e++
+						} else if title.w < ww {
+							e--
+						}
+						// if e> len(###), e is set to len(###)
+						if e >= title.w {
+							e = title.w - 1
+						}
+						if e < 0 {
+							e = 0
+						}
+						ww = title.w
+					}
 					toc += fmt.Sprintf("%v- [%v](#%v)\n", strings.Repeat("  ", e), title.t, link)
 				}
 			}
