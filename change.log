@@ -1,4 +1,15 @@
 
+0.0.9-beta2
+
+  * fix some bugs in TOC title evaluation and generation
+  * fix apt repository!
+
+  - mh-cbon <mh-cbon@users.noreply.github.com>
+
+-- mh-cbon <mh-cbon@users.noreply.github.com>; Thu, 13 Apr 2017 15:09:44 +0200
+
+
+
 0.0.9-beta1
 
   * deprecation: improve error messages
