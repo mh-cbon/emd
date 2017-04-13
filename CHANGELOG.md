@@ -1,5 +1,20 @@
 # Changelog - emd
 
+### 0.0.9-beta2
+
+__Changes__
+
+- fix some bugs in TOC title evaluation and generation
+- fix apt repository!
+
+__Contributors__
+
+- mh-cbon
+
+Released by mh-cbon, Thu 13 Apr 2017 -
+[see the diff](https://github.com/mh-cbon/emd/compare/0.0.9-beta1...0.0.9-beta2#diff)
+______________
+
 ### 0.0.9-beta1
 
 __Changes__
