@@ -11,9 +11,10 @@ env:
   global:
     - GH=mh-cbon/emd
     - JEKYLL=pietromenna/jekyll-cayman-theme
+    - APP=emd
+    - EMAIL=mh-cbon@users.noreply.github.com
     - MYAPP=emd
     - MYEMAIL=mh-cbon@users.noreply.github.com
-    - EMAIL=mh-cbon@users.noreply.github.com
     - secure: ojhYDaFGbkS3pVxhwqMKFZXcQtkoayb3LrB7Bc3VHE2Qc5RS3LkAu37/yBxpfpr/gYkKbdWgSbhTL7k4YrCXY44/msVdLAmaMj83fbIUiwW6sxQtidydmDWAzXZdj2PRgp9RGlyAG0LB3jQjnBafsKcOWncni/ZTqewpI0DJOp+NL8VK/IRpmnucE9vpkr811M4aUTWFbPlqY9Rp70ou82unWWKsWsmc6rGA06zG5TNdzcpC3akdngsdknhDhKw8SbJs4kWYxMQvmhQ8j9trWDnS0R4ET3aPLtdQMuV/Ym8eN3MFJp6TGvjoHWJ06t35fWFh1ETSNzGKsp+MCIahtj9CbhHmKh7EtGPI+XdK8gmJHAfAIjTdJ79bvzBMnSHjSTBNsKPGlmXwamfEczfYfeHL2/R5yIn3JziNhitNgfyBC8IsIVLFPaJdcVZvwL3A8BpzBZyTW5APPI9UBs2FbCv7Ktk1CNahBpLGrJZHyliE/c+CqFxdWT44ZX/iWe8pfybI76UNJg9SXjLyCz0a8u+n9ZrNhG12qZa367fu4647WPpV5KiYozUZr0sQg9LKS8i9ce6VY1XeP+BG/FXSjdzXuPVwAur4qsaj1NjmSruIbDWZsW7laMlFXS6jhENfVp32Rza0qKRyEbMbcTrlf2kWucpqFNH74CD6oKjs5dU=
 
 before_install:
@@ -25,7 +26,7 @@ before_install:
   - gem --version
 
 install:
-  - cd $GOPATH/src/github.com/mh-cbon/$MYAPP
+  - cd $GOPATH/src/github.com/$GH
   - go install
 
 script:
@@ -34,15 +35,15 @@ script:
 
 before_deploy:
   - mkdir -p build/{386,amd64}
-  - GOOS=linux GOARCH=386 go build --ldflags "-X main.VERSION=${TRAVIS_TAG}" -o build/386/$MYAPP main.go
-  - GOOS=linux GOARCH=amd64 go build --ldflags "-X main.VERSION=${TRAVIS_TAG}" -o build/amd64/$MYAPP main.go
-  - curl -L https://raw.githubusercontent.com/mh-cbon/go-bin-deb/master/create-pkg.sh | GH=mh-cbon/$MYAPP sh -xe
-  - curl -L https://raw.githubusercontent.com/mh-cbon/go-bin-rpm/master/create-pkg.sh | GH=mh-cbon/$MYAPP sh -xe
+  - GOOS=linux GOARCH=386 go build --ldflags "-X main.VERSION=${TRAVIS_TAG}" -o build/386/$APP main.go
+  - GOOS=linux GOARCH=amd64 go build --ldflags "-X main.VERSION=${TRAVIS_TAG}" -o build/amd64/$APP main.go
+  - curl -L https://raw.githubusercontent.com/mh-cbon/go-bin-deb/master/create-pkg.sh | GH=$GH sh -xe
+  - curl -L https://raw.githubusercontent.com/mh-cbon/go-bin-rpm/master/create-pkg.sh | GH=$GH sh -xe
 
 after_deploy:
   - wget -O - https://raw.githubusercontent.com/mh-cbon/gh-pages/master/all.sh | sh -x
-  - curl -L https://raw.githubusercontent.com/mh-cbon/go-bin-deb/master/setup-repository.sh | GH=mh-cbon/$MYAPP EMAIL=$EMAIL sh -xe
-  - curl -L https://raw.githubusercontent.com/mh-cbon/go-bin-rpm/master/setup-repository.sh | GH=mh-cbon/$MYAPP EMAIL=$EMAIL sh -xe
+  - curl -L https://raw.githubusercontent.com/mh-cbon/go-bin-deb/master/setup-repository.sh | GH=$GH EMAIL=$EMAIL sh -xe
+  - curl -L https://raw.githubusercontent.com/mh-cbon/go-bin-rpm/master/setup-repository.sh | GH=$GH EMAIL=$EMAIL sh -xe
 
 deploy:
   provider: releases
@@ -50,10 +51,10 @@ deploy:
     secure: em4nCHJdPAXZ+jP/uDflyFfELb9Yn5B3C7rqjBYm1SdTi1KZVZyyOohckoPmljoHt2kva1ls5yszp8pFCj8mFXi1kY6UVV77VC6tYmcrGmP9FXz2iY+X3q2wulu8bU7f+mcG/whfOKPVU/hxLm6iNfcUw3oWNvH8vdZodtBse5UwFi4VkWZBa08Oj9JRR2P0JSMyHsDbvTNeC25xz8j9ytHcv2+j7pvOQf+Swam3z/FknRkG5hxpklMiFCBxKo4FkMKmSNWaH7F2AXGwTyqBgCj4uOEAJsp2Gi27Gw+dC8OOKxx/t9e4l38i5QqWVGVuSFW+wOLwr2StT5rVVG+QDxv61nkh5vLsXckRe7zxA4D2ldf8KtkyLP4vNaAtbUFTmyRJ+I8LhicAn6j4vjOtYpB+CwkGI21if1GEU7fygF7fyIqBss9TOHb4OJUNK16ZVA0do+ZGDcwTgPx11zcgd2Emxl4z2I/ue7OXXJ1hz95tHqMZz8z0hKffdxmVOgp3pQ9w8VoZfBxicGRrWKnr35vH2vkx3R2mmLj7MW3DpDrCRD3qSQ2A7hu4vEiTY0c1yzy6OEWwgfJsx7hnRSU29iaw9Ep0ScXxf/2DtWA6DxY6A/sWd1jGePPlPhOTpx5fdLEiITR0DyHKpe5tHDfXJl6Jn0fwl8nwCc4+bGSAMqk=
   file_glob: true
   file:
-    - $MYAPP-386.deb
-    - $MYAPP-amd64.deb
-    - $MYAPP-386.rpm
-    - $MYAPP-amd64.rpm
+    - $APP-386.deb
+    - $APP-amd64.deb
+    - $APP-386.rpm
+    - $APP-amd64.rpm
   skip_cleanup: true
   on:
     tags: true
