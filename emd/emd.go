@@ -3,6 +3,7 @@ package emd
 
 import (
 	"bytes"
+	"fmt"
 	"io"
 	"io/ioutil"
 	"text/template"
@@ -95,6 +96,12 @@ func (g Generator) GetOut() io.Writer {
 	return g.o
 }
 
+//WriteString writes a string on out.
+//It is available only during Execute.
+func (g Generator) WriteString(s string) (int, error) {
+	return g.o.Write([]byte(s))
+}
+
 //GetData returns a copy of the template's data.
 //It is available only during Execute.
 func (g Generator) GetData() map[string]interface{} {
@@ -103,6 +110,16 @@ func (g Generator) GetData() map[string]interface{} {
 		ret[k] = v
 	}
 	return ret
+}
+
+//GetKey returns value of K.
+func (g Generator) GetKey(K string) interface{} {
+	return g.data[K]
+}
+
+//GetSKey returns a string value of K.
+func (g Generator) GetSKey(K string) string {
+	return fmt.Sprintf("%v", g.GetKey(K))
 }
 
 //Execute the template to out.

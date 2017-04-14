@@ -28,8 +28,8 @@ func Register(g *emd.Generator) error {
 		if err != nil {
 			return "", err
 		}
-		title := "\n###### > " + f + "\n"
-		_, err = g.GetOut().Write([]byte(title))
+		pre := g.GetSKey("emd_cat_pre")
+		_, err = g.WriteString(pre + f + "\n")
 		return strings.TrimSpace(string(s)), err
 	})
 
@@ -67,8 +67,11 @@ func Register(g *emd.Generator) error {
 		if err != nil {
 			return "", err
 		}
-		title := "\n###### $ " + utils.GetCmdStr(bin, args) + "\n"
-		_, err = g.GetOut().Write([]byte(title))
+
+		f := utils.GetCmdStr(bin, args)
+		pre := g.GetSKey("emd_exec_pre")
+		_, err = g.WriteString(pre + f + "\n")
+
 		return strings.TrimSpace(out), err
 	})
 
@@ -78,8 +81,10 @@ func Register(g *emd.Generator) error {
 		if err != nil {
 			return "", err
 		}
-		title := "\n###### $ " + s + "\n"
-		_, err = g.GetOut().Write([]byte(title))
+
+		pre := g.GetSKey("emd_shell_pre")
+		_, err = g.WriteString(pre + s + "\n")
+
 		return strings.TrimSpace(string(out)), err
 	})
 
