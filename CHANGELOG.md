@@ -1,5 +1,24 @@
 # Changelog - emd
 
+### 0.0.9-beta3
+
+__Changes__
+
+- fix #13: add new template to show a license badge.
+- prelude: trim leading whitespaces of unquoted values.
+- fix #14: improved badge output, removed useless whitespace.
+- fix #2: codeship badge template, added a CsProjectID parameter.
+- exec/shell/cat/gotest: avoid pre defined formatting, old behavior can be reset via new options defined into the prelude data.
+- toc: fixed some corner cases while parsing/generating the TOC.
+
+__Contributors__
+
+- mh-cbon
+
+Released by mh-cbon, Fri 14 Apr 2017 -
+[see the diff](https://github.com/mh-cbon/emd/compare/0.0.9-beta2...0.0.9-beta3#diff)
+______________
+
 ### 0.0.9-beta2
 
 __Changes__
