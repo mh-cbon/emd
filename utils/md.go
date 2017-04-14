@@ -43,15 +43,6 @@ func LineLess(P int, f func(*MdTitleTree)) func(*MdTitleTree) {
 	}
 }
 
-// LineGreater select titles of Line>P
-func LineGreater(P int, f func(*MdTitleTree)) func(*MdTitleTree) {
-	return func(n *MdTitleTree) {
-		if n.Line > P && n.Title != "" {
-			f(n)
-		}
-	}
-}
-
 var mdTitle = regexp.MustCompile(`^([#]{1,6})\s*(.+)`)
 
 // GetAllMdTitles extracts all MD titles markup.
@@ -158,7 +149,7 @@ func (m *MdTitleTree) LastOf(P int) *MdTitleTree {
 // LastOf a tree
 func (m *MdTitleTree) String() string {
 	x := strings.Repeat("#", m.Power)
-	return fmt.Sprintf("%-5v %-15q Items:%v", x, m.Title, len(m.Items))
+	return fmt.Sprintf("%-5v %-15q Items:%v Line:%v", x, m.Title, len(m.Items), m.Line)
 }
 
 // MdTitle is a markdwon title.

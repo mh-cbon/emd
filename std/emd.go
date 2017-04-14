@@ -115,11 +115,17 @@ func Register(g *emd.Generator) error {
 				lines := strings.Split(s, "\n")
 
 				titles := utils.GetAllMdTitles(s)
-				root := utils.MakeTitleTree(titles)
+				x := titles[:0]
+				for _, t := range titles {
+					if t.Line > lineIndex-1 {
+						x = append(x, t)
+					}
+				}
+				root := utils.MakeTitleTree(x)
 				toc := ""
 				e := -1
 				ee := -1
-				root.Traverse(utils.LineGreater(lineIndex, utils.PowerLess(5, func(n *utils.MdTitleTree) {
+				root.Traverse(utils.PowerLess(5, func(n *utils.MdTitleTree) {
 					if n.Power > ee {
 						e++
 					} else if n.Power < ee {
@@ -132,7 +138,7 @@ func Register(g *emd.Generator) error {
 					link := utils.GetMdLinkHash(n.Title)
 					x := strings.Repeat("  ", e)
 					toc += fmt.Sprintf("%v- [%v](#%v)\n", x, n.Title, link)
-				})))
+				}))
 
 				lines[lineIndex] = strings.Replace(lines[lineIndex], replaceToken, toctitle, -1)
 				lines = append(lines[:lineIndex+1], lines[lineIndex:]...)

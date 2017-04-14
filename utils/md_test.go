@@ -169,13 +169,17 @@ func TestTraverse(t *testing.T) {
 	titles := GetAllMdTitles(content)
 	root := MakeTitleTree(titles)
 	got := ""
-	root.Traverse(LineGreater(3, PowerLess(5, func(n *MdTitleTree) {
+	root.Traverse(PowerLess(5, func(n *MdTitleTree) {
 		// got += MakeTOCItem("  ", n) + "\n"
 		link := GetMdLinkHash(n.Title)
 		x := strings.Repeat("  ", n.Power)
 		got += fmt.Sprintf("%v- [%v](#%v)\n", x, n.Title, link)
-	})))
-	want := `    - [four 1](#four-1)
+	}))
+	want := `  - [one](#one)
+    - [two](#two)
+  - [three](#three)
+  - [four](#four)
+    - [four 1](#four-1)
       - [four 1-1](#four-1-1)
       - [four 1-2](#four-1-2)
     - [four 2](#four-2)
@@ -184,7 +188,7 @@ func TestTraverse(t *testing.T) {
   - [five](#five)
 `
 	if want != got {
-		t.Errorf("TestTraverse failed, want=\n%q\ngot\n%v", want, got)
+		t.Errorf("TestTraverse failed, want=\n%v\ngot\n%v", want, got)
 	}
 }
 
