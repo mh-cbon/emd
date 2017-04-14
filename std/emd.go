@@ -167,7 +167,7 @@ Check the [release page](https://github.com/{{.User}}/{{.Name}}/releases)!
 		`[codeship Status]` +
 		`(https://codeship.com/projects/{{.CsUUID}}/status?branch={{.Branch}})` +
 		`]` +
-		`(https://codeship.com/{{.CsProjectID}})` + `
+		`(https://codeship.com/projects/{{.CsProjectID}})` + `
 {{- end}}`)
 
 	g.AddTemplate(`{{define "choco/install" -}}
