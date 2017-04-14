@@ -25,10 +25,8 @@
       
       <h1 id="emd">emd</h1>
 
-<p><a href="https://travis-ci.org/mh-cbon/emd"><img src="https://travis-ci.org/mh-cbon/emd.svg?branch=master" alt="travis Status" /></a><a href="https://ci.appveyor.com/project/mh-cbon/emd"><img src="https://ci.appveyor.com/api/projects/status/github/mh-cbon/emd?branch=master&amp;svg=true" alt="appveyor Status" /></a>
-<a href="https://goreportcard.com/report/github.com/mh-cbon/emd"><img src="https://goreportcard.com/badge/github.com/mh-cbon/emd" alt="Go Report Card" /></a></p>
-
-<p><a href="http://godoc.org/github.com/mh-cbon/emd"><img src="https://godoc.org/github.com/mh-cbon/emd?status.svg" alt="GoDoc" /></a></p>
+<p><a href="https://travis-ci.org/mh-cbon/emd"><img src="https://travis-ci.org/mh-cbon/emd.svg?branch=master" alt="travis Status" /></a> 
+<a href="https://ci.appveyor.com/project/mh-cbon/emd"><img src="https://ci.appveyor.com/api/projects/status/github/mh-cbon/emd?branch=master&amp;svg=true" alt="appveyor Status" /></a> <a href="https://goreportcard.com/report/github.com/mh-cbon/emd"><img src="https://goreportcard.com/badge/github.com/mh-cbon/emd" alt="Go Report Card" /></a> <a href="http://godoc.org/github.com/mh-cbon/emd"><img src="https://godoc.org/github.com/mh-cbon/emd?status.svg" alt="GoDoc" /></a> <a href="License"><img src="http://img.shields.io/badge/License-MIT-MIT.svg" alt="MIT License" /></a></p>
 
 <p>Enhanced Markdown template processor.</p>
 
@@ -44,7 +42,12 @@
       <li><a href="#linux-rpmdeb-standalone-package">linux rpm/deb standalone package</a></li>
     </ul>
   </li>
-  <li><a href="#usage">Usage</a></li>
+  <li><a href="#usage">Usage</a>
+    <ul>
+      <li><a href="#-emd--help">$ emd -help</a></li>
+      <li><a href="#-emd-gen--help">$ emd gen -help</a></li>
+    </ul>
+  </li>
   <li><a href="#cli-examples">Cli examples</a></li>
   <li><a href="#templates-helper">Templates helper</a>
     <ul>
@@ -54,7 +57,11 @@
       <li><a href="#templates">Templates</a></li>
     </ul>
   </li>
-  <li><a href="#api-example">API example</a></li>
+  <li><a href="#api-example">API example</a>
+    <ul>
+      <li><a href="#-main_testgo">&gt; main_test.go</a></li>
+    </ul>
+  </li>
   <li><a href="#recipes">Recipes</a>
     <ul>
       <li><a href="#generate-html-content">Generate HTML content</a></li>
@@ -69,7 +76,6 @@
 <p>Check the <a href="https://github.com/mh-cbon/emd/releases">release page</a>!</p>
 
 <h4 id="go">Go</h4>
-
 <div class="language-sh highlighter-rouge"><pre class="highlight"><code>go get github.com/mh-cbon/emd
 </code></pre>
 </div>
@@ -100,8 +106,8 @@ https://raw.githubusercontent.com/mh-cbon/latest/master/install.sh <span class="
 
 <h1 id="usage">Usage</h1>
 
-<h6 id="-emd--help">$ emd -help</h6>
-<div class="language-sh highlighter-rouge"><pre class="highlight"><code>emd - 0.0.9-beta1
+<h4 id="-emd--help">$ emd -help</h4>
+<div class="language-sh highlighter-rouge"><pre class="highlight"><code>emd - 0.0.9-beta3
 
 Usage
   -h	Show <span class="nb">help</span>
@@ -115,8 +121,8 @@ Commands
 </code></pre>
 </div>
 
-<h6 id="-emd-gen--help">$ emd gen -help</h6>
-<div class="language-sh highlighter-rouge"><pre class="highlight"><code>emd - 0.0.9-beta1
+<h4 id="-emd-gen--help">$ emd gen -help</h4>
+<div class="language-sh highlighter-rouge"><pre class="highlight"><code>emd - 0.0.9-beta3
 
 Command <span class="s2">"gen"</span>: Process an emd file.
   -data string
@@ -210,43 +216,72 @@ emd gen -out README.md --data<span class="o">=</span><span class="s1">'{"CsUUID"
     <tr>
       <th>Name</th>
       <th>Description</th>
+      <th>Options</th>
+      <th> </th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <td><strong>color</strong>(color string, content string])</td>
       <td>Embed given content with triple backquote syntax colorizer support.</td>
+      <td> </td>
+      <td> </td>
     </tr>
     <tr>
       <td><strong>cat</strong>(f string)</td>
-      <td>Displays a file header. Reads and returns the file body.</td>
+      <td>Displays a file header.<br />Reads and returns the file body.</td>
+      <td><code class="highlighter-rouge">emd_cat_pre: "### &gt; "</code>: string to show right before the file path.</td>
+      <td> </td>
     </tr>
     <tr>
       <td><strong>exec</strong>(bin string, args …string)</td>
-      <td>Displays a command line header. Executes and returns its response.</td>
+      <td>Displays a command line header.<br />Executes and returns its response.</td>
+      <td><code class="highlighter-rouge">emd_exec_pre: "### &gt; "</code>:  string to show right before the command line.</td>
+      <td> </td>
     </tr>
     <tr>
       <td><strong>shell</strong>(s string)</td>
-      <td>Displays a command line header. Executes the command on a shell, and returns the its response.</td>
+      <td>Displays a command line header.<br />Executes the command on a shell, and returns the its response.</td>
+      <td><code class="highlighter-rouge">emd_shell_pre: "### &gt; "</code>: string to show right before the command line.</td>
+      <td> </td>
     </tr>
     <tr>
       <td><strong>toc</strong>(maxImportance int, title …string)</td>
-      <td>Displays a <code class="highlighter-rouge">TOC</code> of the <code class="highlighter-rouge">README</code> file being processed. <code class="highlighter-rouge">maxImportance</code> defines the titles to select by their numbers of <code class="highlighter-rouge">#</code>. <code class="highlighter-rouge">titles</code> define the title to display, defaults to <code class="highlighter-rouge">TOC</code>. Titles displayed before the call to <code class="highlighter-rouge"><span class="p">{</span><span class="w"> </span><span class="err">{toc</span><span class="w"> </span><span class="err">x</span><span class="p">}</span><span class="err">}</span></code> are automatically ignored.</td>
+      <td>Displays a <code class="highlighter-rouge">TOC</code> of the <code class="highlighter-rouge">README</code> file being processed.<br /><code class="highlighter-rouge">maxImportance</code> defines the titles to select by their numbers of <code class="highlighter-rouge">#</code>.<br /><code class="highlighter-rouge">titles</code> define the title to display, defaults to <code class="highlighter-rouge">TOC</code>.<br />Titles displayed before the call to <code class="highlighter-rouge"><span class="p">{</span><span class="w"> </span><span class="err">{toc</span><span class="w"> </span><span class="err">x</span><span class="p">}</span><span class="err">}</span></code> are automatically ignored.</td>
+      <td> </td>
+      <td> </td>
     </tr>
     <tr>
       <td><strong>pkgdoc</strong>(files …string)</td>
       <td>Reads the first of the files, or <code class="highlighter-rouge">main.go</code>, lookup for its package comment and returns it as plain text.</td>
+      <td> </td>
+      <td> </td>
     </tr>
     <tr>
       <td><strong>gotest</strong>(rpkg string, run string, args …string)</td>
-      <td>Executes <code class="highlighter-rouge">go test &lt;rpkg&gt; -v -run &lt;run&gt; &lt;args&gt;</code> and returns its output. <code class="highlighter-rouge">rpkg</code> can be a path to a relative folder like <code class="highlighter-rouge">./emd</code> would resolve to <code class="highlighter-rouge">github.com/mh-cbon/emd/emd</code></td>
+      <td>Runs <code class="highlighter-rouge">go test &lt;rpkg&gt; -v -run &lt;run&gt; &lt;args&gt;</code>, returns its output. <br /><code class="highlighter-rouge">rpkg</code> can be a path to a relative folder like <code class="highlighter-rouge">./emd</code>. It will resolve to <br /><code class="highlighter-rouge">github.com/mh-cbon/emd/emd</code></td>
+      <td><code class="highlighter-rouge">emd_gotest_pre: "### $ "</code> defines a sring to show right before the <code class="highlighter-rouge">go test</code> command line.</td>
+      <td> </td>
     </tr>
     <tr>
       <td><strong>render</strong>(name string, data interface{}, keyValues …interface{})</td>
-      <td>Renders given template name, using data as its data. Additionnal data values can be declared using <code class="highlighter-rouge">keyValues ...interface{}</code> signature, such as <code class="highlighter-rouge">render("x", data, "key1", "val1", "key2", "val2")</code>.</td>
+      <td>Renders given template name, using data as its data.<br /> Additionnal data values can be declared using <code class="highlighter-rouge">keyValues ...interface{}</code> signature, such as <br /><code class="highlighter-rouge">render("x", data, "key1", "val1", "key2", "val2")</code>.</td>
+      <td> </td>
+      <td> </td>
     </tr>
   </tbody>
 </table>
+
+<p>Options are keys to define into the <code class="highlighter-rouge">prelude</code>:</p>
+
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="nn">---</span>
+<span class="s">emd_cat_pre</span><span class="pi">:</span> <span class="s2">"</span><span class="s">###</span><span class="nv"> </span><span class="s">&gt;</span><span class="nv"> </span><span class="s">"</span>
+<span class="s">emd_gotest_pre</span><span class="pi">:</span> <span class="s2">"</span><span class="s">###</span><span class="nv"> </span><span class="s">$</span><span class="nv"> </span><span class="s">"</span>
+<span class="s">emd_exec_pre</span><span class="pi">:</span> <span class="s2">"</span><span class="s">###</span><span class="nv"> </span><span class="s">$</span><span class="nv"> </span><span class="s">"</span>
+<span class="s">emd_shell_pre</span><span class="pi">:</span> <span class="s2">"</span><span class="s">###</span><span class="nv"> </span><span class="s">$</span><span class="nv"> </span><span class="s">"</span>
+<span class="nn">---</span>
+</code></pre>
+</div>
 
 <p><strong>deprecated helpers</strong></p>
 
@@ -300,7 +335,7 @@ emd gen -out README.md --data<span class="o">=</span><span class="s1">'{"CsUUID"
     <tr>
       <td><strong>badge/codeship</strong></td>
       <td>Show a codeship badge.</td>
-      <td><strong>CsUUID</strong>: the codeship project UUID. Within your <code class="highlighter-rouge">e.md</code> file use the <code class="highlighter-rouge">render</code> function, <code class="highlighter-rouge"><span class="p">{</span><span class="err">render</span><span class="w"> </span><span class="nt">"badge/codeship"</span><span class="w"> </span><span class="err">.</span><span class="w"> </span><span class="nt">"CsUUID"</span><span class="w"> </span><span class="nt">"xxxxxx"</span><span class="err">}</span></code>. Via cli, add it with <code class="highlighter-rouge">--data '{"CsUUID": "xxxxxx"}'</code>.</td>
+      <td><strong>CsProjectID</strong>: The codeship project ID (<em>123465</em>).<br /> <strong>CsUUID</strong>: the codeship project UUID (<em>654654-6465-54…</em>).<br />Within your <code class="highlighter-rouge">e.md</code> file use the <code class="highlighter-rouge">render</code> function, <code class="highlighter-rouge"><span class="p">{</span><span class="err">render</span><span class="w"> </span><span class="nt">"badge/codeship"</span><span class="w"> </span><span class="err">.</span><span class="w"> </span><span class="nt">"CsUUID"</span><span class="w"> </span><span class="nt">"xx"</span><span class="w"> </span><span class="nt">"CsProjectID"</span><span class="w"> </span><span class="nt">"yyy"</span><span class="err">}</span></code>. <br />Via cli, add it with <code class="highlighter-rouge">--data '{"CsUUID": "xx", "CsProjectID":"yy"}'</code>.</td>
     </tr>
     <tr>
       <td><strong>choco/install</strong></td>
@@ -316,6 +351,11 @@ emd gen -out README.md --data<span class="o">=</span><span class="s1">'{"CsUUID"
       <td><strong>linux/gh_pkg</strong></td>
       <td>Show an sh snippet to install the package via linux packages (deb/rpm).</td>
       <td> </td>
+    </tr>
+    <tr>
+      <td><strong>license/shields</strong></td>
+      <td>Show a license badge.</td>
+      <td><strong>License</strong>: The license name like <code class="highlighter-rouge">MIT</code>, <code class="highlighter-rouge">BSD</code>.<br /><strong>LicenseFile</strong>: The path to the license file.</td>
     </tr>
   </tbody>
 </table>
@@ -370,7 +410,7 @@ emd gen -out README.md --data<span class="o">=</span><span class="s1">'{"CsUUID"
 
 <h1 id="api-example">API example</h1>
 
-<h6 id="-main_testgo">&gt; main_test.go</h6>
+<h4 id="-main_testgo">&gt; main_test.go</h4>
 <div class="language-go highlighter-rouge"><pre class="highlight"><code><span class="k">package</span><span class="x"> </span><span class="n">main_test</span><span class="x">
 
 </span><span class="k">import</span><span class="x"> </span><span class="p">(</span><span class="x">
