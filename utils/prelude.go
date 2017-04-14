@@ -25,7 +25,7 @@ func GetPrelude(s string) (string, map[string]interface{}, error) {
 			val := l[z+1:]
 			// quote raw values, it allows easier writing of strings containing strings.
 			if val[0] != '[' && val[0] != '"' && val[0] != '\'' {
-				val = fmt.Sprintf("%q", val)
+				val = fmt.Sprintf("%q", strings.TrimLeft(val, " "))
 			}
 			prelude += fmt.Sprintf("%q:%v,\n", name, val)
 		}
