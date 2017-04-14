@@ -82,11 +82,11 @@ The keys are injected into the template `dot`, the value are `json` decoded.
 | --- | --- | -- |
 | __color__(color string, content string]) | Embed given content with triple backquote syntax colorizer support. | |
 | __cat__(f string) | Displays a file header. Reads and returns the file body. | `emd_cat_pre: "### > "` defines a sring to show right before the file path. |
-| __exec__(bin string, args ...string) | Displays a command line header. Executes and returns its response. | `emd_exec_pre: "### > "` defines a sring to show right before the file path. |
-| __shell__(s string) | Displays a command line header. Executes the command on a shell, and returns the its response. | `emd_shell_pre: "### > "` defines a sring to show right before the file path. |
+| __exec__(bin string, args ...string) | Displays a command line header. Executes and returns its response. | `emd_exec_pre: "### > "` defines a sring to show right before the command line. |
+| __shell__(s string) | Displays a command line header. Executes the command on a shell, and returns the its response. | `emd_shell_pre: "### > "` defines a sring to show right before the command line. |
 | __toc__(maxImportance int, title ...string) | Displays a `TOC` of the `README` file being processed. `maxImportance` defines the titles to select by their numbers of `#`. `titles` define the title to display, defaults to `TOC`. Titles displayed before the call to `{ {toc x}}` are automatically ignored.| |
 | __pkgdoc__(files ...string) | Reads the first of the files, or `main.go`, lookup for its package comment and returns it as plain text. | |
-| __gotest__(rpkg string, run string, args ...string) | Executes `go test <rpkg> -v -run <run> <args>` and returns its output. `rpkg` can be a path to a relative folder like `./emd` would resolve to `github.com/mh-cbon/emd/emd`| |
+| __gotest__(rpkg string, run string, args ...string) | Executes `go test <rpkg> -v -run <run> <args>` and returns its output. `rpkg` can be a path to a relative folder like `./emd` would resolve to `github.com/mh-cbon/emd/emd`| `emd_gotest_pre: "### $ "` defines a sring to show right before the `go test` command line. |
 | __render__(name string, data interface{}, keyValues ...interface{}) | Renders given template name, using data as its data. Additionnal data values can be declared using `keyValues ...interface{}` signature, such as `render("x", data, "key1", "val1", "key2", "val2")`. | |
 
 Options are keys to define into the `prelude`:
@@ -94,6 +94,7 @@ Options are keys to define into the `prelude`:
 ```yaml
 ---
 emd_cat_pre: "### > "
+emd_gotest_pre: "### $ "
 emd_exec_pre: "### $ "
 emd_shell_pre: "### $ "
 ---

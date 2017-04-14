@@ -58,8 +58,11 @@ func Register(g *emd.Generator) error {
 		if err != nil {
 			return "", err
 		}
-		title := "\n###### $ " + utils.GetCmdStr("go", nargs) + "\n"
-		_, err = g.GetOut().Write([]byte(title))
+
+		s := utils.GetCmdStr("go", nargs)
+		pre := g.GetSKey("emd_gotest_pre")
+		_, err = g.WriteString(pre + s + "\n")
+
 		return strings.TrimSpace(string(out)), err
 	})
 
