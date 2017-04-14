@@ -1,5 +1,5 @@
 
-UNRELEASED
+0.0.9-beta3
 
   * fix #13: add new template to show a license badge.
   * prelude: trim leading whitespaces of unquoted values.
@@ -171,3 +171,5 @@ UNRELEASED
   - mh-cbon <mh-cbon@users.noreply.github.com>
 
 -- mh-cbon <mh-cbon@users.noreply.github.com>; Wed, 22 Feb 2017 21:07:17 +0100
+
+
