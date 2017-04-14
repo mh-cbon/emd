@@ -1,5 +1,7 @@
 # emd
 
+ddddd
+yyyyy
 [![travis Status](https://travis-ci.org/mh-cbon/emd.svg?branch=master)](https://travis-ci.org/mh-cbon/emd) 
 [![appveyor Status](https://ci.appveyor.com/api/projects/status/github/mh-cbon/emd?branch=master&svg=true)](https://ci.appveyor.com/project/mh-cbon/emd) [![Go Report Card](https://goreportcard.com/badge/github.com/mh-cbon/emd)](https://goreportcard.com/report/github.com/mh-cbon/emd) [![GoDoc](https://godoc.org/github.com/mh-cbon/emd?status.svg)](http://godoc.org/github.com/mh-cbon/emd) [![MIT License](http://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
@@ -67,7 +69,7 @@ https://raw.githubusercontent.com/mh-cbon/latest/master/install.sh \
 
 #### $ emd -help
 ```sh
-emd - 0.0.9-beta4
+emd - 0.0.0
 
 Usage
   -h	Show help
@@ -82,7 +84,7 @@ Commands
 
 #### $ emd gen -help
 ```sh
-emd - 0.0.9-beta4
+emd - 0.0.0
 
 Command "gen": Process an emd file.
   -data string
