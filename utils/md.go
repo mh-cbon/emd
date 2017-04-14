@@ -72,6 +72,9 @@ func GetAllMdTitles(content string) []MdTitle {
 			isInTitle = true
 			line += string(c)
 		} else {
+			if c == '\n' {
+				i++
+			}
 			line += string(c)
 		}
 	}
