@@ -1,10 +1,7 @@
 # emd
 
-[![travis Status](https://travis-ci.org/mh-cbon/emd.svg?branch=master)](https://travis-ci.org/mh-cbon/emd)[![appveyor Status](https://ci.appveyor.com/api/projects/status/github/mh-cbon/emd?branch=master&svg=true)](https://ci.appveyor.com/project/mh-cbon/emd)
-[![Go Report Card](https://goreportcard.com/badge/github.com/mh-cbon/emd)](https://goreportcard.com/report/github.com/mh-cbon/emd)
-
-[![GoDoc](https://godoc.org/github.com/mh-cbon/emd?status.svg)](http://godoc.org/github.com/mh-cbon/emd)
-
+[![travis Status](https://travis-ci.org/mh-cbon/emd.svg?branch=master)](https://travis-ci.org/mh-cbon/emd) 
+[![appveyor Status](https://ci.appveyor.com/api/projects/status/github/mh-cbon/emd?branch=master&svg=true)](https://ci.appveyor.com/project/mh-cbon/emd) [![Go Report Card](https://goreportcard.com/badge/github.com/mh-cbon/emd)](https://goreportcard.com/report/github.com/mh-cbon/emd) [![GoDoc](https://godoc.org/github.com/mh-cbon/emd?status.svg)](http://godoc.org/github.com/mh-cbon/emd) [![MIT License](http://img.shields.io/badge/License-MIT-MIT.svg)](License)
 
 Enhanced Markdown template processor.
 
@@ -18,6 +15,8 @@ See [emd README file](https://raw.githubusercontent.com/mh-cbon/emd/master/READM
   - [linux rpm/deb repository](#linux-rpmdeb-repository)
   - [linux rpm/deb standalone package](#linux-rpmdeb-standalone-package)
 - [Usage](#usage)
+  - [$ emd -help](#-emd--help)
+  - [$ emd gen -help](#-emd-gen--help)
 - [Cli examples](#cli-examples)
 - [Templates helper](#templates-helper)
   - [Define data](#define-data)
@@ -25,6 +24,7 @@ See [emd README file](https://raw.githubusercontent.com/mh-cbon/emd/master/READM
   - [Function](#function)
   - [Templates](#templates)
 - [API example](#api-example)
+  - [> main_test.go](#-main_testgo)
 - [Recipes](#recipes)
   - [Generate HTML content](#generate-html-content)
   - [Release the project](#release-the-project)
@@ -35,11 +35,9 @@ See [emd README file](https://raw.githubusercontent.com/mh-cbon/emd/master/READM
 Check the [release page](https://github.com/mh-cbon/emd/releases)!
 
 #### Go
-
 ```sh
 go get github.com/mh-cbon/emd
 ```
-
 
 #### Chocolatey
 ```sh
@@ -67,8 +65,7 @@ https://raw.githubusercontent.com/mh-cbon/latest/master/install.sh \
 
 # Usage
 
-
-###### $ emd -help
+#### $ emd -help
 ```sh
 emd - 0.0.0
 
@@ -83,8 +80,7 @@ Commands
 	gen	Process an emd file.
 ```
 
-
-###### $ emd gen -help
+#### $ emd gen -help
 ```sh
 emd - 0.0.0
 
@@ -148,16 +144,27 @@ The keys are injected into the template `dot`, the value are `json` decoded.
 
 #### Function
 
-| Name | Description |
-| --- | --- |
-| __color__(color string, content string]) | Embed given content with triple backquote syntax colorizer support. |
-| __cat__(f string) | Displays a file header. Reads and returns the file body. |
-| __exec__(bin string, args ...string) | Displays a command line header. Executes and returns its response. |
-| __shell__(s string) | Displays a command line header. Executes the command on a shell, and returns the its response. |
-| __toc__(maxImportance int, title ...string) | Displays a `TOC` of the `README` file being processed. `maxImportance` defines the titles to select by their numbers of `#`. `titles` define the title to display, defaults to `TOC`. Titles displayed before the call to `{ {toc x}}` are automatically ignored.|
-| __pkgdoc__(files ...string) | Reads the first of the files, or `main.go`, lookup for its package comment and returns it as plain text. |
-| __gotest__(rpkg string, run string, args ...string) | Executes `go test <rpkg> -v -run <run> <args>` and returns its output. `rpkg` can be a path to a relative folder like `./emd` would resolve to `github.com/mh-cbon/emd/emd`|
-| __render__(name string, data interface{}, keyValues ...interface{}) | Renders given template name, using data as its data. Additionnal data values can be declared using `keyValues ...interface{}` signature, such as `render("x", data, "key1", "val1", "key2", "val2")`. |
+| Name | Description | Options |
+| --- | --- | -- |
+| __color__(color string, content string]) | Embed given content with triple backquote syntax colorizer support. | |
+| __cat__(f string) | Displays a file header.<br/>Reads and returns the file body. | `emd_cat_pre: "### > "`: string to show right before the file path. |
+| __exec__(bin string, args ...string) | Displays a command line header.<br/>Executes and returns its response. | `emd_exec_pre: "### > "`:  string to show right before the command line. |
+| __shell__(s string) | Displays a command line header.<br/>Executes the command on a shell, and returns the its response. | `emd_shell_pre: "### > "`: string to show right before the command line. |
+| __toc__(maxImportance int, title ...string) | Displays a `TOC` of the `README` file being processed.<br/>`maxImportance` defines the titles to select by their numbers of `#`.<br/>`titles` define the title to display, defaults to `TOC`.<br/>Titles displayed before the call to `{ {toc x}}` are automatically ignored.| |
+| __pkgdoc__(files ...string) | Reads the first of the files, or `main.go`, lookup for its package comment and returns it as plain text. | |
+| __gotest__(rpkg string, run string, args ...string) | Runs `go test <rpkg> -v -run <run> <args>`, returns its output. <br/>`rpkg` can be a path to a relative folder like `./emd`. It will resolve to <br/>`github.com/mh-cbon/emd/emd`| `emd_gotest_pre: "### $ "` defines a sring to show right before the `go test` command line. |
+| __render__(name string, data interface{}, keyValues ...interface{}) | Renders given template name, using data as its data.<br/> Additionnal data values can be declared using `keyValues ...interface{}` signature, such as <br/>`render("x", data, "key1", "val1", "key2", "val2")`. | | |
+
+Options are keys to define into the `prelude`:
+
+```yaml
+---
+emd_cat_pre: "### > "
+emd_gotest_pre: "### $ "
+emd_exec_pre: "### $ "
+emd_shell_pre: "### $ "
+---
+```
 
 __deprecated helpers__
 
@@ -175,10 +182,11 @@ __deprecated helpers__
 | __gh/releases__ | Show a text to link the release page. | |
 | __badge/travis__ | Show a travis badge. | |
 | __badge/appveyor__ | Show an appveyor badge. | |
-| __badge/codeship__ | Show a codeship badge. | __CsUUID__: the codeship project UUID. Within your `e.md` file use the `render` function, `{render "badge/codeship" . "CsUUID" "xxxxxx"}`. Via cli, add it with `--data '{"CsUUID": "xxxxxx"}'`. |
+| __badge/codeship__ | Show a codeship badge. | __CsProjectID__: The codeship project ID (*123465*).<br/> __CsUUID__: the codeship project UUID (*654654-6465-54...*).<br/>Within your `e.md` file use the `render` function, `{render "badge/codeship" . "CsUUID" "xx" "CsProjectID" "yyy"}`. <br/>Via cli, add it with `--data '{"CsUUID": "xx", "CsProjectID":"yy"}'`. |
 | __choco/install__ | Show an sh snippet to install the package with chocolatey. | |
 | __linux/gh_src_repo__ | Show an sh snippet to install the package via linux repositories (deb/rpm). | |
 | __linux/gh_pkg__ | Show an sh snippet to install the package via linux packages (deb/rpm). | |
+| __license/shields__ | Show a license badge. | __License__: The license name like `MIT`, `BSD`.<br/>__LicenseFile__: The path to the license file. |
 
 ##### go
 
@@ -197,8 +205,7 @@ __deprecated helpers__
 
 # API example
 
-
-###### > main_test.go
+#### > main_test.go
 ```go
 package main_test
 

@@ -1,4 +1,19 @@
 
+UNRELEASED
+
+  * fix #13: add new template to show a license badge.
+  * prelude: trim leading whitespaces of unquoted values.
+  * fix #14: improved badge output, removed useless whitespace.
+  * fix #2: codeship badge template, added a CsProjectID parameter.
+  * exec/shell/cat/gotest: avoid pre defined formatting, old behavior can be reset via new options defined into the prelude data.
+  * toc: fixed some corner cases while parsing/generating the TOC.
+
+  - mh-cbon <mh-cbon@users.noreply.github.com>
+
+-- mh-cbon <mh-cbon@users.noreply.github.com>; Fri, 14 Apr 2017 11:58:55 +0200
+
+
+
 0.0.9-beta2
 
   * fix some bugs in TOC title evaluation and generation
@@ -156,5 +171,3 @@
   - mh-cbon <mh-cbon@users.noreply.github.com>
 
 -- mh-cbon <mh-cbon@users.noreply.github.com>; Wed, 22 Feb 2017 21:07:17 +0100
-
-
