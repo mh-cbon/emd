@@ -124,6 +124,9 @@ func Register(g *emd.Generator) error {
 						e++
 					} else if n.Power < ee {
 						e--
+						if e < 0 {
+							e = 0
+						}
 					}
 					ee = n.Power
 					link := utils.GetMdLinkHash(n.Title)

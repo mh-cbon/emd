@@ -93,22 +93,22 @@ func MakeTitleTree(titles []MdTitle) *MdTitleTree {
 	root := &MdTitleTree{}
 	cur := root
 	for _, t := range titles {
-		nnew := &MdTitleTree{MdTitle: t}
 		if t.Power == 1 {
+			nnew := &MdTitleTree{MdTitle: t, Parent: root}
 			root.Items = append(root.Items, nnew)
 			cur = nnew
 		} else if t.Power > cur.Power {
-			parent := root.LastOf(t.Power - 1)
-			if parent == nil {
-				parent = cur
-			}
-			parent.Items = append(parent.Items, nnew)
+			nnew := &MdTitleTree{MdTitle: t, Parent: cur}
+			cur.Items = append(cur.Items, nnew)
+			cur = nnew
 		} else if t.Power == cur.Power {
-			parent := root.LastOf(t.Power - 1)
-			parent.Items = append(parent.Items, nnew)
+			nnew := &MdTitleTree{MdTitle: t, Parent: cur.Parent}
+			cur.Parent.Items = append(cur.Parent.Items, nnew)
+			cur = nnew
 		} else if t.Power < cur.Power {
-			parent := root.LastOf(t.Power - 1)
-			parent.Items = append(parent.Items, nnew)
+			nnew := &MdTitleTree{MdTitle: t, Parent: cur.Parent}
+			cur.Parent.Items = append(cur.Parent.Items, nnew)
+			cur = nnew
 		}
 	}
 	return root
@@ -128,7 +128,8 @@ func GetMdLinkHash(link string) string {
 // MdTitleTree is an MdTitle with tree capabilities
 type MdTitleTree struct {
 	MdTitle
-	Items []*MdTitleTree
+	Parent *MdTitleTree
+	Items  []*MdTitleTree
 }
 
 // Traverse a tree
