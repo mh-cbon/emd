@@ -1,6 +1,5 @@
 ---
 License: MIT
-LicenseFile: License
 ---
 # {{.Name}}
 
