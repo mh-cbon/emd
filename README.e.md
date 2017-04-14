@@ -1,5 +1,7 @@
 ---
 License: MIT
+LicenseFile: LICENSE
+LicenseColor: green
 ---
 # {{.Name}}
 

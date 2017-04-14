@@ -200,7 +200,7 @@ https://raw.githubusercontent.com/mh-cbon/latest/master/install.sh \
 	g.AddTemplate(`{{define "license/shields" -}}
 [!` +
 		`[{{.License}} License]` +
-		`(http://img.shields.io/badge/License-{{.License}}-{{or .License "blue"}}.svg)` +
+		`(http://img.shields.io/badge/License-{{.License}}-{{or .LicenseColor "blue"}}.svg)` +
 		`]` +
 		`({{or .LicenseFile "LICENSE"}})
 {{- end}}`)
