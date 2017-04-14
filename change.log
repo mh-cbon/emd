@@ -1,4 +1,14 @@
 
+0.0.9-beta4
+
+  * toc: improve toc parser, refactored, added tests
+
+  - mh-cbon <mh-cbon@users.noreply.github.com>
+
+-- mh-cbon <mh-cbon@users.noreply.github.com>; Fri, 14 Apr 2017 15:15:52 +0200
+
+
+
 0.0.9-beta3
 
   * fix #13: add new template to show a license badge.
