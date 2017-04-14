@@ -62,7 +62,15 @@ func (g *Generator) SetDataMap(dm map[string]interface{}) {
 
 //AddTemplate registers a template string.
 func (g *Generator) AddTemplate(t string) {
-	g.tpls = append(g.tpls, t)
+
+	// read the prelude
+	newT, newData, err := utils.GetPrelude(t)
+	if err != nil {
+		panic(err)
+	}
+	g.SetDataMap(newData)
+
+	g.tpls = append(g.tpls, newT)
 }
 
 //AddFileTemplate registers a template file.
@@ -71,16 +79,8 @@ func (g *Generator) AddFileTemplate(t string) error {
 	if err != nil {
 		return err
 	}
-
-	// read the prelude
-	newT, newData, err := utils.GetPrelude(string(s))
-	if err != nil {
-		return err
-	}
-	g.SetDataMap(newData)
-
 	// add the template string.
-	g.AddTemplate(newT)
+	g.AddTemplate(string(s))
 	return nil
 }
 
