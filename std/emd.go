@@ -109,83 +109,35 @@ func Register(g *emd.Generator) error {
 
 		g.AddPostProcess(func(s string) string {
 			// a quick and dirty md parser of titles (###) and block (```)
-			lineIndex := -1
-			lines := []string{}
-			k := []tocTitle{}
-			line := ""
-			isInBlock := false
-			isInTitle := false
-			i := 0
-			for _, c := range s {
-				if !isInBlock && c == '\n' {
-					if isInTitle {
-
-						if strings.Index(line, replaceToken) > -1 {
-							lineIndex = i
-						} else if lineIndex > -1 && mdTitle.MatchString(line) {
-							got := mdTitle.FindAllStringSubmatch(line, -1)
-							if len(got) > 0 {
-								k = append(k, tocTitle{t: got[0][2], w: len(got[0][1])})
-							}
-						}
-
-					}
-					isInTitle = false
-					lines = append(lines, line+string(c))
-					line = ""
-					i++
-				} else if c == '`' {
-					isInBlock = !isInBlock
-					line += string(c)
-				} else if c == '#' && !isInBlock {
-					isInTitle = true
-					line += string(c)
-				} else {
-					line += string(c)
-				}
-			}
-
-			toc := ""
-			e := -1
-			ww := -1
-			for _, title := range k {
-				if title.w < depth {
-					link := strings.ToLower(title.t)
-					link = strings.Replace(link, "/", "", -1)
-					link = strings.Replace(link, "$", "", -1)
-					link = strings.Replace(link, ">", "", -1)
-					link = strings.Replace(link, ".", "", -1)
-					link = strings.Replace(link, " ", "-", -1)
-					if title.w != ww {
-						// inc/dec e when title change from # to ## or ### to #
-						if title.w > ww {
-							e++
-						} else if title.w < ww {
-							e--
-						}
-						// if e> len(###), e is set to len(###)
-						if e >= title.w {
-							e = title.w - 1
-						}
-						if e < 0 {
-							e = 0
-						}
-						ww = title.w
-					}
-					toc += fmt.Sprintf("%v- [%v](#%v)\n", strings.Repeat("  ", e), title.t, link)
-				}
-			}
-
-			// should not be needed, but who knows.
+			lineIndex := utils.LineIndex(s, replaceToken)
 			if lineIndex > -1 {
+
+				lines := strings.Split(s, "\n")
+
+				titles := utils.GetAllMdTitles(s)
+				root := utils.MakeTitleTree(titles)
+				toc := ""
+				e := -1
+				ee := -1
+				root.Traverse(utils.LineGreater(lineIndex, utils.PowerLess(5, func(n *utils.MdTitleTree) {
+					if n.Power > ee {
+						e++
+					} else if n.Power < ee {
+						e--
+					}
+					ee = n.Power
+					link := utils.GetMdLinkHash(n.Title)
+					x := strings.Repeat("  ", e)
+					toc += fmt.Sprintf("%v- [%v](#%v)\n", x, n.Title, link)
+				})))
+
 				lines[lineIndex] = strings.Replace(lines[lineIndex], replaceToken, toctitle, -1)
 				lines = append(lines[:lineIndex+1], lines[lineIndex:]...)
-				lines[lineIndex+1] = toc
-			} else {
-				log.Println("weird, a toc was generated, but it was not added to the final content.")
+				lines[lineIndex+1] = strings.TrimRight(toc, "\n")
+				return strings.Join(lines, "\n")
 			}
-
-			return strings.Join(lines, "")
+			log.Println("weird, a toc was generated, but it was not added to the final content.")
+			return s
 		})
 		return replaceToken
 	})

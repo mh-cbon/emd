@@ -1,0 +1,168 @@
+package utils
+
+import (
+	"fmt"
+	"regexp"
+	"strings"
+)
+
+// LineIndex returns line index of search in content.
+func LineIndex(content string, search string) int {
+	ret := -1
+	line := ""
+	for _, c := range content {
+		if c == '\n' {
+			line += ""
+			ret++
+		} else {
+			line += string(c)
+		}
+		if strings.Index(line, search) > -1 {
+			ret++
+			break
+		}
+	}
+	return ret
+}
+
+// PowerLess select titles of Power<P
+func PowerLess(P int, f func(*MdTitleTree)) func(*MdTitleTree) {
+	return func(n *MdTitleTree) {
+		if n.Power < P && n.Title != "" {
+			f(n)
+		}
+	}
+}
+
+// LineLess select titles of Line<P
+func LineLess(P int, f func(*MdTitleTree)) func(*MdTitleTree) {
+	return func(n *MdTitleTree) {
+		if n.Line < P && n.Title != "" {
+			f(n)
+		}
+	}
+}
+
+// LineGreater select titles of Line>P
+func LineGreater(P int, f func(*MdTitleTree)) func(*MdTitleTree) {
+	return func(n *MdTitleTree) {
+		if n.Line > P && n.Title != "" {
+			f(n)
+		}
+	}
+}
+
+var mdTitle = regexp.MustCompile(`^([#]{1,6})\s*(.+)`)
+
+// GetAllMdTitles extracts all MD titles markup.
+func GetAllMdTitles(content string) []MdTitle {
+	ret := []MdTitle{}
+	line := ""
+	isInBlock := false
+	isInTitle := false
+	i := 0
+	for _, c := range content {
+		if !isInBlock && c == '\n' {
+			if isInTitle {
+				if mdTitle.MatchString(line) {
+					got := mdTitle.FindAllStringSubmatch(line, -1)
+					if len(got) > 0 {
+						ret = append(ret, MdTitle{Line: i, Title: got[0][2], Power: len(got[0][1])})
+					}
+				}
+			}
+			i++
+			isInTitle = false
+			line = ""
+		} else if c == '`' {
+			isInBlock = !isInBlock
+			line += string(c)
+		} else if c == '#' && !isInBlock {
+			isInTitle = true
+			line += string(c)
+		} else {
+			line += string(c)
+		}
+	}
+	return ret
+}
+
+// MakeTitleTree transform a raw list of titles into a tree.
+func MakeTitleTree(titles []MdTitle) *MdTitleTree {
+
+	root := &MdTitleTree{}
+	cur := root
+	for _, t := range titles {
+		nnew := &MdTitleTree{MdTitle: t}
+		if t.Power == 1 {
+			root.Items = append(root.Items, nnew)
+			cur = nnew
+		} else if t.Power > cur.Power {
+			parent := root.LastOf(t.Power - 1)
+			if parent == nil {
+				parent = cur
+			}
+			parent.Items = append(parent.Items, nnew)
+		} else if t.Power == cur.Power {
+			parent := root.LastOf(t.Power - 1)
+			parent.Items = append(parent.Items, nnew)
+		} else if t.Power < cur.Power {
+			parent := root.LastOf(t.Power - 1)
+			parent.Items = append(parent.Items, nnew)
+		}
+	}
+	return root
+}
+
+// GetMdLinkHash encodes s to insert into an MD link.
+func GetMdLinkHash(link string) string {
+	link = strings.ToLower(link)
+	link = strings.Replace(link, "/", "", -1)
+	link = strings.Replace(link, "$", "", -1)
+	link = strings.Replace(link, ">", "", -1)
+	link = strings.Replace(link, ".", "", -1)
+	link = strings.Replace(link, " ", "-", -1)
+	return link
+}
+
+// MdTitleTree is an MdTitle with tree capabilities
+type MdTitleTree struct {
+	MdTitle
+	Items []*MdTitleTree
+}
+
+// Traverse a tree
+func (m *MdTitleTree) Traverse(f func(*MdTitleTree)) {
+	f(m)
+	for _, i := range m.Items {
+		i.Traverse(f)
+	}
+}
+
+// LastOf a tree
+func (m *MdTitleTree) LastOf(P int) *MdTitleTree {
+	var ret *MdTitleTree
+	if m.Power+1 == P && len(m.Items) > 0 {
+		return m.Items[len(m.Items)-1]
+	} else if m.Power < P {
+		for _, t := range m.Items {
+			if x := t.LastOf(P); x != nil {
+				ret = x
+			}
+		}
+	}
+	return ret
+}
+
+// LastOf a tree
+func (m *MdTitleTree) String() string {
+	x := strings.Repeat("#", m.Power)
+	return fmt.Sprintf("%-5v %-15q Items:%v", x, m.Title, len(m.Items))
+}
+
+// MdTitle is a markdwon title.
+type MdTitle struct {
+	Line  int
+	Power int
+	Title string
+}
