@@ -115,7 +115,7 @@ __deprecated helpers__
 | __gh/releases__ | Show a text to link the release page. | |
 | __badge/travis__ | Show a travis badge. | |
 | __badge/appveyor__ | Show an appveyor badge. | |
-| __badge/codeship__ | Show a codeship badge. | __CsUUID__: the codeship project UUID. Within your `e.md` file use the `render` function, `{render "badge/codeship" . "CsUUID" "xxxxxx"}`. Via cli, add it with `--data '{"CsUUID": "xxxxxx"}'`. |
+| __badge/codeship__ | Show a codeship badge. | __CsProjectID__: The codeship project ID (*123465*). <br/> __CsUUID__: the codeship project UUID (*654654-6465-54...*). <br/>Within your `e.md` file use the `render` function, `{render "badge/codeship" . "CsUUID" "xx" "CsProjectID" "yyy"}`. <br/>Via cli, add it with `--data '{"CsUUID": "xx", "CsProjectID":"yy"}'`. |
 | __choco/install__ | Show an sh snippet to install the package with chocolatey. | |
 | __linux/gh_src_repo__ | Show an sh snippet to install the package via linux repositories (deb/rpm). | |
 | __linux/gh_pkg__ | Show an sh snippet to install the package via linux packages (deb/rpm). | |

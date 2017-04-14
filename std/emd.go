@@ -195,15 +195,27 @@ Check the [release page](https://github.com/{{.User}}/{{.Name}}/releases)!
 {{- end}}`)
 
 	g.AddTemplate(`{{define "badge/travis" -}}
-[![travis Status](https://travis-ci.org/{{.User}}/{{.Name}}.svg?branch={{.Branch}})](https://travis-ci.org/{{.User}}/{{.Name}})
+[!` +
+		`[travis Status]` +
+		`(https://travis-ci.org/{{.User}}/{{.Name}}.svg?branch={{.Branch}})` +
+		`]` +
+		`(https://travis-ci.org/{{.User}}/{{.Name}})
 {{- end}}`)
 
-	g.AddTemplate(`{{define "badge/appveyor" -}}
-[![appveyor Status](https://ci.appveyor.com/api/projects/status/{{.ProviderName}}/{{.User}}/{{.Name}}?branch={{.Branch}}&svg=true)](https://ci.appveyor.com/project/{{.User}}/{{.Name}})
-{{- end}}`)
+	g.AddTemplate(`{{define "badge/appveyor"}}
+[!` +
+		`[appveyor Status]` +
+		`(https://ci.appveyor.com/api/projects/status/{{.ProviderName}}/{{.User}}/{{.Name}}?branch={{.Branch}}&svg=true)` +
+		`]` +
+		`(https://ci.appveyor.com/project/{{.User}}/{{.Name}})
+	{{- end}}`)
 
 	g.AddTemplate(`{{define "badge/codeship" -}}
-[![codeship Status](https://codeship.com/projects/{{.CsUUID}}/status?branch={{.Branch}})](https://codeship.com/{{.CsUUID}})
+[!` +
+		`[codeship Status]` +
+		`(https://codeship.com/projects/{{.CsUUID}}/status?branch={{.Branch}})` +
+		`]` +
+		`(https://codeship.com/{{.CsProjectID}})` + `
 {{- end}}`)
 
 	g.AddTemplate(`{{define "choco/install" -}}
