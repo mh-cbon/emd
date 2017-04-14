@@ -63,19 +63,27 @@ func Register(g *emd.Generator) error {
 		return strings.TrimSpace(string(out)), err
 	})
 
-	g.AddTemplate(`{{define "go/install"}}
-` + "```" + `sh
+	g.AddTemplate(`{{define "go/install" -}}
+` + "```sh" + `
 go get {{.ProviderURL}}/{{.User}}/{{.Name}}
 ` + "```" + `
-{{end}}`)
+{{- end}}`)
 
-	g.AddTemplate(`{{define "badge/godoc"}}
-[![GoDoc](https://godoc.org/{{.ProviderURL}}/{{.User}}/{{.Name}}?status.svg)](http://godoc.org/{{.ProviderURL}}/{{.User}}/{{.Name}})
-{{end}}`)
+	g.AddTemplate(`{{define "badge/godoc" -}}
+[!` +
+		`[GoDoc]` +
+		`(https://godoc.org/{{.ProviderURL}}/{{.User}}/{{.Name}}?status.svg)` +
+		`]` +
+		`(http://godoc.org/{{.ProviderURL}}/{{.User}}/{{.Name}})
+{{- end}}`)
 
-	g.AddTemplate(`{{define "badge/goreport"}}
-[![Go Report Card](https://goreportcard.com/badge/{{.ProviderURL}}/{{.User}}/{{.Name}})](https://goreportcard.com/report/{{.ProviderURL}}/{{.User}}/{{.Name}})
-{{end}}`)
+	g.AddTemplate(`{{define "badge/goreport" -}}
+[!` +
+		`[Go Report Card]` +
+		`(https://goreportcard.com/badge/{{.ProviderURL}}/{{.User}}/{{.Name}})` +
+		`]` +
+		`(https://goreportcard.com/report/{{.ProviderURL}}/{{.User}}/{{.Name}})
+{{- end}}`)
 
 	return nil
 }
