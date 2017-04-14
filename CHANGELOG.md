@@ -1,5 +1,19 @@
 # Changelog - emd
 
+### 0.0.9-beta4
+
+__Changes__
+
+- toc: improve toc parser, refactored, added tests
+
+__Contributors__
+
+- mh-cbon
+
+Released by mh-cbon, Fri 14 Apr 2017 -
+[see the diff](https://github.com/mh-cbon/emd/compare/0.0.9-beta3...0.0.9-beta4#diff)
+______________
+
 ### 0.0.9-beta3
 
 __Changes__
