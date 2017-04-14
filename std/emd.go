@@ -117,7 +117,7 @@ func Register(g *emd.Generator) error {
 				titles := utils.GetAllMdTitles(s)
 				x := titles[:0]
 				for _, t := range titles {
-					if t.Line > lineIndex-1 {
+					if t.Line > lineIndex {
 						x = append(x, t)
 					}
 				}
