@@ -266,4 +266,3 @@ gump patch # bump
 # History
 
 [CHANGELOG](CHANGELOG.md)
-
