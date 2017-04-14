@@ -119,6 +119,10 @@ func (g Generator) GetKey(K string) interface{} {
 
 //GetSKey returns a string value of K.
 func (g Generator) GetSKey(K string) string {
+	v := g.GetKey(K)
+	if v == nil {
+		return ""
+	}
 	return fmt.Sprintf("%v", g.GetKey(K))
 }
 
