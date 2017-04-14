@@ -7,8 +7,6 @@ Testy:    yyyyy
 ---
 # {{.Name}}
 
-{{.Test}}
-{{.Testy}}
 {{template "badge/travis" .}} {{template "badge/appveyor" .}} {{template "badge/goreport" .}} {{template "badge/godoc" .}} {{template "license/shields" .}}
 
 {{pkgdoc}}
