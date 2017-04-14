@@ -38,11 +38,11 @@ func GetPrelude(s string) (string, map[string]interface{}, error) {
 		}
 	}
 
-	// rebuild the tempalte without prelude
+	// rebuild the template without prelude
 	c := ""
 	for _, l := range k[i:] {
 		c += fmt.Sprintf("%v\n", l)
 	}
 
-	return c, v, nil
+	return strings.TrimRight(c, "\n") + "\n", v, nil
 }
