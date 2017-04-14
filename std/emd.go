@@ -245,5 +245,13 @@ https://raw.githubusercontent.com/mh-cbon/latest/master/install.sh \
 ` + "```" + `
 {{- end}}`)
 
+	g.AddTemplate(`{{define "license/shields" -}}
+[!` +
+		`[{{.License}} License]` +
+		`(http://img.shields.io/badge/License-{{.License}}-{{or .License "blue"}}.svg)` +
+		`]` +
+		`({{or .LicenseFile "LICENSE"}})
+{{- end}}`)
+
 	return nil
 }
