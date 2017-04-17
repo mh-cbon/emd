@@ -1,5 +1,36 @@
 # Changelog - emd
 
+### 0.0.9-beta5
+
+__Changes__
+
+- new functions:
+  -__yaml(file string, keypaths ...string)__: parses and build new yaml content of given file.
+  -__preline(pre , content string)__: prepends pre for every lines of content.
+  -__echo(s ...string)__: echo every string s.
+  -__read(file string)__: returns file content.
+- toc: multiple fixes,
+    - it properly handles duplicated title by appending an increment
+    - fix handling of !; in links generator
+    - fix line counting when extracting markdown titles
+    - fix md title selection starting at line N
+- prelude:
+  - fix read of quoted values
+  - prelude data is now read on all templates added, not only file
+  - fix last eol handling
+- codeship fix #2: proper project url
+- bump script: added new utils/ tests
+- glide: init versionned dependencies to handle yaml files.
+- godoc: refactoring to improve documentation
+
+__Contributors__
+
+- mh-cbon
+
+Released by mh-cbon, Mon 17 Apr 2017 -
+[see the diff](https://github.com/mh-cbon/emd/compare/0.0.9-beta4...0.0.9-beta5#diff)
+______________
+
 ### 0.0.9-beta4
 
 __Changes__
