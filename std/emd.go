@@ -7,6 +7,8 @@ import (
 	"log"
 	"strings"
 
+	yaml "gopkg.in/yaml.v2"
+
 	"github.com/mh-cbon/emd/emd"
 	"github.com/mh-cbon/emd/utils"
 )
@@ -110,6 +112,57 @@ func Color(syntax, content string) string {
 		syntax = "sh" // set the default color
 	}
 	return fmt.Sprintf("```%v\n%v\n```", syntax, content)
+}
+
+// Yaml parses given file as yaml, locate given path, build a new map, yaml encode it, returns its string.
+func Yaml(file string, paths ...string) (string, error) {
+	s, err := ioutil.ReadFile(file)
+	if err != nil {
+		return "", err
+	}
+
+	m := yaml.MapSlice{}
+	err = yaml.Unmarshal(s, &m)
+	if err != nil {
+		return "", err
+	}
+
+	res := yaml.MapSlice{}
+	if len(paths) > 0 {
+		// make it more complex later
+		for _, p := range paths {
+			for _, k := range m {
+				if k.Key.(string) == p {
+					res = append(res, k)
+
+				}
+			}
+		}
+	} else {
+		res = m
+	}
+
+	var d []byte
+	d, err = yaml.Marshal(&res)
+	if err != nil {
+		return "", err
+	}
+	return strings.TrimSpace(string(d)), nil
+}
+
+// Preline prepends every line of content with pre.
+func Preline(pre, content string) string {
+	res := ""
+	for _, c := range content {
+		res += string(c)
+		if c == '\n' {
+			res += pre
+		}
+	}
+	if res != "" {
+		res = pre + res
+	}
+	return res
 }
 
 var replaceIndex = 0
@@ -243,20 +296,15 @@ var BadgeLicense = `{{define "license/shields" -}}
 // Register standard helpers to the generator.
 func Register(g *emd.Generator) error {
 
-	// cat a file, prints a cat command and returns its body.
 	g.AddFunc("cat", Cat(g))
-	// read a file and returns its body.
 	g.AddFunc("read", Read)
-	// render a template with args
 	g.AddFunc("render", Render(g))
-	// exec a program with args.
 	g.AddFunc("exec", Exec(g))
-	// exec a program with args.
 	g.AddFunc("shell", Shell(g))
-	// surround a text block with markdown triple backquotes syntax makrup.
 	g.AddFunc("color", Color)
-	// generate a toc
 	g.AddFunc("toc", Toc(g))
+	g.AddFunc("yaml", Yaml)
+	g.AddFunc("preline", Preline)
 
 	g.AddTemplate(GHReleasePages)
 	g.AddTemplate(BadgeTravis)
