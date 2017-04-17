@@ -5,10 +5,10 @@
 __Changes__
 
 - new functions:
-  -__yaml(file string, keypaths ...string)__: parses and build new yaml content of given file.
-  -__preline(pre , content string)__: prepends pre for every lines of content.
-  -__echo(s ...string)__: echo every string s.
-  -__read(file string)__: returns file content.
+  - __yaml__(file string, keypaths ...string): parses and build new yaml content of given file.
+  - __preline__(pre , content string): prepends pre for every lines of content.
+  - __echo__(s ...string): echo every string s.
+  - __read__(file string): returns file content.
 - toc: multiple fixes,
     - it properly handles duplicated title by appending an increment
     - fix handling of !; in links generator
