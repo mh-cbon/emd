@@ -22,7 +22,7 @@ type tocTitle struct {
 // Register standard helpers to the generator.
 func Register(g *emd.Generator) error {
 
-	// cat a file and returns its body.
+	// cat a file, prints a cat command and returns its body.
 	g.AddFunc("cat", func(f string) (string, error) {
 		s, err := ioutil.ReadFile(f)
 		if err != nil {
@@ -30,6 +30,15 @@ func Register(g *emd.Generator) error {
 		}
 		pre := g.GetSKey("emd_cat_pre")
 		_, err = g.WriteString(pre + f + "\n")
+		return strings.TrimSpace(string(s)), err
+	})
+
+	// read a file and returns its body.
+	g.AddFunc("read", func(f string) (string, error) {
+		s, err := ioutil.ReadFile(f)
+		if err != nil {
+			return "", err
+		}
 		return strings.TrimSpace(string(s)), err
 	})
 
