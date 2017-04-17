@@ -1,4 +1,14 @@
 
+0.0.9-beta6
+
+  * ci: fix scripts to add glide support
+
+  - mh-cbon <mh-cbon@users.noreply.github.com>
+
+-- mh-cbon <mh-cbon@users.noreply.github.com>; Mon, 17 Apr 2017 16:26:18 +0200
+
+
+
 0.0.9-beta5
 
   * new functions:
@@ -208,3 +218,5 @@
   - mh-cbon <mh-cbon@users.noreply.github.com>
 
 -- mh-cbon <mh-cbon@users.noreply.github.com>; Wed, 22 Feb 2017 21:07:17 +0100
+
+
