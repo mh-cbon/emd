@@ -1,5 +1,19 @@
 # Changelog - emd
 
+### 0.0.9-beta7
+
+__Changes__
+
+- fix wrong import path
+
+__Contributors__
+
+- mh-cbon
+
+Released by mh-cbon, Mon 17 Apr 2017 -
+[see the diff](https://github.com/mh-cbon/emd/compare/0.0.9-beta6...0.0.9-beta7#diff)
+______________
+
 ### 0.0.9-beta6
 
 __Changes__
