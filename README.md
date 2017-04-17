@@ -148,6 +148,7 @@ The keys are injected into the template `dot`, the value are `json` decoded.
 | --- | --- | -- |
 | __color__(color string, content string]) | Embed given content with triple backquote syntax colorizer support. | |
 | __cat__(f string) | Displays a file header.<br/>Reads and returns the file body. | `emd_cat_pre: "### > "`: string to show right before the file path. |
+| __read__(f string) | Reads and returns the file body. |  |
 | __exec__(bin string, args ...string) | Displays a command line header.<br/>Executes and returns its response. | `emd_exec_pre: "### > "`:  string to show right before the command line. |
 | __shell__(s string) | Displays a command line header.<br/>Executes the command on a shell, and returns the its response. | `emd_shell_pre: "### > "`: string to show right before the command line. |
 | __toc__(maxImportance int, title ...string) | Displays a `TOC` of the `README` file being processed.<br/>`maxImportance` defines the titles to select by their numbers of `#`.<br/>`titles` define the title to display, defaults to `TOC`.<br/>Titles displayed before the call to `{ {toc x}}` are automatically ignored.| |
