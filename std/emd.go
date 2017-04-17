@@ -5,19 +5,11 @@ import (
 	"fmt"
 	"io/ioutil"
 	"log"
-	"regexp"
 	"strings"
 
 	"github.com/mh-cbon/emd/emd"
 	"github.com/mh-cbon/emd/utils"
 )
-
-var mdTitle = regexp.MustCompile(`^([#]{1,6})\s*(.+)`)
-
-type tocTitle struct {
-	w int
-	t string
-}
 
 // Register standard helpers to the generator.
 func Register(g *emd.Generator) error {
