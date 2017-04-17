@@ -19,8 +19,8 @@ See [emd README file](https://raw.githubusercontent.com/mh-cbon/emd/master/READM
 
 {{template "gh/releases" .}}
 
-#### Go
-{{template "go/install" .}}
+#### glide
+{{template "glide/install" .}}
 
 #### Chocolatey
 {{template "choco/install" .}}
