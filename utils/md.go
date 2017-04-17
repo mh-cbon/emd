@@ -45,9 +45,23 @@ func LineLess(P int, f func(*MdTitleTree)) func(*MdTitleTree) {
 
 var mdTitle = regexp.MustCompile(`^([#]{1,6})\s*(.+)`)
 
+func cntStr(in []string, what string) int {
+	c := -1
+	for _, i := range in {
+		if i == what {
+			c++
+		}
+	}
+	if c > -1 {
+		c++ // starts at 1
+	}
+	return c
+}
+
 // GetAllMdTitles extracts all MD titles markup.
 func GetAllMdTitles(content string) []MdTitle {
 	ret := []MdTitle{}
+	allTitles := []string{}
 	line := ""
 	isInBlock := false
 	isInTitle := false
@@ -58,7 +72,13 @@ func GetAllMdTitles(content string) []MdTitle {
 				if mdTitle.MatchString(line) {
 					got := mdTitle.FindAllStringSubmatch(line, -1)
 					if len(got) > 0 {
-						ret = append(ret, MdTitle{Line: i, Title: got[0][2], Power: len(got[0][1])})
+						t := got[0][2]
+						ret = append(ret, MdTitle{
+							Line: i, Title: t,
+							Power:     len(got[0][1]),
+							Duplicate: cntStr(allTitles, t),
+						})
+						allTitles = append(allTitles, t)
 					}
 				}
 			}
@@ -159,7 +179,8 @@ func (m *MdTitleTree) String() string {
 
 // MdTitle is a markdwon title.
 type MdTitle struct {
-	Line  int
-	Power int
-	Title string
+	Line      int
+	Power     int
+	Duplicate int
+	Title     string
 }

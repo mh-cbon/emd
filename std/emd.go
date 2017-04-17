@@ -211,6 +211,9 @@ func Toc(g *emd.Generator) func(int, ...string) string {
 					}
 					ee = n.Power
 					link := utils.GetMdLinkHash(n.Title)
+					if n.Duplicate > -1 {
+						link += fmt.Sprintf("-%v", n.Duplicate)
+					}
 					x := strings.Repeat("  ", e)
 					toc += fmt.Sprintf("%v- [%v](#%v)\n", x, n.Title, link)
 				}))
