@@ -21,7 +21,13 @@ See [emd README file](https://raw.githubusercontent.com/mh-cbon/emd/master/READM
 - [Templates helper](#templates-helper)
   - [Define data](#define-data)
   - [Data](#data)
-  - [Function](#function)
+  - [Functions](#functions)
+  - [Files functions](#files-functions)
+  - [Templates functions](#templates-functions)
+  - [Go utils functions](#go-utils-functions)
+  - [Markdown functions](#markdown-functions)
+  - [Cli functions](#cli-functions)
+  - [Deprecated function](#deprecated-function)
   - [Templates](#templates)
 - [API example](#api-example)
   - [> main_test.go](#-main_testgo)
@@ -125,7 +131,7 @@ tags: ["go","programming","easygen","CLI"]
 ---
 ```
 
-Then you can access thos data by their keys `{ {.categories} }`, `{ {.tags} }`
+Then you can access thos data by their keys `{{.categories}} {{.tags}}`
 
 directly followed by yout content.
 
@@ -142,19 +148,9 @@ The keys are injected into the template `dot`, the value are `json` decoded.
 | __URL__ | Project url as determined by the cwd (example: github.com/mh-cbon/emd). |
 | __Branch__ | Current vcs branch name (defaults to master). |
 
-#### Function
+#### Functions
 
-| Name | Description | Options |
-| --- | --- | -- |
-| __color__(color string, content string]) | Embed given content with triple backquote syntax colorizer support. | |
-| __cat__(f string) | Displays a file header.<br/>Reads and returns the file body. | `emd_cat_pre: "### > "`: string to show right before the file path. |
-| __read__(f string) | Reads and returns the file body. |  |
-| __exec__(bin string, args ...string) | Displays a command line header.<br/>Executes and returns its response. | `emd_exec_pre: "### > "`:  string to show right before the command line. |
-| __shell__(s string) | Displays a command line header.<br/>Executes the command on a shell, and returns the its response. | `emd_shell_pre: "### > "`: string to show right before the command line. |
-| __toc__(maxImportance int, title ...string) | Displays a `TOC` of the `README` file being processed.<br/>`maxImportance` defines the titles to select by their numbers of `#`.<br/>`titles` define the title to display, defaults to `TOC`.<br/>Titles displayed before the call to `{ {toc x}}` are automatically ignored.| |
-| __pkgdoc__(files ...string) | Reads the first of the files, or `main.go`, lookup for its package comment and returns it as plain text. | |
-| __gotest__(rpkg string, run string, args ...string) | Runs `go test <rpkg> -v -run <run> <args>`, returns its output. <br/>`rpkg` can be a path to a relative folder like `./emd`. It will resolve to <br/>`github.com/mh-cbon/emd/emd`| `emd_gotest_pre: "### $ "` defines a sring to show right before the `go test` command line. |
-| __render__(name string, data interface{}, keyValues ...interface{}) | Renders given template name, using data as its data.<br/> Additionnal data values can be declared using `keyValues ...interface{}` signature, such as <br/>`render("x", data, "key1", "val1", "key2", "val2")`. | | |
+Functions can be invoked like this `{{func "arg1" "arg2"}}`
 
 Options are keys to define into the `prelude`:
 
@@ -167,7 +163,41 @@ emd_shell_pre: "### $ "
 ---
 ```
 
-__deprecated helpers__
+#### Files functions
+
+| Name | Description | Options |
+| --- | --- | -- |
+| __cat__(f string) | Displays a file header.<br/>Reads and returns the file body. | `emd_cat_pre: "### > "`: string to show right before the file path. |
+| __read__(f string) | Reads and returns the file body. |  |
+
+#### Templates functions
+
+| Name | Description | Options |
+| --- | --- | -- |
+| __render__(name string, data interface{}, keyValues ...interface{}) | Renders given template name, using data as its data.<br/> Additionnal data values can be declared using `keyValues ...interface{}` signature, such as <br/>`render("x", data, "key1", "val1", "key2", "val2")`. | | |
+
+#### Go utils functions
+
+| Name | Description | Options |
+| --- | --- | -- |
+| __pkgdoc__(files ...string) | Reads the first of the files, or `main.go`, lookup for its package comment and returns it as plain text. | |
+| __gotest__(rpkg string, run string, args ...string) | Runs `go test <rpkg> -v -run <run> <args>`, returns its output. <br/>`rpkg` can be a path to a relative folder like `./emd`. It will resolve to <br/>`github.com/mh-cbon/emd/emd`| `emd_gotest_pre: "### $ "` defines a sring to show right before the `go test` command line. |
+
+#### Markdown functions
+
+| Name | Description | Options |
+| --- | --- | -- |
+| __color__(color string, content string]) | Embed given content with triple backquote syntax colorizer support. | |
+| __toc__(maxImportance int, title ...string) | Displays a `TOC` of the `README` file being processed.<br/>`maxImportance` defines the titles to select by their numbers of `#`.<br/>`titles` define the title to display, defaults to `TOC`.<br/>Titles displayed before the call to `{{toc x}}` are automatically ignored.| |
+
+#### Cli functions
+
+| Name | Description | Options |
+| --- | --- | -- |
+| __exec__(bin string, args ...string) | Displays a command line header.<br/>Executes and returns its response. | `emd_exec_pre: "### > "`:  string to show right before the command line. |
+| __shell__(s string) | Displays a command line header.<br/>Executes the command on a shell, and returns the its response. | `emd_shell_pre: "### > "`: string to show right before the command line. |
+
+#### Deprecated function
 
 | Name | Description |
 | --- | --- |
@@ -183,7 +213,7 @@ __deprecated helpers__
 | __gh/releases__ | Show a text to link the release page. | |
 | __badge/travis__ | Show a travis badge. | |
 | __badge/appveyor__ | Show an appveyor badge. | |
-| __badge/codeship__ | Show a codeship badge. | __CsProjectID__: The codeship project ID (*123465*).<br/> __CsUUID__: the codeship project UUID (*654654-6465-54...*).<br/>Within your `e.md` file use the `render` function, `{render "badge/codeship" . "CsUUID" "xx" "CsProjectID" "yyy"}`. <br/>Via cli, add it with `--data '{"CsUUID": "xx", "CsProjectID":"yy"}'`. |
+| __badge/codeship__ | Show a codeship badge. | __CsProjectID__: The codeship project ID (*123465*).<br/> __CsUUID__: the codeship project UUID (*654654-6465-54...*).<br/>Within your `e.md` file use the `render` function, `{{render "badge/codeship" . "CsUUID" "xx" "CsProjectID" "yyy"}}`.<br/>Via cli, add it with `--data '{"CsUUID": "xx", "CsProjectID":"yy"}'`. |
 | __choco/install__ | Show an sh snippet to install the package with chocolatey. | |
 | __linux/gh_src_repo__ | Show an sh snippet to install the package via linux repositories (deb/rpm). | |
 | __linux/gh_pkg__ | Show an sh snippet to install the package via linux packages (deb/rpm). | |
