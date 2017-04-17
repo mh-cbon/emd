@@ -13,36 +13,36 @@ import (
 	"github.com/mh-cbon/emd/utils"
 )
 
-// Register go standard helpers to the generator.
-func Register(g *emd.Generator) error {
+// PkgDoc Reads the first of the files, or `main.go`, lookup for its package comment and returns it as plain text.
+func PkgDoc(files ...string) (string, error) {
+	file := "main.go"
+	if len(files) > 0 {
+		file = files[0]
+	}
+	fset := token.NewFileSet()
+	f, err := parser.ParseFile(fset, file, nil, parser.ParseComments)
+	if err != nil {
+		return "", fmt.Errorf("Failed to parse input file: %v", err)
+	}
 
-	g.AddFunc("pkgdoc", func(files ...string) (string, error) {
-		file := "main.go"
-		if len(files) > 0 {
-			file = files[0]
-		}
-		fset := token.NewFileSet()
-		f, err := parser.ParseFile(fset, file, nil, parser.ParseComments)
-		if err != nil {
-			return "", fmt.Errorf("Failed to parse input file: %v", err)
-		}
+	if f.Comments == nil || len(f.Comments) == 0 {
+		return "Go package documentation not found!", nil
+	}
 
-		if f.Comments == nil || len(f.Comments) == 0 {
-			return "Go package documentation not found!", nil
-		}
+	return f.Comments[0].Text(), nil
+}
 
-		return f.Comments[0].Text(), nil
-	})
-
-	g.AddFunc("gotest", func(rpkg, run string, args ...string) (string, error) {
+// GoTest Reads the first of the files, or `main.go`, lookup for its package comment and returns it as plain text.
+func GoTest(g *emd.Generator) func(string, string, ...string) (string, error) {
+	return func(rpkg, run string, args ...string) (string, error) {
 		if rpkg != "" {
 			if _, err := os.Stat(rpkg); !os.IsNotExist(err) {
 				rpkg, err = filepath.Abs(rpkg)
 				if err != nil {
 					return "", err
 				}
-				g := filepath.Join(os.Getenv("GOPATH"), "src")
-				rpkg = strings.Replace(rpkg, g, "", -1)
+				GOPATH := filepath.Join(os.Getenv("GOPATH"), "src")
+				rpkg = strings.Replace(rpkg, GOPATH, "", -1)
 				rpkg = strings.Replace(rpkg, "\\", "/", -1) // windows..
 			}
 		}
@@ -64,29 +64,40 @@ func Register(g *emd.Generator) error {
 		_, err = g.WriteString(pre + s + "\n")
 
 		return strings.TrimSpace(string(out)), err
-	})
+	}
+}
 
-	g.AddTemplate(`{{define "go/install" -}}
+// InstructionGoGetInstall is a template to show instructions to install the package with go get.
+var InstructionGoGetInstall = `{{define "go/install" -}}
 ` + "```sh" + `
 go get {{.ProviderURL}}/{{.User}}/{{.Name}}
 ` + "```" + `
-{{- end}}`)
+{{- end}}`
 
-	g.AddTemplate(`{{define "badge/godoc" -}}
+// BadgeGoDoc is a template to show a godoc badge.
+var BadgeGoDoc = `{{define "badge/godoc" -}}
 [!` +
-		`[GoDoc]` +
-		`(https://godoc.org/{{.ProviderURL}}/{{.User}}/{{.Name}}?status.svg)` +
-		`]` +
-		`(http://godoc.org/{{.ProviderURL}}/{{.User}}/{{.Name}})
-{{- end}}`)
+	`[GoDoc]` +
+	`(https://godoc.org/{{.ProviderURL}}/{{.User}}/{{.Name}}?status.svg)` +
+	`]` +
+	`(http://godoc.org/{{.ProviderURL}}/{{.User}}/{{.Name}})
+{{- end}}`
 
-	g.AddTemplate(`{{define "badge/goreport" -}}
+// BadgeGoReport is a template to show a goreport badge.
+var BadgeGoReport = `{{define "badge/goreport" -}}
 [!` +
-		`[Go Report Card]` +
-		`(https://goreportcard.com/badge/{{.ProviderURL}}/{{.User}}/{{.Name}})` +
-		`]` +
-		`(https://goreportcard.com/report/{{.ProviderURL}}/{{.User}}/{{.Name}})
-{{- end}}`)
+	`[Go Report Card]` +
+	`(https://goreportcard.com/badge/{{.ProviderURL}}/{{.User}}/{{.Name}})` +
+	`]` +
+	`(https://goreportcard.com/report/{{.ProviderURL}}/{{.User}}/{{.Name}})
+{{- end}}`
 
+// Register go standard helpers to the generator.
+func Register(g *emd.Generator) error {
+	g.AddFunc("pkgdoc", PkgDoc)
+	g.AddFunc("gotest", GoTest(g))
+	g.AddTemplate(InstructionGoGetInstall)
+	g.AddTemplate(BadgeGoDoc)
+	g.AddTemplate(BadgeGoReport)
 	return nil
 }
