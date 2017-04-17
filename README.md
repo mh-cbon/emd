@@ -10,7 +10,7 @@ See [emd README file](https://raw.githubusercontent.com/mh-cbon/emd/master/READM
 
 # TOC
 - [Install](#install)
-  - [Go](#go)
+  - [glide](#glide)
   - [Chocolatey](#chocolatey)
   - [linux rpm/deb repository](#linux-rpmdeb-repository)
   - [linux rpm/deb standalone package](#linux-rpmdeb-standalone-package)
@@ -40,9 +40,13 @@ See [emd README file](https://raw.githubusercontent.com/mh-cbon/emd/master/READM
 
 Check the [release page](https://github.com/mh-cbon/emd/releases)!
 
-#### Go
+#### glide
 ```sh
-go get github.com/mh-cbon/emd
+mkdir -p $GOPATH/src/github.com/mh-cbon/emd
+cd $GOPATH/src/github.com/mh-cbon/emd
+git clone https://github.com/mh-cbon/emd.git .
+glide install
+go install
 ```
 
 #### Chocolatey
@@ -169,6 +173,7 @@ emd_shell_pre: "### $ "
 | --- | --- | -- |
 | __cat__(f string) | Displays a file header.<br/>Reads and returns the file body. | `emd_cat_pre: "### > "`: string to show right before the file path. |
 | __read__(f string) | Reads and returns the file body. |  |
+| __yaml__(f string, keypaths ...string) | Parses given file as yaml, locate given path, build a new map, yaml encode it, returns its string. |  |
 
 #### Templates functions
 
@@ -189,6 +194,8 @@ emd_shell_pre: "### $ "
 | --- | --- | -- |
 | __color__(color string, content string]) | Embed given content with triple backquote syntax colorizer support. | |
 | __toc__(maxImportance int, title ...string) | Displays a `TOC` of the `README` file being processed.<br/>`maxImportance` defines the titles to select by their numbers of `#`.<br/>`titles` define the title to display, defaults to `TOC`.<br/>Titles displayed before the call to `{{toc x}}` are automatically ignored.| |
+| __preline__(pre string, content string) | Prepends every line of content with pre. |  |
+| __echo__(f string) | Prints given string, usefull to print strings which contaisn the template tokens. |  |
 
 #### Cli functions
 
@@ -201,8 +208,8 @@ emd_shell_pre: "### $ "
 
 | Name | Description |
 | --- | --- |
-| __file__(f string[, colorizer string]) | read and display a file enclosed with triples backquotes. If `colorizer` is empty, it defaults to the file extension. |
-| __cli__(bin string, args ...string) | execute and display a command line enclosed with triples backquotes. The highlight defaults to `sh`. |
+| __file__(f string[, colorizer string]) | Read and display a file enclosed with triples backquotes. If `colorizer` is empty, it defaults to the file extension. |
+| __cli__(bin string, args ...string) | Execute and display a command line enclosed with triples backquotes. The highlight defaults to `sh`. |
 
 #### Templates
 
