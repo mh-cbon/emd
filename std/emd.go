@@ -165,6 +165,11 @@ func Preline(pre, content string) string {
 	return res
 }
 
+// Echo prints given strings.
+func Echo(content ...string) string {
+	return strings.Join(content, " ")
+}
+
 var replaceIndex = 0
 
 // Toc generates and prints a TOC.
@@ -305,6 +310,7 @@ func Register(g *emd.Generator) error {
 	g.AddFunc("toc", Toc(g))
 	g.AddFunc("yaml", Yaml)
 	g.AddFunc("preline", Preline)
+	g.AddFunc("echo", Echo)
 
 	g.AddTemplate(GHReleasePages)
 	g.AddTemplate(BadgeTravis)
