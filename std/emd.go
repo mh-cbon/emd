@@ -7,7 +7,7 @@ import (
 	"log"
 	"strings"
 
-	"github.com/go-yaml/yaml"
+	yaml "gopkg.in/yaml.v2"
 
 	"github.com/mh-cbon/emd/emd"
 	"github.com/mh-cbon/emd/utils"
