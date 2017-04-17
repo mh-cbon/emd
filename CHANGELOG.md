@@ -1,5 +1,19 @@
 # Changelog - emd
 
+### 0.0.9-beta6
+
+__Changes__
+
+- ci: fix scripts to add glide support
+
+__Contributors__
+
+- mh-cbon
+
+Released by mh-cbon, Mon 17 Apr 2017 -
+[see the diff](https://github.com/mh-cbon/emd/compare/0.0.9-beta5...0.0.9-beta6#diff)
+______________
+
 ### 0.0.9-beta5
 
 __Changes__
