@@ -116,6 +116,7 @@ func GetMdLinkHash(link string) string {
 	link = strings.Replace(link, ">", "", -1)
 	link = strings.Replace(link, ".", "", -1)
 	link = strings.Replace(link, ";", "", -1)
+	link = strings.Replace(link, "!", "", -1)
 	link = strings.Replace(link, " ", "-", -1)
 	return link
 }
