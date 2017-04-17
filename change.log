@@ -1,4 +1,14 @@
 
+0.0.9-beta7
+
+  * fix wrong import path
+
+  - mh-cbon <mh-cbon@users.noreply.github.com>
+
+-- mh-cbon <mh-cbon@users.noreply.github.com>; Mon, 17 Apr 2017 16:35:09 +0200
+
+
+
 0.0.9-beta6
 
   * ci: fix scripts to add glide support
