@@ -1,5 +1,19 @@
 # Changelog - emd
 
+### 0.0.9-beta9
+
+__Changes__
+
+- fix default reading of the md file
+
+__Contributors__
+
+- mh-cbon
+
+Released by mh-cbon, Tue 18 Apr 2017 -
+[see the diff](https://github.com/mh-cbon/emd/compare/0.0.9-beta8...0.0.9-beta9#diff)
+______________
+
 ### 0.0.9-beta8
 
 __Changes__
