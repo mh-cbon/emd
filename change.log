@@ -1,4 +1,14 @@
 
+0.0.9-beta9
+
+  * fix default reading of the md file
+
+  - mh-cbon <mh-cbon@users.noreply.github.com>
+
+-- mh-cbon <mh-cbon@users.noreply.github.com>; Tue, 18 Apr 2017 10:51:03 +0200
+
+
+
 0.0.9-beta8
 
   * fix #15: properly handle symbolic links
