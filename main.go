@@ -41,7 +41,7 @@ type gencommand struct {
 
 func init() {
 	gen := &gencommand{Command: cli.NewCommand("gen", "Process an emd file.", Generate)}
-	gen.Set.StringVar(&gen.in, "in", "README.e.md", "Input src file")
+	gen.Set.StringVar(&gen.in, "in", "", "Input src file")
 	gen.Set.StringVar(&gen.out, "out", "-", "Output destination, defaults to stdout")
 	gen.Set.StringVar(&gen.data, "data", "", "JSON map of data")
 	gen.Set.BoolVar(&gen.help, "help", false, "Show help")
@@ -176,11 +176,16 @@ func getProviderURL(s string) string {
 
 var defTemplate = `# {{.Name}}
 
-{{template "badge/travis" .}}{{template "badge/godoc" .}}
+{{template "badge/goreport" .}} {{template "badge/godoc" .}}
 
 {{pkgdoc}}
 
+# {{toc 5}}
+
 # Install
 
-{{goinstall}}
+{{template "gh/releases" .}}
+
+#### go
+{{template "go/install" .}}
 `
