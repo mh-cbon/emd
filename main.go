@@ -109,6 +109,10 @@ func Generate(s cli.Commander) error {
 		if err := gen.AddFileTemplate(cmd.in); err != nil {
 			return err
 		}
+	} else if s, err := os.Stat("README.e.md"); !os.IsNotExist(err) && s.IsDir() == false {
+		if err := gen.AddFileTemplate("README.e.md"); err != nil {
+			return err
+		}
 	} else {
 		gen.AddTemplate(defTemplate)
 	}
