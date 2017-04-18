@@ -74,6 +74,12 @@ func Generate(s cli.Commander) error {
 	if err != nil {
 		return fmt.Errorf("Failed to determmine cwd: %v", err)
 	}
+	// for those who uses symlinks to relocate their code,
+	// the path must be evaluated.
+	cwd, err = filepath.EvalSymlinks(cwd)
+	if err != nil {
+		return fmt.Errorf("Failed to determmine eval path: %v", err)
+	}
 
 	plugins := map[string]func(*emd.Generator) error{
 		"std":        std.Register,
