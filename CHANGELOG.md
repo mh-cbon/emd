@@ -1,5 +1,20 @@
 # Changelog - emd
 
+### 0.0.9-beta8
+
+__Changes__
+
+- fix #15: properly handle symbolic links
+- fix cli: it was not possible to use the default template
+
+__Contributors__
+
+- mh-cbon
+
+Released by mh-cbon, Tue 18 Apr 2017 -
+[see the diff](https://github.com/mh-cbon/emd/compare/0.0.9-beta7...0.0.9-beta8#diff)
+______________
+
 ### 0.0.9-beta7
 
 __Changes__
