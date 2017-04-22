@@ -1,4 +1,40 @@
 
+0.0.9
+
+  * feature #10: Emd file can define a prelude block of `yaml` data to inject into the template processing.
+  * cli fix: Before the -in argument was mandatory. It was not possible to use the default template.
+  * feature installer: Fixed apt/rpm repositories.
+  * feature #8: ensure an errored command line execution displays correctly.
+  * feature: added new template functions
+    - __yaml__(file string, keypaths ...string): parses and build new yaml content of given file.
+    - __preline__(pre , content string): prepends pre for every lines of content.
+    - __echo__(s ...string): echo every string s.
+    - __read__(file string): returns file content.
+    - __cat__(file string): to display the file content.
+    - __exec__(bin string, args ...string): to exec a program.
+    - __shell__(s string): to exec a command line on the underlying shell (it is not cross compatible).
+    - __color__(color string, content string): to embed content in a block code with color.
+    - __gotest__(rpkg string, run string, args ...string): exec `go test <rpkg> -v -run <run> <args...>`.
+    - __toc__(maximportance string, title string): display a TOC.
+  * feature: added new badge templates
+    - __license/shields__: tp show a license badge
+    - __badge/codeship__: tp show a codeship badge
+  * __deprecation__ #7: some template functions were deprecated to avoid pre defined formatting,
+        old behavior can be reset via new options defined into the prelude data. See also the new __color__ function.
+    - __file__ is dprecated for __cat__
+    - __cli__ is dprecated for __exec__
+  * badges fix #14: removed useless whitespace
+  * dev: Added support for glide, it was required to handle yaml.
+  * dev: updated tests
+  * dev: godoc documentation improvements.
+
+  - mh-cbon <mh-cbon@users.noreply.github.com>
+  - suntong <suntong@users.noreply.github.com>
+
+-- mh-cbon <mh-cbon@users.noreply.github.com>; Sat, 22 Apr 2017 10:51:03 +0200
+
+
+
 0.0.9-beta9
 
   * fix default reading of the md file
