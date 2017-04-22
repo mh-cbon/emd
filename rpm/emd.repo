@@ -1,5 +1,6 @@
 [emd]
 name=Enhanced Markdown template processor
+
 baseurl=https://mh-cbon.github.io/emd/rpm/$basearch/
 enabled=1
 skip_if_unavailable=1
