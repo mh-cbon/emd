@@ -199,17 +199,21 @@ func Toc(g *emd.Generator) func(int, ...string) string {
 				root := utils.MakeTitleTree(x)
 				toc := ""
 				e := -1
-				ee := -1
+
+				lastPower := -1
 				root.Traverse(utils.PowerLess(5, func(n *utils.MdTitleTree) {
-					if n.Power > ee {
+					if n.Power < 2 {
+						e = 0
+					} else if lastPower < n.Power {
 						e++
-					} else if n.Power < ee {
+					} else {
 						e--
-						if e < 0 {
-							e = 0
-						}
 					}
-					ee = n.Power
+					if e < 0 {
+						e = 0
+					}
+					lastPower = n.Power
+
 					link := utils.GetMdLinkHash(n.Title)
 					if n.Duplicate > -1 {
 						link += fmt.Sprintf("-%v", n.Duplicate)

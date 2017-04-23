@@ -107,19 +107,30 @@ func MakeTitleTree(titles []MdTitle) *MdTitleTree {
 	root := &MdTitleTree{}
 	cur := root
 	for _, t := range titles {
+
 		if t.Power == 1 {
 			nnew := &MdTitleTree{MdTitle: t, Parent: root}
 			root.Items = append(root.Items, nnew)
 			cur = nnew
+
 		} else if t.Power > cur.Power {
 			nnew := &MdTitleTree{MdTitle: t, Parent: cur}
 			cur.Items = append(cur.Items, nnew)
 			cur = nnew
+
 		} else if t.Power == cur.Power {
 			nnew := &MdTitleTree{MdTitle: t, Parent: cur.Parent}
 			cur.Parent.Items = append(cur.Parent.Items, nnew)
 			cur = nnew
+
 		} else if t.Power < cur.Power {
+			for {
+				if cur.Parent.Power <= t.Power {
+					break
+				}
+				cur = cur.Parent
+			}
+			cur = cur.Parent
 			nnew := &MdTitleTree{MdTitle: t, Parent: cur.Parent}
 			cur.Parent.Items = append(cur.Parent.Items, nnew)
 			cur = nnew

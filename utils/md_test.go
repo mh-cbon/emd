@@ -151,6 +151,87 @@ func TestMakeTitleTree(t *testing.T) {
 	}
 }
 
+func TestMakeTitleTree2(t *testing.T) {
+	content := `
+# Install
+
+## go
+
+` + "```" + `sh
+go get github.com/semver/cmd
+` + "```" + `
+
+# Cli
+
+## Help
+
+#### $ go run main.go -help
+` + "```" + `sh
+semver - 0.0.0
+
+Usage
+
+	-filter|-c  string  Filter versions matching given semver constraint
+	-invalid    bool    Show only invalid versions
+
+	-sort|-s    bool    Sort input versions
+	-desc|-d    bool    Sort versions descending
+
+	-first|-f   bool    Only first version
+	-last|-l    bool    Only last version
+
+	-json|-j    bool    JSON output
+
+	-version    bool    Show version
+
+Example
+
+	semver -c 1.x 0.0.4 1.2.3
+	exho "0.0.4 1.2.3" | semver -j
+	exho "0.0.4 1.2.3" | semver -s
+	exho "0.0.4 1.2.3" | semver -s -d -j -f
+	exho "0.0.4 1.2.3 tomate" | semver -invalid
+` + "```" + `
+
+# Example
+
+## Filter versions
+
+#### $ go run main.go -c 1.x 1.0.4 1.1.1 1.2.2 2.3.4
+` + "```" + `sh
+- 1.0.4
+- 1.1.1
+- 1.2.2
+` + "```" + `
+
+## Use stdin
+
+#### $ echo '1.0.4 1.1.1 1.2.2 2.3.4' | go run main.go -c 2.x
+` + "```" + `sh
+- 2.3.4
+` + "```" + `
+
+`
+
+	titles := GetAllMdTitles(content)
+	root := MakeTitleTree(titles)
+	got := root.Items
+
+	fmt.Println(root)
+	fmt.Println(got[0])
+	fmt.Println(got[0].Items[0])
+	fmt.Println(got[1])
+	fmt.Println(got[1].Items[0])
+	fmt.Println(got[1].Items[0].Items[0])
+	fmt.Println(got[2])
+	fmt.Println(got[2].Items[0])
+	fmt.Println(got[2].Items[0].Items[0])
+	fmt.Println(got[2].Items[0])
+	fmt.Println(got[2].Items[0].Items[0])
+
+	t.Error("nop")
+}
+
 func TestTraverse(t *testing.T) {
 	content := `# one
 ## two
@@ -189,6 +270,93 @@ func TestTraverse(t *testing.T) {
 `
 	if want != got {
 		t.Errorf("TestTraverse failed, want=\n%v\ngot\n%v", want, got)
+	}
+}
+
+func TestTraverse2(t *testing.T) {
+	content := `
+# Install
+
+## go
+
+` + "```" + `sh
+go get github.com/semver/cmd
+` + "```" + `
+
+# Cli
+
+## Help
+
+#### $ go run main.go -help
+` + "```" + `sh
+semver - 0.0.0
+
+Usage
+
+	-filter|-c  string  Filter versions matching given semver constraint
+	-invalid    bool    Show only invalid versions
+
+	-sort|-s    bool    Sort input versions
+	-desc|-d    bool    Sort versions descending
+
+	-first|-f   bool    Only first version
+	-last|-l    bool    Only last version
+
+	-json|-j    bool    JSON output
+
+	-version    bool    Show version
+
+Example
+
+	semver -c 1.x 0.0.4 1.2.3
+	exho "0.0.4 1.2.3" | semver -j
+	exho "0.0.4 1.2.3" | semver -s
+	exho "0.0.4 1.2.3" | semver -s -d -j -f
+	exho "0.0.4 1.2.3 tomate" | semver -invalid
+` + "```" + `
+
+# Example
+
+## Filter versions
+
+#### $ go run main.go -c 1.x 1.0.4 1.1.1 1.2.2 2.3.4
+` + "```" + `sh
+- 1.0.4
+- 1.1.1
+- 1.2.2
+` + "```" + `
+
+## Use stdin
+
+#### $ echo '1.0.4 1.1.1 1.2.2 2.3.4' | go run main.go -c 2.x
+` + "```" + `sh
+- 2.3.4
+` + "```" + `
+
+`
+
+	titles := GetAllMdTitles(content)
+	root := MakeTitleTree(titles)
+	got := ""
+	root.Traverse(PowerLess(5, func(n *MdTitleTree) {
+		// got += MakeTOCItem("  ", n) + "\n"
+		link := GetMdLinkHash(n.Title)
+		x := strings.Repeat("  ", n.Power)
+		got += fmt.Sprintf("%v- [%v](#%v)\n", x, n.Title, link)
+	}))
+	want := `  - [Install](#install)
+    - [go](#go)
+  - [Cli](#cli)
+    - [Help](#help)
+        - [$ go run main.go -help](#-go-run-maingo--help)
+  - [Example](#example)
+    - [Filter versions](#filter-versions)
+        - [$ go run main.go -c 1.x 1.0.4 1.1.1 1.2.2 2.3.4](#-go-run-maingo--c-1x-104-111-122-234)
+    - [Use stdin](#use-stdin)
+        - [$ echo '1.0.4 1.1.1 1.2.2 2.3.4' | go run main.go -c 2.x](#-echo-'104-111-122-234'-|-go-run-maingo--c-2x)
+`
+	if want != got {
+		t.Errorf("TestTraverse failed, want=\n%q\ngot\n%q", want, got)
 	}
 }
 
