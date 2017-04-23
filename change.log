@@ -1,5 +1,5 @@
 
-0.0.9
+UNRELEASED
 
   * feature #10: Emd file can define a prelude block of `yaml` data to inject into the template processing.
   * cli fix: Before the -in argument was mandatory. It was not possible to use the default template.
@@ -17,8 +17,8 @@
     - __gotest__(rpkg string, run string, args ...string): exec `go test <rpkg> -v -run <run> <args...>`.
     - __toc__(maximportance string, title string): display a TOC.
   * feature: added new badge templates
-    - __license/shields__: tp show a license badge
-    - __badge/codeship__: tp show a codeship badge
+    - __license/shields__: show a license badge
+    - __badge/codeship__: show a codeship badge
   * __deprecation__ #7: some template functions were deprecated to avoid pre defined formatting,
         old behavior can be reset via new options defined into the prelude data. See also the new __color__ function.
     - __file__ is dprecated for __cat__
@@ -28,12 +28,10 @@
   * dev: updated tests
   * dev: godoc documentation improvements.
 
-  - mh-cbon <mh-cbon@users.noreply.github.com>
   - suntong <suntong@users.noreply.github.com>
+  - mh-cbon <mh-cbon@users.noreply.github.com>
 
 -- mh-cbon <mh-cbon@users.noreply.github.com>; Sat, 22 Apr 2017 10:51:03 +0200
-
-
 
 0.0.9-beta9
 
@@ -285,5 +283,3 @@
   - mh-cbon <mh-cbon@users.noreply.github.com>
 
 -- mh-cbon <mh-cbon@users.noreply.github.com>; Wed, 22 Feb 2017 21:07:17 +0100
-
-
