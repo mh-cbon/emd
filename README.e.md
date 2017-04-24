@@ -37,6 +37,8 @@ See [emd README file](https://raw.githubusercontent.com/mh-cbon/emd/master/READM
 
 #### $ {{shell "emd gen -help" | color "sh"}}
 
+#### $ {{shell "emd init -help" | color "sh"}}
+
 # Cli examples
 
 ```sh
