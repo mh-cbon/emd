@@ -206,7 +206,7 @@ func Toc(g *emd.Generator) func(int, ...string) string {
 						e = 0
 					} else if lastPower < n.Power {
 						e++
-					} else {
+					} else if lastPower > n.Power {
 						e--
 					}
 					if e < 0 {
