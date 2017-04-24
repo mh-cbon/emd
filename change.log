@@ -1,5 +1,5 @@
 
-UNRELEASED
+0.0.9
 
   * feature #10: Emd file can define a prelude block of `yaml` data to inject into the template processing.
   * cli fix: Before the -in argument was mandatory. It was not possible to use the default template.
