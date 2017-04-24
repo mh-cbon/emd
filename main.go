@@ -5,6 +5,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"io/ioutil"
+	"log"
 	"os"
 	"path/filepath"
 	"strings"
@@ -14,6 +16,7 @@ import (
 	"github.com/mh-cbon/emd/emd"
 	gostd "github.com/mh-cbon/emd/go"
 	gononstd "github.com/mh-cbon/emd/go-nonstd"
+	"github.com/mh-cbon/emd/provider"
 	"github.com/mh-cbon/emd/std"
 )
 
@@ -25,7 +28,8 @@ var program = cli.NewProgram("emd", VERSION)
 func main() {
 	program.Bind()
 	if err := program.Run(os.Args); err != nil {
-		panic(err)
+		fmt.Println(err)
+		os.Exit(1)
 	}
 }
 
@@ -39,6 +43,15 @@ type gencommand struct {
 	shortHelp bool
 }
 
+// init sub command
+type initcommand struct {
+	*cli.Command
+	help      bool
+	shortHelp bool
+	out       string
+	force     bool
+}
+
 func init() {
 	gen := &gencommand{Command: cli.NewCommand("gen", "Process an emd file.", Generate)}
 	gen.Set.StringVar(&gen.in, "in", "", "Input src file")
@@ -48,6 +61,13 @@ func init() {
 	gen.Set.BoolVar(&gen.shortHelp, "h", false, "Show help")
 
 	program.Add(gen)
+
+	ini := &initcommand{Command: cli.NewCommand("init", "Init a basic emd file.", InitFile)}
+	ini.Set.BoolVar(&ini.help, "help", false, "Show help")
+	ini.Set.BoolVar(&ini.shortHelp, "h", false, "Show help")
+	ini.Set.BoolVar(&ini.force, "force", false, "Force write")
+	ini.Set.StringVar(&ini.out, "out", "README.e.md", "Out file")
+	program.Add(ini)
 }
 
 // Generate is the cli command implementation of gen.
@@ -70,32 +90,16 @@ func Generate(s cli.Commander) error {
 		defer x.Close()
 	}
 
-	cwd, err := os.Getwd()
+	cwd, err := getCwd()
 	if err != nil {
-		return fmt.Errorf("Failed to determmine cwd: %v", err)
+		return err
 	}
-	// for those who uses symlinks to relocate their code,
-	// the path must be evaluated.
-	cwd, err = filepath.EvalSymlinks(cwd)
-	if err != nil {
-		return fmt.Errorf("Failed to determmine eval path: %v", err)
-	}
+	gopath := filepath.Join(os.Getenv("GOPATH"), "src")
+	gopath = strings.Replace(gopath, "\\", "/", -1)
+	projectPath := cwd[len(gopath):]
 
-	plugins := map[string]func(*emd.Generator) error{
-		"std":        std.Register,
-		"gostd":      gostd.Register,
-		"gononstd":   gononstd.Register,
-		"deprecated": deprecated.Register,
-	}
-
-	data := map[string]interface{}{
-		"Name":         filepath.Base(cwd),
-		"User":         getProjectUser(cwd),
-		"ProviderURL":  getProviderURL(cwd),
-		"ProviderName": getProviderName(cwd),
-		"URL":          getProviderURL(cwd) + "/" + getProjectUser(cwd) + "/" + filepath.Base(cwd),
-		"Branch":       "master",
-	}
+	plugins := getPlugins()
+	data := getData(projectPath)
 
 	if cmd.data != "" {
 		if err := json.Unmarshal([]byte(cmd.data), &data); err != nil {
@@ -132,6 +136,31 @@ func Generate(s cli.Commander) error {
 	return nil
 }
 
+func getData(cwd string) map[string]interface{} {
+	p := provider.Default(cwd)
+	if p.Match() == false {
+		log.Printf("Failed to identify this project url %v\n", cwd)
+	}
+	return map[string]interface{}{
+		"Name":         p.GetProjectName(),
+		"User":         p.GetUserName(),
+		"ProviderURL":  p.GetProviderURL(),
+		"ProviderName": p.GetProviderID(),
+		"URL":          p.GetURL(),
+		"ProjectURL":   p.GetProjectURL(),
+		"Branch":       "master",
+	}
+}
+
+func getPlugins() map[string]func(*emd.Generator) error {
+	return map[string]func(*emd.Generator) error{
+		"std":        std.Register,
+		"gostd":      gostd.Register,
+		"gononstd":   gononstd.Register,
+		"deprecated": deprecated.Register,
+	}
+}
+
 func getStdout(out string) (io.Writer, error) {
 
 	ret := os.Stdout
@@ -149,34 +178,40 @@ func getStdout(out string) (io.Writer, error) {
 	return ret, nil
 }
 
-func getProjectUser(s string) string {
-	ss := strings.Split(s, "/")
-	if len(ss) > 2 {
-		return ss[len(ss)-2]
+func getCwd() (string, error) {
+	cwd, err := os.Getwd()
+	if err != nil {
+		return "", fmt.Errorf("Failed to determmine cwd: %v", err)
 	}
-	return ""
+	// for those who uses symlinks to relocate their code,
+	// the path must be evaluated.
+	cwd, err = filepath.EvalSymlinks(cwd)
+	if err != nil {
+		return "", fmt.Errorf("Failed to determmine eval path: %v", err)
+	}
+	return cwd, nil
 }
 
-func getProviderName(s string) string {
-	if strings.Index(s, "github.com/") > -1 {
-		return "github"
-	}
-	if strings.Index(s, "gitlab.com/") > -1 {
-		return "gitlab"
-	}
-	// etc
-	return ""
-}
+// InitFile creates a basic emd file if none exits.
+func InitFile(s cli.Commander) error {
 
-func getProviderURL(s string) string {
-	if strings.Index(s, "github.com/") > -1 {
-		return "github.com"
+	cmd, ok := s.(*initcommand)
+	if ok == false {
+		return fmt.Errorf("Invalid command type %T", s)
 	}
-	if strings.Index(s, "gitlab.com/") > -1 {
-		return "gitlab.com"
+
+	if cmd.help || cmd.shortHelp {
+		return program.ShowCmdUsage(cmd)
 	}
-	// etc
-	return ""
+
+	out := cmd.out
+	if cmd.out == "" {
+		out = "README.e.md"
+	}
+	if _, err := os.Stat(out); !cmd.force && !os.IsNotExist(err) {
+		return fmt.Errorf("File exits at %q", out)
+	}
+	return ioutil.WriteFile(out, []byte(defTemplate), os.ModePerm)
 }
 
 var defTemplate = `# {{.Name}}
