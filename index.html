@@ -25,8 +25,7 @@
       
       <h1 id="emd">emd</h1>
 
-<p><a href="https://travis-ci.org/mh-cbon/emd"><img src="https://travis-ci.org/mh-cbon/emd.svg?branch=master" alt="travis Status" /></a> 
-<a href="https://ci.appveyor.com/project/mh-cbon/emd"><img src="https://ci.appveyor.com/api/projects/status/github/mh-cbon/emd?branch=master&amp;svg=true" alt="appveyor Status" /></a> <a href="https://goreportcard.com/report/github.com/mh-cbon/emd"><img src="https://goreportcard.com/badge/github.com/mh-cbon/emd" alt="Go Report Card" /></a> <a href="http://godoc.org/github.com/mh-cbon/emd"><img src="https://godoc.org/github.com/mh-cbon/emd?status.svg" alt="GoDoc" /></a> <a href="LICENSE"><img src="http://img.shields.io/badge/License-MIT-yellow.svg" alt="MIT License" /></a></p>
+<p><a href="https://travis-ci.org//mh-cbon/emd"><img src="https://travis-ci.org//mh-cbon/emd.svg?branch=master" alt="travis Status" /></a> <a href="https://ci.appveyor.com/projects//mh-cbon/emd"><img src="https://ci.appveyor.com/api/projects/status//github/mh-cbon/emd?branch=master&amp;svg=true" alt="Appveyor Status" /></a> <a href="https://goreportcard.com/report/github.com/mh-cbon/emd"><img src="https://goreportcard.com/badge/github.com/mh-cbon/emd" alt="Go Report Card" /></a> <a href="http://godoc.org/github.com/mh-cbon/emd"><img src="https://godoc.org/github.com/mh-cbon/emd?status.svg" alt="GoDoc" /></a> <a href="LICENSE"><img src="http://img.shields.io/badge/License-MIT-yellow.svg" alt="MIT License" /></a></p>
 
 <p>Enhanced Markdown template processor.</p>
 
@@ -46,6 +45,7 @@
     <ul>
       <li><a href="#-emd--help">$ emd -help</a></li>
       <li><a href="#-emd-gen--help">$ emd gen -help</a></li>
+      <li><a href="#-emd-init--help">$ emd init -help</a></li>
     </ul>
   </li>
   <li><a href="#cli-examples">Cli examples</a></li>
@@ -128,6 +128,7 @@ Usage
 
 Commands
 	gen	Process an emd file.
+	init	Init a basic emd file.
 </code></pre>
 </div>
 
@@ -147,9 +148,26 @@ Command <span class="s2">"gen"</span>: Process an emd file.
 </code></pre>
 </div>
 
+<h4 id="-emd-init--help">$ emd init -help</h4>
+<div class="language-sh highlighter-rouge"><pre class="highlight"><code>emd - 0.0.0
+
+Command <span class="s2">"init"</span>: Init a basic emd file.
+  -force
+    	Force write
+  -h	Show <span class="nb">help</span>
+  -help
+    	Show <span class="nb">help</span>
+  -out string
+    	Out file <span class="o">(</span>default <span class="s2">"README.e.md"</span><span class="o">)</span>
+</code></pre>
+</div>
+
 <h1 id="cli-examples">Cli examples</h1>
 
 <div class="language-sh highlighter-rouge"><pre class="highlight"><code>
+<span class="c"># Init a basic emd file to get started.</span>
+emd init
+
 <span class="c"># Reads content of README.e.md, outputs to README.md</span>
 emd gen -out README.md
 
@@ -163,9 +181,7 @@ emd gen -out README.md --data<span class="o">=</span><span class="s1">'{"CsUUID"
 
 <h4 id="define-data">Define data</h4>
 
-<p>It is possible to define data directly into the <code class="highlighter-rouge">README</code> file,</p>
-
-<p>insert a prelude such as</p>
+<p>Template data can be defined directly into the <code class="highlighter-rouge">README.e.md</code> file using a <code class="highlighter-rouge">prelude</code>,</p>
 
 <div class="language-yml highlighter-rouge"><pre class="highlight"><code><span class="nn">---</span>
 <span class="s">title</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Easygen</span><span class="nv"> </span><span class="s">-</span><span class="nv"> </span><span class="s">Easy</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">use</span><span class="nv"> </span><span class="s">universal</span><span class="nv"> </span><span class="s">code/text</span><span class="nv"> </span><span class="s">generator"</span>
@@ -176,11 +192,11 @@ emd gen -out README.md --data<span class="o">=</span><span class="s1">'{"CsUUID"
 </code></pre>
 </div>
 
-<p>Then you can access thos data by their keys ` `</p>
-
-<p>directly followed by yout content.</p>
+<p>This <code class="highlighter-rouge">prelude</code> must be inserted right before the regular <code class="highlighter-rouge">md</code> content.</p>
 
 <p>The keys are injected into the template <code class="highlighter-rouge">dot</code>, the value are <code class="highlighter-rouge">json</code> decoded.</p>
+
+<p>Template can access those data using name: ` `</p>
 
 <h4 id="data">Data</h4>
 
@@ -193,14 +209,6 @@ emd gen -out README.md --data<span class="o">=</span><span class="s1">'{"CsUUID"
   </thead>
   <tbody>
     <tr>
-      <td><strong>Name</strong></td>
-      <td>Project name based on the cwd (example: emd).</td>
-    </tr>
-    <tr>
-      <td><strong>User</strong></td>
-      <td>User name based on the cwd (example: mh-cbon).</td>
-    </tr>
-    <tr>
       <td><strong>ProviderURL</strong></td>
       <td>The vcs provider url (example: github.com).</td>
     </tr>
@@ -209,8 +217,20 @@ emd gen -out README.md --data<span class="o">=</span><span class="s1">'{"CsUUID"
       <td>The vcs provider name (example: github).</td>
     </tr>
     <tr>
+      <td><strong>Name</strong></td>
+      <td>Project name based on the cwd (example: emd).</td>
+    </tr>
+    <tr>
+      <td><strong>User</strong></td>
+      <td>User name based on the cwd (example: mh-cbon).</td>
+    </tr>
+    <tr>
       <td><strong>URL</strong></td>
       <td>Project url as determined by the cwd (example: github.com/mh-cbon/emd).</td>
+    </tr>
+    <tr>
+      <td><strong>ProjectURL</strong></td>
+      <td>Project url as determined by the cwd + relative path (example: github.com/mh-cbon/emd/cmd).</td>
     </tr>
     <tr>
       <td><strong>Branch</strong></td>
@@ -247,17 +267,17 @@ emd gen -out README.md --data<span class="o">=</span><span class="s1">'{"CsUUID"
   <tbody>
     <tr>
       <td><strong>cat</strong>(f string)</td>
-      <td>Displays a file header.<br />Reads and returns the file body.</td>
+      <td>Displays a file header.<br />Read and return the file body.</td>
       <td><code class="highlighter-rouge">emd_cat_pre: "### &gt; "</code>: string to show right before the file path.</td>
     </tr>
     <tr>
       <td><strong>read</strong>(f string)</td>
-      <td>Reads and returns the file body.</td>
+      <td>Read and return the file body.</td>
       <td> </td>
     </tr>
     <tr>
       <td><strong>yaml</strong>(f string, keypaths …string)</td>
-      <td>Parses given file as yaml, locate given path, build a new map, yaml encode it, returns its string.</td>
+      <td>Parse given file as yaml, locate given path into the yaml content, yaml re encode it, return its string.</td>
       <td> </td>
     </tr>
   </tbody>
@@ -277,7 +297,13 @@ emd gen -out README.md --data<span class="o">=</span><span class="s1">'{"CsUUID"
   <tbody>
     <tr>
       <td><strong>render</strong>(name string, data interface{}, keyValues …interface{})</td>
-      <td>Renders given template name, using data as its data.<br /> Additionnal data values can be declared using <code class="highlighter-rouge">keyValues ...interface{}</code> signature, such as <br /><code class="highlighter-rouge">render("x", data, "key1", "val1", "key2", "val2")</code>.</td>
+      <td>Render given <code class="highlighter-rouge">template</code> name, using <code class="highlighter-rouge">data</code>.<br /> Additionnal data values can be declared using <code class="highlighter-rouge">keyValues ...interface{}</code> signature, such as <br /><code class="highlighter-rouge">render("x", data, "key1", "val1", "key2", "val2")</code>.</td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><strong>set</strong>(name string, x interface{})</td>
+      <td>Save given value <code class="highlighter-rouge">x</code> as <code class="highlighter-rouge">name</code> on dot <code class="highlighter-rouge">.</code>.</td>
       <td> </td>
       <td> </td>
     </tr>
@@ -297,12 +323,12 @@ emd gen -out README.md --data<span class="o">=</span><span class="s1">'{"CsUUID"
   <tbody>
     <tr>
       <td><strong>pkgdoc</strong>(files …string)</td>
-      <td>Reads the first of the files, or <code class="highlighter-rouge">main.go</code>, lookup for its package comment and returns it as plain text.</td>
+      <td>Read the first of <code class="highlighter-rouge">files</code>, or <code class="highlighter-rouge">main.go</code>, lookup for its package comment and return it as plain text.</td>
       <td> </td>
     </tr>
     <tr>
       <td><strong>gotest</strong>(rpkg string, run string, args …string)</td>
-      <td>Runs <code class="highlighter-rouge">go test &lt;rpkg&gt; -v -run &lt;run&gt; &lt;args&gt;</code>, returns its output. <br /><code class="highlighter-rouge">rpkg</code> can be a path to a relative folder like <code class="highlighter-rouge">./emd</code>. It will resolve to <br /><code class="highlighter-rouge">github.com/mh-cbon/emd/emd</code></td>
+      <td>Run <code class="highlighter-rouge">go test &lt;rpkg&gt; -v -run &lt;run&gt; &lt;args&gt;</code>, return its output. <br /><code class="highlighter-rouge">rpkg</code> can be a path to a relative folder like <code class="highlighter-rouge">./emd</code>. It will resolve to <br /><code class="highlighter-rouge">github.com/mh-cbon/emd/emd</code></td>
       <td><code class="highlighter-rouge">emd_gotest_pre: "### $ "</code> defines a sring to show right before the <code class="highlighter-rouge">go test</code> command line.</td>
     </tr>
   </tbody>
@@ -320,23 +346,43 @@ emd gen -out README.md --data<span class="o">=</span><span class="s1">'{"CsUUID"
   </thead>
   <tbody>
     <tr>
-      <td><strong>color</strong>(color string, content string])</td>
+      <td><strong>color</strong>(color string, content string]) string</td>
       <td>Embed given content with triple backquote syntax colorizer support.</td>
       <td> </td>
     </tr>
     <tr>
-      <td><strong>toc</strong>(maxImportance int, title …string)</td>
+      <td><strong>toc</strong>(maxImportance int, title …string) string</td>
       <td>Displays a <code class="highlighter-rouge">TOC</code> of the <code class="highlighter-rouge">README</code> file being processed.<br /><code class="highlighter-rouge">maxImportance</code> defines the titles to select by their numbers of <code class="highlighter-rouge">#</code>.<br /><code class="highlighter-rouge">titles</code> define the title to display, defaults to <code class="highlighter-rouge">TOC</code>.<br />Titles displayed before the call to `` are automatically ignored.</td>
       <td> </td>
     </tr>
     <tr>
-      <td><strong>preline</strong>(pre string, content string)</td>
-      <td>Prepends every line of content with pre.</td>
+      <td><strong>preline</strong>(pre string, content string) string</td>
+      <td>Prepend every line of <code class="highlighter-rouge">content</code> with <code class="highlighter-rouge">pre</code>.</td>
       <td> </td>
     </tr>
     <tr>
-      <td><strong>echo</strong>(f string)</td>
-      <td>Prints given string, usefull to print strings which contaisn the template tokens.</td>
+      <td><strong>echo</strong>(f string) string</td>
+      <td>Prints <code class="highlighter-rouge">f</code>, usefull to print strings which contains the template tokens.</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><strong>link</strong>(url string, text …string) string</td>
+      <td>Prints markdown link.</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><strong>img</strong>(url string, alt …string) string</td>
+      <td>Prints markdown image.</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><strong>concat</strong>(x …string) string</td>
+      <td>Concat all <code class="highlighter-rouge">x</code>.</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><strong>pathjoin</strong>(x …string) string</td>
+      <td>Join all <code class="highlighter-rouge">x</code> with <code class="highlighter-rouge">/</code>.</td>
       <td> </td>
     </tr>
   </tbody>
@@ -355,12 +401,12 @@ emd gen -out README.md --data<span class="o">=</span><span class="s1">'{"CsUUID"
   <tbody>
     <tr>
       <td><strong>exec</strong>(bin string, args …string)</td>
-      <td>Displays a command line header.<br />Executes and returns its response.</td>
+      <td>Display a command line header.<br />Execute and return its response.</td>
       <td><code class="highlighter-rouge">emd_exec_pre: "### &gt; "</code>:  string to show right before the command line.</td>
     </tr>
     <tr>
       <td><strong>shell</strong>(s string)</td>
-      <td>Displays a command line header.<br />Executes the command on a shell, and returns the its response.</td>
+      <td>Display a command line header.<br />Execute the command on a shell, and return the its response.</td>
       <td><code class="highlighter-rouge">emd_shell_pre: "### &gt; "</code>: string to show right before the command line.</td>
     </tr>
   </tbody>
@@ -427,12 +473,12 @@ emd gen -out README.md --data<span class="o">=</span><span class="s1">'{"CsUUID"
     </tr>
     <tr>
       <td><strong>linux/gh_src_repo</strong></td>
-      <td>Show an sh snippet to install the package via linux repositories (deb/rpm).</td>
+      <td>Show an sh snippet to install the package via <code class="highlighter-rouge">rpm|deb|apt</code> repositories.</td>
       <td> </td>
     </tr>
     <tr>
       <td><strong>linux/gh_pkg</strong></td>
-      <td>Show an sh snippet to install the package via linux packages (deb/rpm).</td>
+      <td>Show an sh snippet to install the package via standalone packages (deb/rpm).</td>
       <td> </td>
     </tr>
     <tr>
