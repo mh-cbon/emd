@@ -152,7 +152,9 @@ func GetMdLinkHash(link string) string {
 	link = strings.Replace(link, "|", "", -1)
 	link = strings.Replace(link, "[", "", -1)
 	link = strings.Replace(link, "]", "", -1)
+	link = strings.Replace(link, ",", "", -1)
 	link = strings.Replace(link, " ", "-", -1)
+	// should it be a regexp like /[a-z0-9-_]/i ?
 	return link
 }
 
