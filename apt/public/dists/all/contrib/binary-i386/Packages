@@ -5,34 +5,16 @@ Installed-Size: 3.7 kB
 Maintainer: mh-cbon <mh-cbon@users.noreply.github.com>
 Architecture: i386
 Source: emd
-Version: 0.0.9-beta9
-Filename: pool/contrib/e/emd/emd-0.0.9-beta9_386.deb
-Size: 1132780
-MD5sum: e1453f5124a1ed46bfd9ad8a9975720f
-SHA1: 677d1b1cfe92114b89238e22d622fc9d0f84d6d4
-SHA256: 2bd900709f083483742ea8c1470eee6659843cac3fd7c0785a8d69804b913810
-SHA512: 0c088bdf19121b09c919e81e2f72cb0e37817d2a42751be68f80ed1b2b64ee0e4e0d332cd28bef852617f52f840c0ce6ecad3dd4149fcce32ce5f308b0c01f83
+Version: 0.0.10-beta
+Filename: pool/contrib/e/emd/emd-0.0.10-beta_386.deb
+Size: 1139638
+MD5sum: 5d27b101f05dd5acdb678147f89ddda0
+SHA1: 683e7bf5964c041f75f42debf266da5b214bb831
+SHA256: 0090449fb90f133cc1f56caf58bb90cdcd75d89397674e9cfc859d1717b80ab5
+SHA512: 4d973c5ce7ab440a1d0f3f81af81d51412a765f8dc52e75ecf344760e36c7e2e5512ee2c603c3f8a4b290ad624bfbe26167e814a9b97bdd868d8eab6c7efa5a4
 Description: Enhanced Markdown template processor
-Homepage: http://github.com/mh-cbon/emd
 Package-Type: deb
-
-Package: emd
-Priority: extra
-Section: unknown
-Installed-Size: 3.3 kB
-Maintainer: mh-cbon <mh-cbon@users.noreply.github.com>
-Architecture: i386
-Source: emd
-Version: 0.0.9-beta3
-Filename: pool/contrib/e/emd/emd-0.0.9-beta3_386.deb
-Size: 1012444
-MD5sum: 977d8dd2040b81eca2293bc6310fb1bc
-SHA1: c81bb113f97fcf5a0b5421992c5b1b6c5f2ce6ed
-SHA256: 70a5754755a7b8ce12afa1f19197d84562823a053e5bd104ecf69dfd9956d404
-SHA512: 0d19a0bc8ba66fc25ac61d4f8c7ae37ad0698947e20f3f6368a4a6c09028aae63feaadb8fcf0d71da06fab649c4dc6ad6623cc00e5b518344fed776259dd2003
-Description: Enhanced Markdown template processor
 Homepage: http://github.com/mh-cbon/emd
-Package-Type: deb
 
 Package: emd
 Priority: extra
@@ -49,6 +31,6 @@ SHA1: 30f41207509a01c2c985810dd818cb0e602106d1
 SHA256: bee8b66e142b5c976d9009a1c13e572b5b0eee41111cb0225d4e266e525fd6e3
 SHA512: 463fd82c245fd55fe79229999e68aa1fe6d57589879405f9ea473971d06a613466491294c896b2cc6e62417b3a50c2262e3e949bfa451bf75826ae9d9fd011d3
 Description: Enhanced Markdown template processor
-Package-Type: deb
 Homepage: http://github.com/mh-cbon/emd
+Package-Type: deb
 

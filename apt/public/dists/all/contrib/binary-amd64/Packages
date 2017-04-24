@@ -13,6 +13,6 @@ SHA1: 91ab904c5400f24ca8db74ce45e3df319a3cca3a
 SHA256: 90fc15d69a028cfa5e1ffa5a7c46b2d75e327c70dcad0b57c8042426ec3d10c8
 SHA512: 6b72943ecdd7f8059b68db36f5c49daa58f58a0a46691b5117315a0e725c407f64c6d1bf1fda77c0a136c53ee80d7c025e6f2326a6afabf74e1cac7d4dd95cdf
 Description: Enhanced Markdown template processor
-Homepage: http://github.com/mh-cbon/emd
 Package-Type: deb
+Homepage: http://github.com/mh-cbon/emd
 
