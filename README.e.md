@@ -80,11 +80,12 @@ The keys are injected into the template `dot`, the value are `json` decoded.
 
 | Key | Description |
 | --- | --- |
-| __Name__ | Project name based on the cwd (example: emd). |
-| __User__ | User name based on the cwd (example: mh-cbon). |
 | __ProviderURL__ | The vcs provider url (example: github.com). |
 | __ProviderName__ | The vcs provider name (example: github). |
+| __Name__ | Project name based on the cwd (example: emd). |
+| __User__ | User name based on the cwd (example: mh-cbon). |
 | __URL__ | Project url as determined by the cwd (example: github.com/mh-cbon/emd). |
+| __ProjectURL__ | Project url as determined by the cwd + relative path (example: github.com/mh-cbon/emd/cmd). |
 | __Branch__ | Current vcs branch name (defaults to master). |
 
 #### Functions
