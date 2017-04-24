@@ -88,8 +88,8 @@ Usage
     	Show version
 
 Commands
-	gen	Process an emd file.
 	init	Init a basic emd file.
+	gen	Process an emd file.
 ```
 
 #### $ emd gen -help
@@ -164,11 +164,12 @@ The keys are injected into the template `dot`, the value are `json` decoded.
 
 | Key | Description |
 | --- | --- |
-| __Name__ | Project name based on the cwd (example: emd). |
-| __User__ | User name based on the cwd (example: mh-cbon). |
 | __ProviderURL__ | The vcs provider url (example: github.com). |
 | __ProviderName__ | The vcs provider name (example: github). |
+| __Name__ | Project name based on the cwd (example: emd). |
+| __User__ | User name based on the cwd (example: mh-cbon). |
 | __URL__ | Project url as determined by the cwd (example: github.com/mh-cbon/emd). |
+| __ProjectURL__ | Project url as determined by the cwd + relative path (example: github.com/mh-cbon/emd/cmd). |
 | __Branch__ | Current vcs branch name (defaults to master). |
 
 #### Functions
@@ -215,6 +216,8 @@ emd_shell_pre: "### $ "
 | __toc__(maxImportance int, title ...string) | Displays a `TOC` of the `README` file being processed.<br/>`maxImportance` defines the titles to select by their numbers of `#`.<br/>`titles` define the title to display, defaults to `TOC`.<br/>Titles displayed before the call to `{{toc x}}` are automatically ignored.| |
 | __preline__(pre string, content string) | Prepends every line of content with pre. |  |
 | __echo__(f string) | Prints given string, usefull to print strings which contaisn the template tokens. |  |
+| __link__(url string, text ...string) | Prints markdown link. |  |
+| __img__(url string, alt ...string) | Prints markdown image. |  |
 
 #### Cli functions
 
