@@ -1,4 +1,30 @@
 
+UNRELEASED
+
+  * CLI:
+    - new `init` command: Writes a basic `README.e.md` frile to get started
+    - `gen`: removed useless confirmation message on successful operation.
+  * Predefined data:
+    - New api is introduced to better detect predefined data.
+  * Prelude data:
+    - It is now possible to override predefined data within the prelude.
+      This should allow the end user to recover from a buggy implementation in the pre defined variables declaration.
+  * TOC:
+    - #16 Improve link generator to handle `[]|',`
+    - Multiple fixes to properly render the TOC level of each header.
+  * Template: added multiple new functions to help to work with templates
+    - __set__(name string, x interface{}): Save given value `x` as `name` on dot `.`.
+    - __link__(url string, text ...string) string: Prints markdown link.
+    - __img__(url string, alt ...string) string: Prints markdown image.
+    - __concat__(x ...string) string: Concat given arguments.
+    - __pathjoin__(x ...string) string: Join given arguments with `/`.
+
+  - mh-cbon <mh-cbon@users.noreply.github.com>
+
+-- mh-cbon <mh-cbon@users.noreply.github.com>; Mon, 24 Apr 2017 14:54:07 +0200
+
+
+
 0.0.9
 
   * feature #10: Emd file can define a prelude block of `yaml` data to inject into the template processing.
@@ -32,6 +58,8 @@
   - mh-cbon <mh-cbon@users.noreply.github.com>
 
 -- mh-cbon <mh-cbon@users.noreply.github.com>; Sat, 22 Apr 2017 10:51:03 +0200
+
+
 
 0.0.9-beta9
 

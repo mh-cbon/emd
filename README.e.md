@@ -57,9 +57,7 @@ emd gen -out README.md --data='{"CsUUID":"xxxx"}'
 
 #### Define data
 
-It is possible to define data directly into the `README` file,
-
-insert a prelude such as
+Template data can be defined directly into the `README.e.md` file using a `prelude`,
 
 ```yml
 ---
@@ -70,11 +68,12 @@ tags: ["go","programming","easygen","CLI"]
 ---
 ```
 
-Then you can access thos data by their keys `{{echo "{{.categories}}" "{{.tags}}" }}`
-
-directly followed by yout content.
+This `prelude` must be inserted right before the regular `md` content.
 
 The keys are injected into the template `dot`, the value are `json` decoded.
+
+Template can access those data using name: `{{echo "{{.categories}}" "{{.tags}}" }}`
+
 
 #### Data
 
@@ -107,23 +106,23 @@ emd_shell_pre: "### $ "
 
 | Name | Description | Options |
 | --- | --- | -- |
-| __cat__(f string) | Displays a file header.<br/>Reads and returns the file body. | `emd_cat_pre: "### > "`: string to show right before the file path. |
-| __read__(f string) | Reads and returns the file body. |  |
-| __yaml__(f string, keypaths ...string) | Parses given file as yaml, locate given path, build a new map, yaml encode it, returns its string. |  |
+| __cat__(f string) | Displays a file header.<br/>Read and return the file body. | `emd_cat_pre: "### > "`: string to show right before the file path. |
+| __read__(f string) | Read and return the file body. |  |
+| __yaml__(f string, keypaths ...string) | Parse given file as yaml, locate given path into the yaml content, yaml re encode it, return its string. |  |
 
 #### Templates functions
 
 | Name | Description | Options |
 | --- | --- | -- |
-| __render__(name string, data interface{}, keyValues ...interface{}) | Renders given template name, using data as its data.<br/> Additionnal data values can be declared using `keyValues ...interface{}` signature, such as <br/>`render("x", data, "key1", "val1", "key2", "val2")`. | | |
+| __render__(name string, data interface{}, keyValues ...interface{}) | Render given `template` name, using `data`.<br/> Additionnal data values can be declared using `keyValues ...interface{}` signature, such as <br/>`render("x", data, "key1", "val1", "key2", "val2")`. | | |
 | __set__(name string, x interface{}) | Save given value `x` as `name` on dot `.`. |  |
 
 #### Go utils functions
 
 | Name | Description | Options |
 | --- | --- | -- |
-| __pkgdoc__(files ...string) | Reads the first of the files, or `main.go`, lookup for its package comment and returns it as plain text. | |
-| __gotest__(rpkg string, run string, args ...string) | Runs `go test <rpkg> -v -run <run> <args>`, returns its output. <br/>`rpkg` can be a path to a relative folder like `./emd`. It will resolve to <br/>`github.com/mh-cbon/emd/emd`| `emd_gotest_pre: "### $ "` defines a sring to show right before the `go test` command line. |
+| __pkgdoc__(files ...string) | Read the first of `files`, or `main.go`, lookup for its package comment and return it as plain text. | |
+| __gotest__(rpkg string, run string, args ...string) | Run `go test <rpkg> -v -run <run> <args>`, return its output. <br/>`rpkg` can be a path to a relative folder like `./emd`. It will resolve to <br/>`github.com/mh-cbon/emd/emd`| `emd_gotest_pre: "### $ "` defines a sring to show right before the `go test` command line. |
 
 #### Markdown functions
 
@@ -131,19 +130,19 @@ emd_shell_pre: "### $ "
 | --- | --- | -- |
 | __color__(color string, content string]) string | Embed given content with triple backquote syntax colorizer support. | |
 | __toc__(maxImportance int, title ...string) string | Displays a `TOC` of the `README` file being processed.<br/>`maxImportance` defines the titles to select by their numbers of `#`.<br/>`titles` define the title to display, defaults to `TOC`.<br/>Titles displayed before the call to `{{echo "{{toc x}}" }}` are automatically ignored.| |
-| __preline__(pre string, content string) string | Prepends every line of content with pre. |  |
-| __echo__(f string) string | Prints given string, usefull to print strings which contaisn the template tokens. |  |
+| __preline__(pre string, content string) string | Prepend every line of `content` with `pre`. |  |
+| __echo__(f string) string | Prints `f`, usefull to print strings which contains the template tokens. |  |
 | __link__(url string, text ...string) string | Prints markdown link. |  |
 | __img__(url string, alt ...string) string | Prints markdown image. |  |
-| __concat__(x ...string) string | Concat given arguments. |  |
-| __pathjoin__(x ...string) string | Join given arguments with `/`. |  |
+| __concat__(x ...string) string | Concat all `x`. |  |
+| __pathjoin__(x ...string) string | Join all `x` with `/`. |  |
 
 #### Cli functions
 
 | Name | Description | Options |
 | --- | --- | -- |
-| __exec__(bin string, args ...string) | Displays a command line header.<br/>Executes and returns its response. | `emd_exec_pre: "### > "`:  string to show right before the command line. |
-| __shell__(s string) | Displays a command line header.<br/>Executes the command on a shell, and returns the its response. | `emd_shell_pre: "### > "`: string to show right before the command line. |
+| __exec__(bin string, args ...string) | Display a command line header.<br/>Execute and return its response. | `emd_exec_pre: "### > "`:  string to show right before the command line. |
+| __shell__(s string) | Display a command line header.<br/>Execute the command on a shell, and return the its response. | `emd_shell_pre: "### > "`: string to show right before the command line. |
 
 #### Deprecated function
 
@@ -163,8 +162,8 @@ emd_shell_pre: "### $ "
 | __badge/appveyor__ | Show an appveyor badge. | |
 | __badge/codeship__ | Show a codeship badge. | __CsProjectID__: The codeship project ID (*123465*).<br/> __CsUUID__: the codeship project UUID (*654654-6465-54...*).<br/>Within your `e.md` file use the `render` function, `{{echo "{{render \"badge/codeship\" . \"CsUUID\" \"xx\" \"CsProjectID\" \"yyy\"}}"}}`.<br/>Via cli, add it with `--data '{"CsUUID": "xx", "CsProjectID":"yy"}'`. |
 | __choco/install__ | Show an sh snippet to install the package with chocolatey. | |
-| __linux/gh_src_repo__ | Show an sh snippet to install the package via linux repositories (deb/rpm). | |
-| __linux/gh_pkg__ | Show an sh snippet to install the package via linux packages (deb/rpm). | |
+| __linux/gh_src_repo__ | Show an sh snippet to install the package via `rpm|deb|apt` repositories. | |
+| __linux/gh_pkg__ | Show an sh snippet to install the package via standalone packages (deb/rpm). | |
 | __license/shields__ | Show a license badge. | __License__: The license name like `MIT`, `BSD`.<br/>__LicenseFile__: The path to the license file. |
 
 ##### go
