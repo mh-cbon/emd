@@ -116,6 +116,7 @@ emd_shell_pre: "### $ "
 | Name | Description | Options |
 | --- | --- | -- |
 | __render__(name string, data interface{}, keyValues ...interface{}) | Renders given template name, using data as its data.<br/> Additionnal data values can be declared using `keyValues ...interface{}` signature, such as <br/>`render("x", data, "key1", "val1", "key2", "val2")`. | | |
+| __set__(name string, x interface{}) | Save given value `x` as `name` on dot `.`. |  |
 
 #### Go utils functions
 
@@ -128,12 +129,14 @@ emd_shell_pre: "### $ "
 
 | Name | Description | Options |
 | --- | --- | -- |
-| __color__(color string, content string]) | Embed given content with triple backquote syntax colorizer support. | |
-| __toc__(maxImportance int, title ...string) | Displays a `TOC` of the `README` file being processed.<br/>`maxImportance` defines the titles to select by their numbers of `#`.<br/>`titles` define the title to display, defaults to `TOC`.<br/>Titles displayed before the call to `{{echo "{{toc x}}" }}` are automatically ignored.| |
-| __preline__(pre string, content string) | Prepends every line of content with pre. |  |
-| __echo__(f string) | Prints given string, usefull to print strings which contaisn the template tokens. |  |
-| __link__(url string, text ...string) | Prints markdown link. |  |
-| __img__(url string, alt ...string) | Prints markdown image. |  |
+| __color__(color string, content string]) string | Embed given content with triple backquote syntax colorizer support. | |
+| __toc__(maxImportance int, title ...string) string | Displays a `TOC` of the `README` file being processed.<br/>`maxImportance` defines the titles to select by their numbers of `#`.<br/>`titles` define the title to display, defaults to `TOC`.<br/>Titles displayed before the call to `{{echo "{{toc x}}" }}` are automatically ignored.| |
+| __preline__(pre string, content string) string | Prepends every line of content with pre. |  |
+| __echo__(f string) string | Prints given string, usefull to print strings which contaisn the template tokens. |  |
+| __link__(url string, text ...string) string | Prints markdown link. |  |
+| __img__(url string, alt ...string) string | Prints markdown image. |  |
+| __concat__(x ...string) string | Concat given arguments. |  |
+| __pathjoin__(x ...string) string | Join given arguments with `/`. |  |
 
 #### Cli functions
 

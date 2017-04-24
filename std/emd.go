@@ -13,25 +13,53 @@ import (
 	"github.com/mh-cbon/emd/utils"
 )
 
+// Concat multiple strings.
+func Concat(s ...interface{}) string {
+	ss := []string{}
+	for _, v := range s {
+		ss = append(ss, fmt.Sprintf("%v", v))
+	}
+	return strings.Join(ss, "")
+}
+
+// PathJoin multiple path parts.
+func PathJoin(s ...interface{}) string {
+	ss := []string{}
+	for _, v := range s {
+		ss = append(ss, fmt.Sprintf("%v", v))
+	}
+	return strings.Join(ss, "/")
+}
+
 // Link creates a link according to markdown syntax.
-func Link(url string, texts ...string) string {
-	text := ""
+func Link(url interface{}, texts ...interface{}) string {
+	var text interface{}
+	text = ""
 	if len(texts) > 0 {
 		text = texts[0]
 	}
 	if text == "" {
-		return url
+		return fmt.Sprintf("%v", url)
 	}
 	return fmt.Sprintf("[%v](%v)", text, url)
 }
 
 // Img creates a img according to markdown syntax.
-func Img(url string, alts ...string) string {
-	alt := ""
+func Img(url interface{}, alts ...interface{}) string {
+	var alt interface{}
+	alt = ""
 	if len(alts) > 0 {
 		alt = alts[0]
 	}
 	return fmt.Sprintf("![%v](%v)", alt, url)
+}
+
+// SetValue saves a value.
+func SetValue(g *emd.Generator) func(string, interface{}) string {
+	return func(name string, v interface{}) string {
+		g.SetData(name, v)
+		return ""
+	}
 }
 
 // Cat displays a file header, returns file body.
@@ -257,34 +285,30 @@ func Toc(g *emd.Generator) func(int, ...string) string {
 
 // GHReleasePages is a template to show a notice about the gh releases page.
 var GHReleasePages = `{{define "gh/releases" -}}
-Check the [release page](https://github.com/{{.User}}/{{.Name}}/releases)!
+Check the {{link (concat "https://" .URL "/releases") "release page"}}!
 {{- end}}`
 
 // BadgeTravis is a template to show a travis badge.
 var BadgeTravis = `{{define "badge/travis" -}}
-[!` +
-	`[travis Status]` +
-	`(https://travis-ci.org/{{.User}}/{{.Name}}.svg?branch={{.Branch}})` +
-	`]` +
-	`(https://travis-ci.org/{{.User}}/{{.Name}})
+{{- set "travisUrl" (pathjoin "https://travis-ci.org/" .User .Name) }}
+{{- set "travisImg" (img (concat .travisUrl ".svg?branch=" .Branch) "travis Status") }}
+{{- link .travisUrl .travisImg}}
 {{- end}}`
 
 // BadgeAppveyor is a template to show an appveyor badge.
-var BadgeAppveyor = `{{define "badge/appveyor"}}
-[!` +
-	`[appveyor Status]` +
-	`(https://ci.appveyor.com/api/projects/status/{{.ProviderName}}/{{.User}}/{{.Name}}?branch={{.Branch}}&svg=true)` +
-	`]` +
-	`(https://ci.appveyor.com/project/{{.User}}/{{.Name}})
+var BadgeAppveyor = `{{define "badge/appveyor" -}}
+{{- set "appveyorStatusUrl" (pathjoin "https://ci.appveyor.com/api/projects/status/" .ProviderName .User .Name) }}
+{{- set "appveyorProjectUrl" (pathjoin "https://ci.appveyor.com/projects/" .User .Name) }}
+{{- set "appveyorImg" (img (concat .appveyorStatusUrl "?branch=" .Branch "&svg=true") "Appveyor Status") }}
+{{- link .appveyorProjectUrl .appveyorImg }}
 {{- end}}`
 
 // BadgeCodeship is a template to show a codehsip badge.
 var BadgeCodeship = `{{define "badge/codeship" -}}
-[!` +
-	`[codeship Status]` +
-	`(https://codeship.com/projects/{{.CsUUID}}/status?branch={{.Branch}})` +
-	`]` +
-	`(https://codeship.com/projects/{{.CsProjectID}})` + `
+{{- set "csStatusUrl" (pathjoin "https://codeship.com/projects" .CsUUID "status") }}
+{{- set "csProjectUrl" (pathjoin "https://codeship.com/projects" .CsProjectID) }}
+{{- set "csImg" (img (concat .csStatusUrl "?branch=" .Branch) "Codeship Status") }}
+{{- link .csProjectUrl .csImg }}
 {{- end}}`
 
 // InstructionChocoInstall is a template to show instructions to install the package with chocolatey.
@@ -319,11 +343,13 @@ https://raw.githubusercontent.com/mh-cbon/latest/master/install.sh \
 
 // BadgeLicense shows a badge for a license.
 var BadgeLicense = `{{define "license/shields" -}}
-[!` +
-	`[{{.License}} License]` +
-	`(http://img.shields.io/badge/License-{{.License}}-{{or .LicenseColor "blue"}}.svg)` +
-	`]` +
-	`({{or .LicenseFile "LICENSE"}})
+{{- set "licenseFile" (or .LicenseFile "LICENSE") }}
+{{- set "licenseTitle" (concat .License " License") }}
+{{- set "licenseImg" (or .LicenseColor "blue") }}
+{{- set "licenseImg" (concat "License-" .License "-" .licenseImg ".svg") }}
+{{- set "licenseImg" (concat "http://img.shields.io/badge/" .licenseImg) }}
+{{- set "licenseImg" (img .licenseImg .licenseTitle) }}
+{{- link .licenseFile .licenseImg }}
 {{- end}}`
 
 // Register standard helpers to the generator.
@@ -341,6 +367,9 @@ func Register(g *emd.Generator) error {
 	g.AddFunc("echo", Echo)
 	g.AddFunc("link", Link)
 	g.AddFunc("img", Img)
+	g.AddFunc("concat", Concat)
+	g.AddFunc("pathjoin", PathJoin)
+	g.AddFunc("set", SetValue(g))
 
 	g.AddTemplate(GHReleasePages)
 	g.AddTemplate(BadgeTravis)
