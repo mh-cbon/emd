@@ -13,6 +13,7 @@ type Provider interface {
 	GetProjectPath() string
 	GetProviderURL() string
 	GetProviderID() string
+	GetURL() string
 	GetProjectURL() string
 }
 
@@ -29,9 +30,7 @@ func New(url string) Providers {
 
 // Default makes a new Providers facade with pre loaded gh provider.
 func Default(url string) Providers {
-	ret := New(url)
-	ret.Add(gh.New())
-	return ret
+	return New(url).Add(gh.New())
 }
 
 // Add a concrete provider.
@@ -40,7 +39,16 @@ func (p Providers) Add(provider ...Provider) Providers {
 	return p
 }
 
-// GetUserName of the the current url.
+// Match tells if an url matches a provider.
+func (p Providers) Match() bool {
+	for _, pp := range p.Providers {
+		if pp.Is(p.URL) {
+			return true
+		}
+	}
+	return false
+}
+
 func (p Providers) selectProvider() Provider {
 	ret := &NotFoundProvider{}
 	for _, pp := range p.Providers {
@@ -75,6 +83,16 @@ func (p Providers) GetProviderID() string {
 // GetProjectPath of the the current url.
 func (p Providers) GetProjectPath() string {
 	return p.selectProvider().GetProjectPath()
+}
+
+// GetURL of the the current url.
+func (p Providers) GetURL() string {
+	return p.selectProvider().GetURL()
+}
+
+// GetProjectURL of the the current url.
+func (p Providers) GetProjectURL() string {
+	return p.selectProvider().GetProjectURL()
 }
 
 // NotFoundProvider for an url not identified
