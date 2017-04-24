@@ -173,20 +173,20 @@ func (m *MdTitleTree) Traverse(f func(*MdTitleTree)) {
 	}
 }
 
-// LastOf a tree
-func (m *MdTitleTree) LastOf(P int) *MdTitleTree {
-	var ret *MdTitleTree
-	if m.Power+1 == P && len(m.Items) > 0 {
-		return m.Items[len(m.Items)-1]
-	} else if m.Power < P {
-		for _, t := range m.Items {
-			if x := t.LastOf(P); x != nil {
-				ret = x
-			}
-		}
-	}
-	return ret
-}
+// // LastOf a tree
+// func (m *MdTitleTree) LastOf(P int) *MdTitleTree {
+// 	var ret *MdTitleTree
+// 	if m.Power+1 == P && len(m.Items) > 0 {
+// 		return m.Items[len(m.Items)-1]
+// 	} else if m.Power < P {
+// 		for _, t := range m.Items {
+// 			if x := t.LastOf(P); x != nil {
+// 				ret = x
+// 			}
+// 		}
+// 	}
+// 	return ret
+// }
 
 // LastOf a tree
 func (m *MdTitleTree) String() string {
