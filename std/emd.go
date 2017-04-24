@@ -13,6 +13,27 @@ import (
 	"github.com/mh-cbon/emd/utils"
 )
 
+// Link creates a link according to markdown syntax.
+func Link(url string, texts ...string) string {
+	text := ""
+	if len(texts) > 0 {
+		text = texts[0]
+	}
+	if text == "" {
+		return url
+	}
+	return fmt.Sprintf("[%v](%v)", text, url)
+}
+
+// Img creates a img according to markdown syntax.
+func Img(url string, alts ...string) string {
+	alt := ""
+	if len(alts) > 0 {
+		alt = alts[0]
+	}
+	return fmt.Sprintf("![%v](%v)", alt, url)
+}
+
 // Cat displays a file header, returns file body.
 func Cat(g *emd.Generator) func(string) (string, error) {
 	return func(f string) (string, error) {
@@ -318,6 +339,8 @@ func Register(g *emd.Generator) error {
 	g.AddFunc("yaml", Yaml)
 	g.AddFunc("preline", Preline)
 	g.AddFunc("echo", Echo)
+	g.AddFunc("link", Link)
+	g.AddFunc("img", Img)
 
 	g.AddTemplate(GHReleasePages)
 	g.AddTemplate(BadgeTravis)

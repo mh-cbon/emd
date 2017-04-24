@@ -132,6 +132,8 @@ emd_shell_pre: "### $ "
 | __toc__(maxImportance int, title ...string) | Displays a `TOC` of the `README` file being processed.<br/>`maxImportance` defines the titles to select by their numbers of `#`.<br/>`titles` define the title to display, defaults to `TOC`.<br/>Titles displayed before the call to `{{echo "{{toc x}}" }}` are automatically ignored.| |
 | __preline__(pre string, content string) | Prepends every line of content with pre. |  |
 | __echo__(f string) | Prints given string, usefull to print strings which contaisn the template tokens. |  |
+| __link__(url string, text ...string) | Prints markdown link. |  |
+| __img__(url string, alt ...string) | Prints markdown image. |  |
 
 #### Cli functions
 
