@@ -1,5 +1,37 @@
 # Changelog - emd
 
+### 0.0.10-beta
+
+__Changes__
+
+- CLI:
+  - new `init` command: Writes a basic `README.e.md` frile to get started
+  - `gen`: removed useless confirmation message on successful operation.
+- Predefined data:
+  - New api is introduced to better detect predefined data.
+- Prelude data:
+  - It is now possible to override predefined data within the prelude.
+    This should allow the end user to recover from a buggy implementation in the pre defined variables declaration.
+- TOC:
+  - #16 Improve link generator to handle `[]|',`
+  - Multiple fixes to properly render the TOC level of each header.
+- Template: added multiple new functions to help to work with templates
+  - __set__(name string, x interface{}): Save given value `x` as `name` on dot `.`.
+  - __link__(url string, text ...string) string: Prints markdown link.
+  - __img__(url string, alt ...string) string: Prints markdown image.
+  - __concat__(x ...string) string: Concat given arguments.
+  - __pathjoin__(x ...string) string: Join given arguments with `/`.
+
+
+
+__Contributors__
+
+- mh-cbon
+
+Released by mh-cbon, Mon 24 Apr 2017 -
+[see the diff](https://github.com/mh-cbon/emd/compare/0.0.9...0.0.10-beta#diff)
+______________
+
 ### 0.0.9
 
 __Changes__
@@ -20,8 +52,8 @@ __Changes__
   - __gotest__(rpkg string, run string, args ...string): exec `go test <rpkg> -v -run <run> <args...>`.
   - __toc__(maximportance string, title string): display a TOC.
 - feature: added new badge templates
-  - __license/shields__: tp show a license badge
-  - __badge/codeship__: tp show a codeship badge
+  - __license/shields__: show a license badge
+  - __badge/codeship__: show a codeship badge
 - __deprecation__ #7: some template functions were deprecated to avoid pre defined formatting,
       old behavior can be reset via new options defined into the prelude data. See also the new __color__ function.
   - __file__ is dprecated for __cat__
@@ -33,8 +65,8 @@ __Changes__
 
 __Contributors__
 
-- mh-cbon
 - suntong
+- mh-cbon
 
 Released by mh-cbon, Sat 22 Apr 2017 -
 [see the diff](https://github.com/mh-cbon/emd/compare/0.0.9-beta9...0.0.9#diff)
