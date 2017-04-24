@@ -43,6 +43,9 @@ See [emd README file](https://raw.githubusercontent.com/mh-cbon/emd/master/READM
 
 ```sh
 
+# Init a basic emd file to get started.
+emd init
+
 # Reads content of README.e.md, outputs to README.md
 emd gen -out README.md
 
