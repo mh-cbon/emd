@@ -2,8 +2,7 @@
 License: MIT
 LicenseFile: LICENSE
 LicenseColor: yellow
-Test:    "ddddd"
-Testy:    yyyyy
+Name: emd
 ---
 # {{.Name}}
 
