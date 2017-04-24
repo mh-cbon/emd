@@ -17,6 +17,7 @@ See [emd README file](https://raw.githubusercontent.com/mh-cbon/emd/master/READM
 - [Usage](#usage)
   - [$ emd -help](#-emd--help)
   - [$ emd gen -help](#-emd-gen--help)
+  - [$ emd init -help](#-emd-init--help)
 - [Cli examples](#cli-examples)
 - [Templates helper](#templates-helper)
   - [Define data](#define-data)
@@ -88,6 +89,7 @@ Usage
 
 Commands
 	gen	Process an emd file.
+	init	Init a basic emd file.
 ```
 
 #### $ emd gen -help
@@ -106,9 +108,26 @@ Command "gen": Process an emd file.
     	Output destination, defaults to stdout (default "-")
 ```
 
+#### $ emd init -help
+```sh
+emd - 0.0.0
+
+Command "init": Init a basic emd file.
+  -force
+    	Force write
+  -h	Show help
+  -help
+    	Show help
+  -out string
+    	Out file (default "README.e.md")
+```
+
 # Cli examples
 
 ```sh
+
+# Init a basic emd file to get started.
+emd init
 
 # Reads content of README.e.md, outputs to README.md
 emd gen -out README.md
