@@ -109,6 +109,8 @@ func Generate(s cli.Commander) error {
 
 	gen := emd.NewGenerator()
 
+	gen.SetDataMap(data)
+
 	if cmd.in != "" {
 		if err := gen.AddFileTemplate(cmd.in); err != nil {
 			return err
@@ -120,8 +122,6 @@ func Generate(s cli.Commander) error {
 	} else {
 		gen.AddTemplate(defTemplate)
 	}
-
-	gen.SetDataMap(data)
 
 	for name, plugin := range plugins {
 		if err := plugin(gen); err != nil {
