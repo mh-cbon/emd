@@ -2,6 +2,7 @@
 package main
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -25,10 +26,18 @@ var VERSION = "0.0.0"
 
 var program = cli.NewProgram("emd", VERSION)
 
+var verbose bool
+
+func logMsg(f string, args ...interface{}) {
+	if verbose {
+		log.Printf(f+"\n", args...)
+	}
+}
+
 func main() {
 	program.Bind()
 	if err := program.Run(os.Args); err != nil {
-		fmt.Println(err)
+		log.Println(err)
 		os.Exit(1)
 	}
 }
@@ -59,7 +68,6 @@ func init() {
 	gen.Set.StringVar(&gen.data, "data", "", "JSON map of data")
 	gen.Set.BoolVar(&gen.help, "help", false, "Show help")
 	gen.Set.BoolVar(&gen.shortHelp, "h", false, "Show help")
-
 	program.Add(gen)
 
 	ini := &initcommand{Command: cli.NewCommand("init", "Init a basic emd file.", InitFile)}
@@ -68,6 +76,8 @@ func init() {
 	ini.Set.BoolVar(&ini.force, "force", false, "Force write")
 	ini.Set.StringVar(&ini.out, "out", "README.e.md", "Out file")
 	program.Add(ini)
+
+	verbose = os.Getenv("VERBOSE") != ""
 }
 
 // Generate is the cli command implementation of gen.
@@ -90,16 +100,33 @@ func Generate(s cli.Commander) error {
 		defer x.Close()
 	}
 
-	cwd, err := getCwd()
+	cwd, err := os.Getwd()
 	if err != nil {
 		return err
 	}
+	logMsg("cwd %q", cwd)
+
 	gopath := filepath.Join(os.Getenv("GOPATH"), "src")
 	gopath = strings.Replace(gopath, "\\", "/", -1)
+
+	if cwd[:len(gopath)] != gopath {
+		cwd, err = filepath.EvalSymlinks(cwd)
+		if err != nil {
+			return err
+		}
+		if cwd[:len(gopath)] != gopath {
+			return fmt.Errorf("Invalid working directory %q", cwd)
+		}
+	}
+
 	projectPath := cwd[len(gopath):]
+	logMsg("projectPath %q", projectPath)
 
 	plugins := getPlugins()
-	data := getData(projectPath)
+	data, err := getData(projectPath)
+	if err != nil {
+		return err
+	}
 
 	if cmd.data != "" {
 		if err := json.Unmarshal([]byte(cmd.data), &data); err != nil {
@@ -120,7 +147,13 @@ func Generate(s cli.Commander) error {
 			return err
 		}
 	} else {
-		gen.AddTemplate(defTemplate)
+		var b bytes.Buffer
+		io.Copy(&b, os.Stdin)
+		if b.Len() > 0 {
+			gen.AddTemplate(b.String())
+		} else {
+			gen.AddTemplate(defTemplate)
+		}
 	}
 
 	for name, plugin := range plugins {
@@ -136,10 +169,10 @@ func Generate(s cli.Commander) error {
 	return nil
 }
 
-func getData(cwd string) map[string]interface{} {
+func getData(cwd string) (map[string]interface{}, error) {
 	p := provider.Default(cwd)
 	if p.Match() == false {
-		log.Printf("Failed to identify this project url %v\n", cwd)
+		return nil, fmt.Errorf("Failed to identify this path %q\n", cwd)
 	}
 	return map[string]interface{}{
 		"Name":         p.GetProjectName(),
@@ -149,7 +182,7 @@ func getData(cwd string) map[string]interface{} {
 		"URL":          p.GetURL(),
 		"ProjectURL":   p.GetProjectURL(),
 		"Branch":       "master",
-	}
+	}, nil
 }
 
 func getPlugins() map[string]func(*emd.Generator) error {
@@ -176,20 +209,6 @@ func getStdout(out string) (io.Writer, error) {
 		ret = f
 	}
 	return ret, nil
-}
-
-func getCwd() (string, error) {
-	cwd, err := os.Getwd()
-	if err != nil {
-		return "", fmt.Errorf("Failed to determmine cwd: %v", err)
-	}
-	// for those who uses symlinks to relocate their code,
-	// the path must be evaluated.
-	cwd, err = filepath.EvalSymlinks(cwd)
-	if err != nil {
-		return "", fmt.Errorf("Failed to determmine eval path: %v", err)
-	}
-	return cwd, nil
 }
 
 // InitFile creates a basic emd file if none exits.
