@@ -2,7 +2,6 @@
 License: MIT
 LicenseFile: LICENSE
 LicenseColor: yellow
-Name: emd
 ---
 # {{.Name}}
 
@@ -166,7 +165,7 @@ emd_shell_pre: "### $ "
 | __choco/install__ | Show an sh snippet to install the package with chocolatey. | |
 | __linux/gh_src_repo__ | Show an sh snippet to install the package via `rpm|deb|apt` repositories. | |
 | __linux/gh_pkg__ | Show an sh snippet to install the package via standalone packages (deb/rpm). | |
-| __license/shields__ | Show a license badge. | __License__: The license name like `MIT`, `BSD`.<br/>__LicenseFile__: The path to the license file. |
+| __license/shields__ | Show a license badge. | __License__: The license name like `MIT`, `BSD`.<br/>__LicenseFile__: The path to the license file.<br/>__LicenseColor__: The color of the badge (defaults t o blue). |
 
 ##### go
 
