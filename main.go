@@ -109,7 +109,7 @@ func Generate(s cli.Commander) error {
 	gopath := filepath.Join(os.Getenv("GOPATH"), "src")
 	gopath = strings.Replace(gopath, "\\", "/", -1)
 
-	if cwd[:len(gopath)] != gopath {
+	if len(cwd) > len(gopath) && cwd[:len(gopath)] != gopath {
 		cwd, err = filepath.EvalSymlinks(cwd)
 		if err != nil {
 			return err
