@@ -108,16 +108,18 @@ func Generate(s cli.Commander) error {
 
 	gopath := filepath.Join(os.Getenv("GOPATH"), "src")
 	gopath = strings.Replace(gopath, "\\", "/", -1)
+	logMsg("gopath %q", gopath)
 
-	if len(cwd) > len(gopath) && cwd[:len(gopath)] != gopath {
+	if !strings.HasPrefix(cwd, gopath) {
 		cwd, err = filepath.EvalSymlinks(cwd)
 		if err != nil {
 			return err
 		}
-		if cwd[:len(gopath)] != gopath {
-			return fmt.Errorf("Invalid working directory %q", cwd)
-		}
 	}
+	if !strings.HasPrefix(cwd, gopath) {
+		return fmt.Errorf("Invalid working directory %q", cwd)
+	}
+	logMsg("cwd %q", cwd)
 
 	projectPath := cwd[len(gopath):]
 	logMsg("projectPath %q", projectPath)
