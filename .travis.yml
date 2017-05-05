@@ -33,6 +33,7 @@ install:
 
 script:
   - go test emd/*
+  - sh test.sh
 
 
 before_deploy:

@@ -51,6 +51,8 @@ emd gen -out README.md
 # same with data injections,
 emd gen -out README.md --data='{"CsUUID":"xxxx"}'
 
+# use verbose mode
+VERBOSE=y emd gen
 ```
 
 # Templates helper
