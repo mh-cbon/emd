@@ -1,5 +1,48 @@
 # Changelog - emd
 
+### 0.0.10
+
+__Changes__
+
+- __CLI__:
+  - new `init` command: Writes a basic `README.e.md` frile to get started
+  - `gen`: removed useless confirmation message on successful operation.
+  - `stdin`: emd can now receives the input template from STDIN.
+  - verbosity: Added support for verbosity with env variable `VERBOSE=y`.
+
+- __Predefined data__:
+  - New api is introduced to better detect predefined data.
+  - ProjectPath is better handled when its a symlink outside of `GOPATH` (#15 thanks suntong)
+
+- __Prelude data__:
+  - It is now possible to override predefined data within the prelude.
+    This should allow the end user to recover from a buggy implementation in the pre defined variables declaration.
+
+- __TOC__:
+  - #16 Improve link generator to handle `[]|',`
+  - Multiple fixes to properly render the TOC level of each header.
+
+- __Template__: added multiple new functions to help to work with templates
+  - __set__(name string, x interface{}): Save given value `x` as `name` on dot `.`.
+  - __link__(url string, text ...string) string: Prints markdown link.
+  - __img__(url string, alt ...string) string: Prints markdown image.
+  - __concat__(x ...string) string: Concat given arguments.
+  - __pathjoin__(x ...string) string: Join given arguments with `/`.
+
+- __dev__:
+  - added small test suites into `test.sh`
+
+
+
+__Contributors__
+
+- mh-cbon
+- suntong
+
+Released by mh-cbon, Sat 06 May 2017 -
+[see the diff](https://github.com/mh-cbon/emd/compare/0.0.10-beta...0.0.10#diff)
+______________
+
 ### 0.0.10-beta
 
 __Changes__
@@ -21,6 +64,8 @@ __Changes__
   - __img__(url string, alt ...string) string: Prints markdown image.
   - __concat__(x ...string) string: Concat given arguments.
   - __pathjoin__(x ...string) string: Join given arguments with `/`.
+
+
 
 
 
