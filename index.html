@@ -127,8 +127,8 @@ Usage
     	Show version
 
 Commands
-	gen	Process an emd file.
 	init	Init a basic emd file.
+	gen	Process an emd file.
 </code></pre>
 </div>
 
@@ -174,6 +174,8 @@ emd gen -out README.md
 <span class="c"># same with data injections,</span>
 emd gen -out README.md --data<span class="o">=</span><span class="s1">'{"CsUUID":"xxxx"}'</span>
 
+<span class="c"># use verbose mode</span>
+<span class="nv">VERBOSE</span><span class="o">=</span>y emd gen
 </code></pre>
 </div>
 
@@ -484,7 +486,7 @@ emd gen -out README.md --data<span class="o">=</span><span class="s1">'{"CsUUID"
     <tr>
       <td><strong>license/shields</strong></td>
       <td>Show a license badge.</td>
-      <td><strong>License</strong>: The license name like <code class="highlighter-rouge">MIT</code>, <code class="highlighter-rouge">BSD</code>.<br /><strong>LicenseFile</strong>: The path to the license file.</td>
+      <td><strong>License</strong>: The license name like <code class="highlighter-rouge">MIT</code>, <code class="highlighter-rouge">BSD</code>.<br /><strong>LicenseFile</strong>: The path to the license file.<br /><strong>LicenseColor</strong>: The color of the badge (defaults t o blue).</td>
     </tr>
   </tbody>
 </table>
