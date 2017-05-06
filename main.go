@@ -100,22 +100,9 @@ func Generate(s cli.Commander) error {
 		defer x.Close()
 	}
 
-	cwd, err := os.Getwd()
+	projectPath, err := getProjectPath()
 	if err != nil {
 		return err
-	}
-	logMsg("cwd %q", cwd)
-	projectPath, err := getProjectPath(cwd)
-	if err != nil {
-		cwd, err = filepath.EvalSymlinks(cwd)
-		if err != nil {
-			log.Println(err)
-		} else {
-			projectPath, err = getProjectPath(cwd)
-			if err != nil {
-				return err
-			}
-		}
 	}
 	logMsg("projectPath %q", projectPath)
 
@@ -166,7 +153,31 @@ func Generate(s cli.Commander) error {
 	return nil
 }
 
-func getProjectPath(p string) (string, error) {
+func getProjectPath() (string, error) {
+	cwd, err := os.Getwd()
+	if err != nil {
+		return "", err
+	}
+	logMsg("cwd %q", cwd)
+
+	projectPath, err := matchProjectPath(cwd)
+	if err == nil {
+		return projectPath, nil
+	}
+
+	cwd, err = filepath.EvalSymlinks(cwd)
+	if err != nil {
+		return "", err
+	}
+
+	projectPath, err = matchProjectPath(cwd)
+	if err != nil {
+		return "", err
+	}
+
+	return projectPath, nil
+}
+func matchProjectPath(p string) (string, error) {
 
 	gopath := filepath.Join(os.Getenv("GOPATH"), "src")
 	gopath = strings.Replace(gopath, "\\", "/", -1)
