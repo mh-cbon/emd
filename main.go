@@ -105,23 +105,18 @@ func Generate(s cli.Commander) error {
 		return err
 	}
 	logMsg("cwd %q", cwd)
-
-	gopath := filepath.Join(os.Getenv("GOPATH"), "src")
-	gopath = strings.Replace(gopath, "\\", "/", -1)
-	logMsg("gopath %q", gopath)
-
-	if !strings.HasPrefix(cwd, gopath) {
+	projectPath, err := getProjectPath(cwd)
+	if err != nil {
 		cwd, err = filepath.EvalSymlinks(cwd)
 		if err != nil {
-			return err
+			log.Println(err)
+		} else {
+			projectPath, err = getProjectPath(cwd)
+			if err != nil {
+				return err
+			}
 		}
 	}
-	if !strings.HasPrefix(cwd, gopath) {
-		return fmt.Errorf("Invalid working directory %q", cwd)
-	}
-	logMsg("cwd %q", cwd)
-
-	projectPath := cwd[len(gopath):]
 	logMsg("projectPath %q", projectPath)
 
 	plugins := getPlugins()
@@ -171,6 +166,30 @@ func Generate(s cli.Commander) error {
 	return nil
 }
 
+func getProjectPath(p string) (string, error) {
+
+	gopath := filepath.Join(os.Getenv("GOPATH"), "src")
+	gopath = strings.Replace(gopath, "\\", "/", -1)
+	logMsg("gopath %q", gopath)
+
+	if strings.HasPrefix(p, gopath) {
+		return p[len(gopath):], nil
+	}
+
+	// hack to try to match a path not contained in go path.
+	handles := []string{"github.com", "gitlab.com", "bitbucket.com"}
+	for _, h := range handles {
+		u := "src/" + h + "/"
+		if strings.Index(p, u) > -1 {
+			k := strings.Split(p, h)
+			return h + k[1], nil
+		}
+	}
+
+	return "", fmt.Errorf("Invalid working directory %q", p)
+
+}
+
 func getData(cwd string) (map[string]interface{}, error) {
 	p := provider.Default(cwd)
 	if p.Match() == false {
@@ -197,7 +216,6 @@ func getPlugins() map[string]func(*emd.Generator) error {
 }
 
 func getStdout(out string) (io.Writer, error) {
-
 	ret := os.Stdout
 
 	if out != "-" {
