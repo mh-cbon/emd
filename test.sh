@@ -46,6 +46,7 @@ cat <<EOT | emd gen | grep "ProviderURL=github.com" || exit 1;
 ProviderURL={{.ProviderURL}}
 EOT
 
+cd ~
 rm -fr $GOPATH/src/github.com/mh-cbon/emd-test
 rm -fr ~/fake
 
@@ -167,6 +168,30 @@ cat <<EOT | emd gen | grep "https://goreportcard.com/badge/github.com/mh-cbon/te
 {{template "badge/goreport" . }}
 EOT
 
+cd ~
+rm -fr $GOPATH/src/github.com/mh-cbon/emd-test
+rm -fr ~/fake
+
+# test3: ensure emd gen defaults to README.e.md if any.
+mkdir -p $GOPATH/src/github.com/mh-cbon/emd-test
+cd $GOPATH/src/github.com/mh-cbon/emd-test
+
+cat <<EOT >> README.e.md
+templated
+EOT
+emd gen | grep "templated" || exit 1;
+
+cd ~
+rm -fr $GOPATH/src/github.com/mh-cbon/emd-test
+rm -fr ~/fake
+
+# test4: ensure emd gen defaults to defTemplate if not any README.e.md .
+mkdir -p $GOPATH/src/github.com/mh-cbon/emd-test
+cd $GOPATH/src/github.com/mh-cbon/emd-test
+
+emd gen | grep "# emd-test" || exit 1;
+
+cd ~
 rm -fr $GOPATH/src/github.com/mh-cbon/emd-test
 rm -fr ~/fake
 
