@@ -10,7 +10,9 @@ import (
 	"log"
 	"os"
 	"path/filepath"
+	"regexp"
 	"strings"
+	"time"
 
 	"github.com/mh-cbon/emd/cli"
 	"github.com/mh-cbon/emd/deprecated"
@@ -127,18 +129,18 @@ func Generate(s cli.Commander) error {
 			return err
 		}
 	} else {
-		var b bytes.Buffer
-		io.Copy(&b, os.Stdin)
-		if b.Len() > 0 {
+		b := tryReadOsStin()
+		if b != nil && b.Len() > 0 {
 			gen.AddTemplate(b.String())
 
 		} else {
 			if s, err := os.Stat("README.e.md"); !os.IsNotExist(err) && s.IsDir() == false {
-				if err := gen.AddFileTemplate("README.e.md"); err != nil {
+				err := gen.AddFileTemplate("README.e.md")
+				if err != nil {
 					return err
-				} else {
-					gen.AddTemplate(defTemplate)
 				}
+			} else {
+				gen.AddTemplate(defTemplate)
 			}
 		}
 	}
@@ -154,6 +156,29 @@ func Generate(s cli.Commander) error {
 	}
 
 	return nil
+}
+
+func tryReadOsStin() *bytes.Buffer {
+	copied := make(chan bool)
+	timedout := make(chan bool)
+	var ret bytes.Buffer
+	go func() {
+		io.Copy(&ret, os.Stdin)
+		copied <- true
+	}()
+	go func() {
+		<-time.After(time.Millisecond * 10)
+		timedout <- ret.Len() == 0
+	}()
+	select {
+	case empty := <-timedout:
+		if empty {
+			return nil
+		}
+		<-copied
+	case <-copied:
+	}
+	return &ret
 }
 
 func getProjectPath() (string, error) {
@@ -191,6 +216,11 @@ func matchProjectPath(p string) (string, error) {
 	}
 
 	// hack to try to match a path not contained in go path.
+	re := regexp.MustCompile(`/(src\/[^/]+[.][com|org|net]/.+)/`)
+
+	res := re.FindAllString(p, -1)
+	log.Println(res)
+
 	handles := []string{"github.com", "gitlab.com", "bitbucket.com"}
 	for _, h := range handles {
 		u := "src/" + h + "/"
