@@ -62,7 +62,6 @@ func (g *Generator) SetDataMap(dm map[string]interface{}) {
 
 //AddTemplate registers a template string.
 func (g *Generator) AddTemplate(t string) {
-
 	// read the prelude
 	newT, newData, err := utils.GetPrelude(t)
 	if err != nil {
@@ -86,25 +85,25 @@ func (g *Generator) AddFileTemplate(t string) error {
 
 //GetTemplate returns the compiled templates.
 //It is available only during Execute.
-func (g Generator) GetTemplate() *template.Template {
+func (g *Generator) GetTemplate() *template.Template {
 	return g.t
 }
 
 //GetOut returns the out writer.
 //It is available only during Execute.
-func (g Generator) GetOut() io.Writer {
+func (g *Generator) GetOut() io.Writer {
 	return g.o
 }
 
 //WriteString writes a string on out.
 //It is available only during Execute.
-func (g Generator) WriteString(s string) (int, error) {
+func (g *Generator) WriteString(s string) (int, error) {
 	return g.o.Write([]byte(s))
 }
 
 //GetData returns a copy of the template's data.
 //It is available only during Execute.
-func (g Generator) GetData() map[string]interface{} {
+func (g *Generator) GetData() map[string]interface{} {
 	ret := map[string]interface{}{}
 	for k, v := range g.data {
 		ret[k] = v
@@ -113,12 +112,12 @@ func (g Generator) GetData() map[string]interface{} {
 }
 
 //GetKey returns value of K.
-func (g Generator) GetKey(K string) interface{} {
+func (g *Generator) GetKey(K string) interface{} {
 	return g.data[K]
 }
 
 //GetSKey returns a string value of K.
-func (g Generator) GetSKey(K string) string {
+func (g *Generator) GetSKey(K string) string {
 	v := g.GetKey(K)
 	if v == nil {
 		return ""

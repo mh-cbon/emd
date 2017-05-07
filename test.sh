@@ -88,6 +88,85 @@ cat <<EOT | emd gen | grep "ProviderURL=github.com" || exit 1;
 ProviderURL={{.ProviderURL}}
 EOT
 
+cat <<EOT | emd gen | grep "https://travis-ci.org/mh-cbon/test-emd.svg?branch=master" || exit 1;
+{{template "badge/travis" .}}
+EOT
+cat <<EOT | emd gen | grep "https://travis-ci.org/mh-cbon/test-emd" || exit 1;
+{{template "badge/travis" .}}
+EOT
+
+cat <<EOT | emd gen | grep "https://ci.appveyor.com/api/projects/status/github/mh-cbon/test-emd?branch=master&svg=true" || exit 1;
+{{template "badge/appveyor" .}}
+EOT
+cat <<EOT | emd gen | grep "https://ci.appveyor.com/projects/mh-cbon/test-emd" || exit 1;
+{{template "badge/appveyor" .}}
+EOT
+
+cat <<EOT | emd gen | grep "https://goreportcard.com/badge/github.com/mh-cbon/test-emd" || exit 1;
+{{template "badge/goreport" .}}
+EOT
+
+
+cat <<EOT | emd gen | grep "https://godoc.org/github.com/mh-cbon/test-emd?status.svg" || exit 1;
+{{template "badge/godoc" .}}
+EOT
+cat <<EOT | emd gen | grep "http://godoc.org/github.com/mh-cbon/test-emd" || exit 1;
+{{template "badge/godoc" .}}
+EOT
+
+cat <<EOT | emd gen | grep "MIT License" || exit 1;
+{{render "license/shields" . "License" "MIT" "LicenseFile" "LICENSE" "LicenseColor" "yellow"}}
+EOT
+cat <<EOT | emd gen | grep "http://img.shields.io/badge/License-MIT-yellow.svg" || exit 1;
+{{render "license/shields" . "License" "MIT" "LicenseFile" "LICENSE" "LicenseColor" "yellow"}}
+EOT
+cat <<EOT | emd gen | grep "(LICENSE)" || exit 1;
+{{render "license/shields" . "License" "MIT" "LicenseFile" "LICENSE" "LicenseColor" "yellow"}}
+EOT
+
+cat <<EOT | emd gen | grep "[title]" || exit 1;
+{{render "badge/codeship" . "CsUUID" "uuid" "CsProjectID" "projectID" "CsTitle" "title"}}
+EOT
+cat <<EOT | emd gen | grep "https://codeship.com/projects/uuid/status?branch=master" || exit 1;
+{{render "badge/codeship" . "CsUUID" "uuid" "CsProjectID" "projectID" "CsTitle" "title"}}
+EOT
+cat <<EOT | emd gen | grep "https://codeship.com/projects/projectID" || exit 1;
+{{render "badge/codeship" . "CsUUID" "uuid" "CsProjectID" "projectID" "CsTitle" "title"}}
+EOT
+
+cat <<EOT | emd gen | grep "GOPATH/src/github.com/mh-cbon/test-emd" || exit 1;
+{{template "glide/install" . }}
+EOT
+cat <<EOT | emd gen | grep "git clone https://github.com/mh-cbon/test-emd.git ." || exit 1;
+{{template "glide/install" . }}
+EOT
+cat <<EOT | emd gen | grep "glide install" || exit 1;
+{{template "glide/install" . }}
+EOT
+
+cat <<EOT | emd gen | grep "choco install test-emd" || exit 1;
+{{template "choco/install" . }}
+EOT
+
+cat <<EOT | emd gen | grep "https://github.com/mh-cbon/test-emd/releases" || exit 1;
+{{template "gh/releases" . }}
+EOT
+
+cat <<EOT | emd gen | grep "go get github.com/mh-cbon/test-emd" || exit 1;
+{{template "go/install" . }}
+EOT
+
+cat <<EOT | emd gen | grep "https://godoc.org/github.com/mh-cbon/test-emd?status.svg" || exit1
+{{template "badge/godoc" . }}
+EOT
+cat <<EOT | emd gen | grep "http://godoc.org/github.com/mh-cbon/test-emd" || exit1
+{{template "badge/godoc" . }}
+EOT
+
+cat <<EOT | emd gen | grep "https://goreportcard.com/badge/github.com/mh-cbon/test-emd" || exit 1;
+{{template "badge/goreport" . }}
+EOT
+
 rm -fr $GOPATH/src/github.com/mh-cbon/emd-test
 rm -fr ~/fake
 
