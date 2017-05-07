@@ -1,5 +1,36 @@
 # Changelog - emd
 
+### 0.0.11
+
+__Changes__
+
+- __CLI__:
+  - Fix an issue in argument handling.
+
+- __Path detection__: #17
+  - The mechanism to detect and extract information from the path,
+    is improved to work with anything that matches src/[provider]/[user]/[repo]/[path...]
+
+- __Temaplate func helpers__:
+  - __pkg_doc__: won t panic anymore if the default `main.go` file is not yet created.
+
+- __Temaplates__: #16
+  - Fix templates output to avoid double `/`.
+
+- __dev__:
+  - Largely improved tests.
+
+
+
+__Contributors__
+
+- mh-cbon
+- suntong
+
+Released by mh-cbon, Sun 07 May 2017 -
+[see the diff](https://github.com/mh-cbon/emd/compare/0.0.10...0.0.11#diff)
+______________
+
 ### 0.0.10
 
 __Changes__
@@ -34,6 +65,8 @@ __Changes__
 
 
 
+
+
 __Contributors__
 
 - mh-cbon
@@ -64,6 +97,8 @@ __Changes__
   - __img__(url string, alt ...string) string: Prints markdown image.
   - __concat__(x ...string) string: Concat given arguments.
   - __pathjoin__(x ...string) string: Join given arguments with `/`.
+
+
 
 
 
