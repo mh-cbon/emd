@@ -19,6 +19,10 @@ func PkgDoc(files ...string) (string, error) {
 	if len(files) > 0 {
 		file = files[0]
 	}
+	if _, err := os.Stat(file); len(files) == 0 && os.IsNotExist(err) {
+		return "", nil
+	}
+
 	fset := token.NewFileSet()
 	f, err := parser.ParseFile(fset, file, nil, parser.ParseComments)
 	if err != nil {
