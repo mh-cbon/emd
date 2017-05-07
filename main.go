@@ -11,7 +11,6 @@ import (
 	"os"
 	"path/filepath"
 	"regexp"
-	"strings"
 	"time"
 
 	"github.com/mh-cbon/emd/cli"
@@ -205,33 +204,15 @@ func getProjectPath() (string, error) {
 
 	return projectPath, nil
 }
+
+var re = regexp.MustCompile("(src/[^/]+[.](com|org|net)/.+)")
+
 func matchProjectPath(p string) (string, error) {
-
-	gopath := filepath.Join(os.Getenv("GOPATH"), "src")
-	gopath = strings.Replace(gopath, "\\", "/", -1)
-	logMsg("gopath %q", gopath)
-
-	if strings.HasPrefix(p, gopath) {
-		return p[len(gopath):], nil
-	}
-
-	// hack to try to match a path not contained in go path.
-	re := regexp.MustCompile(`/(src\/[^/]+[.][com|org|net]/.+)/`)
-
 	res := re.FindAllString(p, -1)
-	log.Println(res)
-
-	handles := []string{"github.com", "gitlab.com", "bitbucket.com"}
-	for _, h := range handles {
-		u := "src/" + h + "/"
-		if strings.Index(p, u) > -1 {
-			k := strings.Split(p, h)
-			return h + k[1], nil
-		}
+	if len(res) > 0 {
+		return res[0][3:], nil
 	}
-
 	return "", fmt.Errorf("Invalid working directory %q", p)
-
 }
 
 func getData(cwd string) (map[string]interface{}, error) {

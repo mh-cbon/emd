@@ -1,7 +1,7 @@
 package provider
 
 import (
-	"github.com/mh-cbon/emd/provider/gh"
+	"github.com/mh-cbon/emd/provider/std"
 )
 
 //Provider identify an url.
@@ -30,7 +30,7 @@ func New(url string) Providers {
 
 // Default makes a new Providers facade with pre loaded gh provider.
 func Default(url string) Providers {
-	return New(url).Add(gh.New())
+	return New(url).Add(std.New())
 }
 
 // Add a concrete provider.
