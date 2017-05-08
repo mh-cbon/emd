@@ -1,8 +1,6 @@
-hash: a91d03cbfabc6d3b5e9bf788447ad3f56be3d38c120f4f0eb70450b80304ff23
-updated: 2017-04-17T19:00:24.485501434+02:00
+hash: d8b138bdb5a5e0c112e455dbaadb27b60defda234fa7cb2da858c734a15b0118
+updated: 2017-05-08T14:18:10.415313664+02:00
 imports:
-- name: github.com/go-yaml/yaml
-  version: cd8b52f8269e0feb286dfeef29f8fe4d5b397e0b
 - name: gopkg.in/yaml.v2
   version: cd8b52f8269e0feb286dfeef29f8fe4d5b397e0b
 testImports: []
