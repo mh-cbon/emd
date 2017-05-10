@@ -1,5 +1,28 @@
 # Changelog - emd
 
+### 0.0.12
+
+__Changes__
+
+- __cli__:
+  - ensure data passed on the command line overwrites everthing else, fix #19.
+
+- __dep__:
+  - fixed glide lock, needed an update.
+
+- __dev__:
+  - Add provider tests
+
+
+
+__Contributors__
+
+- mh-cbon
+
+Released by mh-cbon, Wed 10 May 2017 -
+[see the diff](https://github.com/mh-cbon/emd/compare/0.0.11...0.0.12#diff)
+______________
+
 ### 0.0.11
 
 __Changes__
@@ -19,6 +42,8 @@ __Changes__
 
 - __dev__:
   - Largely improved tests.
+
+
 
 
 
@@ -67,6 +92,8 @@ __Changes__
 
 
 
+
+
 __Contributors__
 
 - mh-cbon
@@ -97,6 +124,8 @@ __Changes__
   - __img__(url string, alt ...string) string: Prints markdown image.
   - __concat__(x ...string) string: Concat given arguments.
   - __pathjoin__(x ...string) string: Join given arguments with `/`.
+
+
 
 
 
