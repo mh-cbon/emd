@@ -191,6 +191,22 @@ cd $GOPATH/src/github.com/mh-cbon/emd-test
 
 emd gen | grep "# emd-test" || exit 1;
 
+# test prelude data.
+cat <<EOT | emd gen | grep "value" || exit 1;
+---
+key: value
+---
+{{.key}}
+EOT
+
+# test prelude data override by cli.
+cat <<EOT | emd gen --data '{"key":"nopnop"}' | grep "nopnop" || exit 1;
+---
+key: value
+---
+{{.key}}
+EOT
+
 cd ~
 rm -fr $GOPATH/src/github.com/mh-cbon/emd-test
 rm -fr ~/fake

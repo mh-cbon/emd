@@ -113,12 +113,6 @@ func Generate(s cli.Commander) error {
 		return err
 	}
 
-	if cmd.data != "" {
-		if err := json.Unmarshal([]byte(cmd.data), &data); err != nil {
-			return fmt.Errorf("Cannot decode JSON data string: %v", err)
-		}
-	}
-
 	gen := emd.NewGenerator()
 
 	gen.SetDataMap(data)
@@ -148,6 +142,14 @@ func Generate(s cli.Commander) error {
 		if err := plugin(gen); err != nil {
 			return fmt.Errorf("Failed to register %v package: %v", name, err)
 		}
+	}
+
+	if cmd.data != "" {
+		jData := map[string]interface{}{}
+		if err := json.Unmarshal([]byte(cmd.data), &jData); err != nil {
+			return fmt.Errorf("Cannot decode JSON data string: %v", err)
+		}
+		gen.SetDataMap(jData)
 	}
 
 	if err := gen.Execute(out); err != nil {
