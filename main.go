@@ -258,7 +258,7 @@ func getStdout(out string) (io.Writer, error) {
 	return ret, nil
 }
 
-// InitFile creates a basic emd file if none exits.
+// InitFile creates a basic emd file if none exists.
 func InitFile(s cli.Commander) error {
 
 	cmd, ok := s.(*initcommand)
@@ -275,7 +275,7 @@ func InitFile(s cli.Commander) error {
 		out = "README.e.md"
 	}
 	if _, err := os.Stat(out); !cmd.force && !os.IsNotExist(err) {
-		return fmt.Errorf("File exits at %q", out)
+		return fmt.Errorf("File exists at %q", out)
 	}
 	return ioutil.WriteFile(out, []byte(defTemplate), os.ModePerm)
 }
