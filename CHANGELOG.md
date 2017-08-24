@@ -1,5 +1,22 @@
 # Changelog - emd
 
+### 1.0.0
+
+__Changes__
+
+- toc: fix link generator to remove colon
+- close #26: avoid fatal error when a path is not recognized
+- appveyor: close #28: fix badge urls
+
+__Contributors__
+
+- mh-cbon
+- solvingJ
+
+Released by mh-cbon, Thu 24 Aug 2017 -
+[see the diff](https://github.com/mh-cbon/emd/compare/0.0.12...1.0.0#diff)
+______________
+
 ### 0.0.12
 
 __Changes__
@@ -12,6 +29,8 @@ __Changes__
 
 - __dev__:
   - Add provider tests
+
+
 
 
 
@@ -42,6 +61,8 @@ __Changes__
 
 - __dev__:
   - Largely improved tests.
+
+
 
 
 
@@ -94,6 +115,8 @@ __Changes__
 
 
 
+
+
 __Contributors__
 
 - mh-cbon
@@ -124,6 +147,8 @@ __Changes__
   - __img__(url string, alt ...string) string: Prints markdown image.
   - __concat__(x ...string) string: Concat given arguments.
   - __pathjoin__(x ...string) string: Join given arguments with `/`.
+
+
 
 
 
