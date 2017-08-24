@@ -280,7 +280,7 @@ Example
 }
 
 func TestGetMdLinkHash(t *testing.T) {
-	sgot := GetMdLinkHash("/$ .>;")
+	sgot := GetMdLinkHash("/$ .>;:")
 	swant := "-"
 	if swant != sgot {
 		t.Errorf("GetMdLinkHash fail, want=%v, got=%v", swant, sgot)
