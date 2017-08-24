@@ -5,6 +5,24 @@ Installed-Size: 3.7 kB
 Maintainer: mh-cbon <mh-cbon@users.noreply.github.com>
 Architecture: i386
 Source: emd
+Version: 1.0.0
+Filename: pool/contrib/e/emd/emd-1.0.0_386.deb
+Size: 1145706
+MD5sum: 3efc12b3bafe3c6bb56dbaf3ecf7a1aa
+SHA1: b74156d262369cc59a4066c438c4d8ad0f323f2b
+SHA256: 6a736bef0894d376d8d93e508b208aa6e2c320a7e109baa91171ac2cd1bb2221
+SHA512: 1535ac89ab7d9e48e88c07f9e265d9cf046fa3018c4b0b56cae37583aaf43b331ad33cda209c27121044d631b98ca94f12480b1f74741e4a105d56c1ca22aa7f
+Description: Enhanced Markdown template processor
+Package-Type: deb
+Homepage: http://github.com/mh-cbon/emd
+
+Package: emd
+Priority: extra
+Section: unknown
+Installed-Size: 3.7 kB
+Maintainer: mh-cbon <mh-cbon@users.noreply.github.com>
+Architecture: i386
+Source: emd
 Version: 0.0.11
 Filename: pool/contrib/e/emd/emd-0.0.11_386.deb
 Size: 1145800
@@ -13,8 +31,26 @@ SHA1: 028ddb36afd8d68adc481b42c5d5ed76cb448cc9
 SHA256: 3721fcad1deb59f3df4f99bfcd5f3dce8faddea4a79c40b74487d3d641d8675c
 SHA512: cad90b1de3a616b32b7a96a89080771a3f674b99f0451b240b6423b665733a03fe74da367d899ba795add1fdec14b000ddf0ef58620d7d2fda6897258a34b261
 Description: Enhanced Markdown template processor
-Homepage: http://github.com/mh-cbon/emd
 Package-Type: deb
+Homepage: http://github.com/mh-cbon/emd
+
+Package: emd
+Priority: extra
+Section: unknown
+Installed-Size: 3.7 kB
+Maintainer: mh-cbon <mh-cbon@users.noreply.github.com>
+Architecture: i386
+Source: emd
+Version: 0.0.10-beta
+Filename: pool/contrib/e/emd/emd-0.0.10-beta_386.deb
+Size: 1139638
+MD5sum: 5d27b101f05dd5acdb678147f89ddda0
+SHA1: 683e7bf5964c041f75f42debf266da5b214bb831
+SHA256: 0090449fb90f133cc1f56caf58bb90cdcd75d89397674e9cfc859d1717b80ab5
+SHA512: 4d973c5ce7ab440a1d0f3f81af81d51412a765f8dc52e75ecf344760e36c7e2e5512ee2c603c3f8a4b290ad624bfbe26167e814a9b97bdd868d8eab6c7efa5a4
+Description: Enhanced Markdown template processor
+Package-Type: deb
+Homepage: http://github.com/mh-cbon/emd
 
 Package: emd
 Priority: extra
@@ -33,4 +69,292 @@ SHA512: 6477794999db8365178e9163cd20e4a2737704c2908d1216e0fbd987c1d99cb2008ee9dd
 Description: Enhanced Markdown template processor
 Homepage: http://github.com/mh-cbon/emd
 Package-Type: deb
+
+Package: emd
+Priority: extra
+Section: unknown
+Installed-Size: 3.7 kB
+Maintainer: mh-cbon <mh-cbon@users.noreply.github.com>
+Architecture: i386
+Source: emd
+Version: 0.0.9-beta9
+Filename: pool/contrib/e/emd/emd-0.0.9-beta9_386.deb
+Size: 1132780
+MD5sum: e1453f5124a1ed46bfd9ad8a9975720f
+SHA1: 677d1b1cfe92114b89238e22d622fc9d0f84d6d4
+SHA256: 2bd900709f083483742ea8c1470eee6659843cac3fd7c0785a8d69804b913810
+SHA512: 0c088bdf19121b09c919e81e2f72cb0e37817d2a42751be68f80ed1b2b64ee0e4e0d332cd28bef852617f52f840c0ce6ecad3dd4149fcce32ce5f308b0c01f83
+Description: Enhanced Markdown template processor
+Homepage: http://github.com/mh-cbon/emd
+Package-Type: deb
+
+Package: emd
+Priority: extra
+Section: unknown
+Installed-Size: 3.7 kB
+Maintainer: mh-cbon <mh-cbon@users.noreply.github.com>
+Architecture: i386
+Source: emd
+Version: 0.0.9-beta8
+Filename: pool/contrib/e/emd/emd-0.0.9-beta8_386.deb
+Size: 1132408
+MD5sum: 28fcb8de69402b2224888802750a1091
+SHA1: b8de2ca31d51cedcd426d2051dc480aad9d6c713
+SHA256: 31550927fba0f460991087d43d604bf587c0f0bcafdfe58935421f1c6504dd19
+SHA512: c3e1d8f910c6b605dba685f83e2f9cd90726974cd8a9fc1a9c6a3ea75edea7625a4ea956c24b917b3dfc45c3e0b9beddb3beb2d73f97e2f61003903424a294ae
+Description: Enhanced Markdown template processor
+Homepage: http://github.com/mh-cbon/emd
+Package-Type: deb
+
+Package: emd
+Priority: extra
+Section: unknown
+Installed-Size: 3.7 kB
+Maintainer: mh-cbon <mh-cbon@users.noreply.github.com>
+Architecture: i386
+Source: emd
+Version: 0.0.9-beta7
+Filename: pool/contrib/e/emd/emd-0.0.9-beta7_386.deb
+Size: 1133184
+MD5sum: ade06920ffd1b68274093be8c0e61d8e
+SHA1: 3e5a2b4627004f8a898d11df3dd3ad795e78e0f7
+SHA256: 8db824d54f6fc030eea5ee35f52598ac15fd07d081ed03b9f8686b40b3668a0c
+SHA512: ae06f5ebaa5a962bc6f11318afcfb2cff045ddcb516de6d201a7883dde794692daee9e227d9970a51eabd1a1e55d569428f349e2c7dbaf817fe0c72b13a72742
+Description: Enhanced Markdown template processor
+Homepage: http://github.com/mh-cbon/emd
+Package-Type: deb
+
+Package: emd
+Priority: extra
+Section: unknown
+Installed-Size: 3.3 kB
+Maintainer: mh-cbon <mh-cbon@users.noreply.github.com>
+Architecture: i386
+Source: emd
+Version: 0.0.9-beta4
+Filename: pool/contrib/e/emd/emd-0.0.9-beta4_386.deb
+Size: 1013608
+MD5sum: 9804f81a211a71877b2088d526bc06cc
+SHA1: e6c0bef8001e77047783325ed7c014554ccaa4c2
+SHA256: 5806ce507932ca557104b381991be1b1bf59580ebfb3e2c6d1b4527b465a75d8
+SHA512: 9260d7ed7f73d8f903ca19df62b59f904287d93e057b97892d6b78bc3b0a1b9d4a8e87a9a1df3ef477b95516e4494070e31b84c5e45d0295c1b0361cef2e3203
+Description: Enhanced Markdown template processor
+Package-Type: deb
+Homepage: http://github.com/mh-cbon/emd
+
+Package: emd
+Priority: extra
+Section: unknown
+Installed-Size: 3.3 kB
+Maintainer: mh-cbon <mh-cbon@users.noreply.github.com>
+Architecture: i386
+Source: emd
+Version: 0.0.9-beta3
+Filename: pool/contrib/e/emd/emd-0.0.9-beta3_386.deb
+Size: 1012444
+MD5sum: 977d8dd2040b81eca2293bc6310fb1bc
+SHA1: c81bb113f97fcf5a0b5421992c5b1b6c5f2ce6ed
+SHA256: 70a5754755a7b8ce12afa1f19197d84562823a053e5bd104ecf69dfd9956d404
+SHA512: 0d19a0bc8ba66fc25ac61d4f8c7ae37ad0698947e20f3f6368a4a6c09028aae63feaadb8fcf0d71da06fab649c4dc6ad6623cc00e5b518344fed776259dd2003
+Description: Enhanced Markdown template processor
+Homepage: http://github.com/mh-cbon/emd
+Package-Type: deb
+
+Package: emd
+Priority: extra
+Section: unknown
+Installed-Size: 3.3 kB
+Maintainer: mh-cbon <mh-cbon@users.noreply.github.com>
+Architecture: i386
+Source: emd
+Version: 0.0.9-beta2
+Filename: pool/contrib/e/emd/emd-0.0.9-beta2_386.deb
+Size: 1007992
+MD5sum: 8a7301088122abe194217198c352ab32
+SHA1: f744d43f41410e7971d400bc7dfd8ad413246d58
+SHA256: 97dad12e15fff12495e380b258baddb7afba91ef00b4bdc19ff75d500b561803
+SHA512: 6906f880a3f2c5b919df6156bc77ca2602967d1ae6939c30c6a95c7cf7cb893f187fe045c04b429d837a967107a2a3decf95a7b45dc1f1d5a2bd6b612601fc7e
+Description: Enhanced Markdown template processor
+Homepage: http://github.com/mh-cbon/emd
+Package-Type: deb
+
+Package: emd
+Priority: extra
+Section: unknown
+Installed-Size: 3.3 kB
+Maintainer: mh-cbon <mh-cbon@users.noreply.github.com>
+Architecture: i386
+Source: emd
+Version: 0.0.9-beta1
+Filename: pool/contrib/e/emd/emd-0.0.9-beta1_386.deb
+Size: 1008640
+MD5sum: 955108f68f04d091621e06cdf1513194
+SHA1: 8bc8bf21dcf9aa5a4a239ff10e9d08e696d82316
+SHA256: 5a70a1d5ea49b5ba84be196a74f1d91511ae960b2bb5086c88b3b7230c542de0
+SHA512: d48a6d77baec163eb3e51a3bdfbc6586019f5f3e10058680a877c35d6d6bc2d614a911b790107be22165e0c138bdbd2bbc01f18cd66e2742fb0beb0defc0f143
+Description: Enhanced Markdown template processor
+Package-Type: deb
+Homepage: http://github.com/mh-cbon/emd
+
+Package: emd
+Priority: extra
+Section: unknown
+Installed-Size: 3.3 kB
+Maintainer: mh-cbon <mh-cbon@users.noreply.github.com>
+Architecture: i386
+Source: emd
+Version: 0.0.9-beta
+Filename: pool/contrib/e/emd/emd-0.0.9-beta_386.deb
+Size: 1009606
+MD5sum: e86493059e8aafc26a2dd489f9324cc7
+SHA1: 0d69a4660bc3e8084448e16efd26284f851968c8
+SHA256: 16a9c05ae145324dade242c09f4f98d69deafdc3819a2aed33135fe6055af0b9
+SHA512: 107a5215b3b9efefa00bdd579adea708586764a390072c8b787898c40019d52f80f72e6644a251de6914fef79b00a098cd857cb8476f370de30ee6454da05098
+Description: Enhanced Markdown template processor
+Homepage: http://github.com/mh-cbon/emd
+Package-Type: deb
+
+Package: emd
+Priority: extra
+Section: unknown
+Installed-Size: 3.7 kB
+Maintainer: mh-cbon <mh-cbon@users.noreply.github.com>
+Architecture: i386
+Source: emd
+Version: 0.0.9
+Filename: pool/contrib/e/emd/emd-0.0.9_386.deb
+Size: 1132908
+MD5sum: 032668b3066474130f5082be1b03475e
+SHA1: 30f41207509a01c2c985810dd818cb0e602106d1
+SHA256: bee8b66e142b5c976d9009a1c13e572b5b0eee41111cb0225d4e266e525fd6e3
+SHA512: 463fd82c245fd55fe79229999e68aa1fe6d57589879405f9ea473971d06a613466491294c896b2cc6e62417b3a50c2262e3e949bfa451bf75826ae9d9fd011d3
+Description: Enhanced Markdown template processor
+Homepage: http://github.com/mh-cbon/emd
+Package-Type: deb
+
+Package: emd
+Priority: extra
+Section: unknown
+Installed-Size: 3.0 kB
+Maintainer: mh-cbon <mh-cbon@users.noreply.github.com>
+Architecture: i386
+Source: emd
+Version: 0.0.8
+Filename: pool/contrib/e/emd/emd-0.0.8_386.deb
+Size: 902570
+MD5sum: 9bae3cedcf243475b2bbf1c60e2f4428
+SHA1: 366b70c5ec5d5f86702676d708b5a1630f9325a9
+SHA256: e082d2d10b2d2643f14aa864c1c63be4be7079a57e2699d6c303a35c69319935
+SHA512: c96160747bb1b800b03eef2d77caf30620a4f8dfc6dab084666f51febb0f9b581a1d926f5899a6c8e1d24f24ddc0d39a05fc014a01da7538ccd3f5c3a6ae890d
+Description: Enhanced Markdown template processor
+Package-Type: deb
+Homepage: http://github.com/mh-cbon/emd
+
+Package: emd
+Priority: extra
+Section: unknown
+Installed-Size: 3.0 kB
+Maintainer: mh-cbon <mh-cbon@users.noreply.github.com>
+Architecture: i386
+Source: emd
+Version: 0.0.7
+Filename: pool/contrib/e/emd/emd-0.0.7_386.deb
+Size: 903602
+MD5sum: a7de8dd774e6cf853291ce51278e1187
+SHA1: c7592dcb7dd98228ba1246e639c7598bf012bcde
+SHA256: d3afe0cbab15e741752c543000a58e5b3273c51191701363820438964c643cbc
+SHA512: aaa6b2739b8918f3648a96030b1b9b82bdf3cc7f2991b146d156ef9325cdc80708a062ef3497d3b3df16414dab8c9eaa0b66b62c8854abf9296e3a1c0727f37c
+Description: Enhanced Markdown template processor
+Homepage: http://github.com/mh-cbon/emd
+Package-Type: deb
+
+Package: emd
+Priority: extra
+Section: unknown
+Installed-Size: 3.0 kB
+Maintainer: mh-cbon <mh-cbon@users.noreply.github.com>
+Architecture: i386
+Source: emd
+Version: 0.0.6
+Filename: pool/contrib/e/emd/emd-0.0.6_386.deb
+Size: 902728
+MD5sum: 8a5b9e9753b34c82e41c2dbf534afe27
+SHA1: 5173232f70073acafecdd197ea31ba7095bfac44
+SHA256: ed4eeac5a28bccb664667eb8e3e394b7e306be2c37fb86824ac3a56fdf1a21d3
+SHA512: 8168786e24bab7e470733bcee6bebbebe07387f66e3965dccdf1bd27b28db508a42cd130ab3f8d866a47374072512e9bf8942733761d22cdb06ff8c0eb1c64cb
+Description: Enhanced Markdown template processor
+Package-Type: deb
+Homepage: http://github.com/mh-cbon/emd
+
+Package: emd
+Priority: extra
+Section: unknown
+Installed-Size: 2.9 kB
+Maintainer: mh-cbon <mh-cbon@users.noreply.github.com>
+Architecture: i386
+Source: emd
+Version: 0.0.5
+Filename: pool/contrib/e/emd/emd-0.0.5_386.deb
+Size: 899608
+MD5sum: efd4a0b01474346b4a6a87cbb67467d3
+SHA1: 676539cffa9fa1e206b24cff3ac337428c255fc6
+SHA256: 4ec8ec2b928d5a322eda8ed7b10062f25c65383928cbdb13ce5ed7ffdf58097c
+SHA512: f8273bd347f74b2b513dd997335e03f348676cad605d4e53fb1d032e554c6d5e31b79a98a9a5dce091aa29c91e51e6ea1fe571664aafbd49661dc1a690f6f869
+Description: Enhanced Markdown template processor
+Package-Type: deb
+Homepage: http://github.com/mh-cbon/emd
+
+Package: emd
+Priority: extra
+Section: unknown
+Installed-Size: 2.9 kB
+Maintainer: mh-cbon <mh-cbon@users.noreply.github.com>
+Architecture: i386
+Source: emd
+Version: 0.0.4
+Filename: pool/contrib/e/emd/emd-0.0.4_386.deb
+Size: 900038
+MD5sum: 5edfdf8ddf6f260f6eda24d198219f8d
+SHA1: 7d17df15ad849d4fe542994f2ccced0819468d1c
+SHA256: 692bd92d38a3c872b28530112c1224f76c6cc5e2116639a2ae6a7b62eaf7f51f
+SHA512: bcc1147fa919e58a773b77bedd088bd04ab7f0a452046af88c202e8f685f4edc3a67b703c6e6a8eae4371353ab011020ebacd663cffc80b339307d1269dc3d09
+Description: Enhanced Markdown template processor
+Package-Type: deb
+Homepage: http://github.com/mh-cbon/emd
+
+Package: emd
+Priority: extra
+Section: unknown
+Installed-Size: 2.9 kB
+Maintainer: mh-cbon <mh-cbon@users.noreply.github.com>
+Architecture: i386
+Source: emd
+Version: 0.0.3
+Filename: pool/contrib/e/emd/emd-0.0.3_386.deb
+Size: 899462
+MD5sum: 2bae6755e80768e61208ab2515ec13f5
+SHA1: 6c0358c50ff46f51a54aded208e4e7f1d351fa5e
+SHA256: 1ba19b67872a5d1f510f50a2cdde27cb37b09159c243dc64894fbc0d62ee7a05
+SHA512: c571f95603afb792892684d82fc807fdaec828278510b3ebf723df30909a3cc31672492a2aa3067984d1cf3d194daa4e71673b4cdbc799aaec5f02396516beb2
+Description: Enhanced Markdown template processor
+Homepage: http://github.com/mh-cbon/emd
+Package-Type: deb
+
+Package: emd
+Priority: extra
+Section: unknown
+Installed-Size: 2.9 kB
+Maintainer: mh-cbon <mh-cbon@users.noreply.github.com>
+Architecture: i386
+Source: emd
+Version: 0.0.2
+Filename: pool/contrib/e/emd/emd-0.0.2_386.deb
+Size: 899826
+MD5sum: 742aadbe0b148cbdfa6cb54634e2dfe6
+SHA1: 37373192e13ca77d3232d2a46f47fe00476d4c9c
+SHA256: 19a969d67222bd64eb8214b3bfb4740d6020a866b06acca13cfd933db0fe988d
+SHA512: 857ee77ed48de7086fd09cf2a913accc3ae05381f189bb8cc6864d0559fb9e9ffd80ac92d108a013e114f46855beaaabceb5d8152e3375355df848398ea87f7b
+Description: Enhanced Markdown template processor
+Package-Type: deb
+Homepage: http://github.com/mh-cbon/emd
 
