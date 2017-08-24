@@ -87,8 +87,8 @@ Usage
     	Show version
 
 Commands
-	gen	Process an emd file.
 	init	Init a basic emd file.
+	gen	Process an emd file.
 ```
 
 #### $ emd gen -help
