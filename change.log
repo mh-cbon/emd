@@ -1,4 +1,17 @@
 
+1.0.0
+
+  * toc: fix link generator to remove colon
+  * close #26: avoid fatal error when a path is not recognized
+  * appveyor: close #28: fix badge urls
+
+  - mh-cbon <mh-cbon@users.noreply.github.com>
+  - solvingJ <jerrywiltse@gmail.com>
+
+-- mh-cbon <mh-cbon@users.noreply.github.com>; Thu, 24 Aug 2017 18:46:21 +0200
+
+
+
 0.0.12
 
   * __cli__:
@@ -9,6 +22,8 @@
 
   * __dev__:
     - Add provider tests
+
+
 
 
   - mh-cbon <mh-cbon@users.noreply.github.com>
@@ -34,6 +49,8 @@
 
   * __dev__:
     - Largely improved tests.
+
+
 
 
 
@@ -80,6 +97,8 @@
 
 
 
+
+
   - mh-cbon <mh-cbon@users.noreply.github.com>
   - suntong <suntong@users.noreply.github.com>
 
@@ -106,6 +125,8 @@
     - __img__(url string, alt ...string) string: Prints markdown image.
     - __concat__(x ...string) string: Concat given arguments.
     - __pathjoin__(x ...string) string: Join given arguments with `/`.
+
+
 
 
 
