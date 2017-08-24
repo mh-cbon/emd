@@ -99,7 +99,7 @@ EOT
 cat <<EOT | emd gen | grep "https://ci.appveyor.com/api/projects/status/github/mh-cbon/test-emd?branch=master&svg=true" || exit 1;
 {{template "badge/appveyor" .}}
 EOT
-cat <<EOT | emd gen | grep "https://ci.appveyor.com/projects/mh-cbon/test-emd" || exit 1;
+cat <<EOT | emd gen | grep "https://ci.appveyor.com/project/mh-cbon/test-emd" || exit 1;
 {{template "badge/appveyor" .}}
 EOT
 

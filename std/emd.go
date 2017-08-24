@@ -305,7 +305,7 @@ var BadgeTravis = `{{define "badge/travis" -}}
 // BadgeAppveyor is a template to show an appveyor badge.
 var BadgeAppveyor = `{{define "badge/appveyor" -}}
 {{- set "appveyorStatusUrl" (pathjoin "https://ci.appveyor.com/api/projects/status" .ProviderName .User .Name) }}
-{{- set "appveyorProjectUrl" (pathjoin "https://ci.appveyor.com/projects" .User .Name) }}
+{{- set "appveyorProjectUrl" (pathjoin "https://ci.appveyor.com/project" .User .Name) }}
 {{- set "appveyorImg" (img (concat .appveyorStatusUrl "?branch=" .Branch "&svg=true") "Appveyor Status") }}
 {{- link .appveyorProjectUrl .appveyorImg }}
 {{- end}}`
