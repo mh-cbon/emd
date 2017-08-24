@@ -54,7 +54,7 @@ func cleanURL(url string) string {
 // GetUserName of the the current url.
 func (p *Provider) GetUserName() string {
 	ss := strings.Split(p.URL, "/")
-	if len(ss) > 0 {
+	if len(ss) > 1 {
 		return ss[1]
 	}
 	return ""
