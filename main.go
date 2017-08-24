@@ -122,7 +122,7 @@ func Generate(s cli.Commander) error {
 			return err
 		}
 	} else {
-		b := tryReadOsStin()
+		b := tryReadOsStdin()
 		if b != nil && b.Len() > 0 {
 			gen.AddTemplate(b.String())
 
@@ -159,7 +159,7 @@ func Generate(s cli.Commander) error {
 	return nil
 }
 
-func tryReadOsStin() *bytes.Buffer {
+func tryReadOsStdin() *bytes.Buffer {
 	copied := make(chan bool)
 	timedout := make(chan bool)
 	var ret bytes.Buffer
@@ -183,28 +183,33 @@ func tryReadOsStin() *bytes.Buffer {
 }
 
 func getProjectPath() (string, error) {
-	cwd, err := os.Getwd()
+	originalCwd, err := os.Getwd()
 	if err != nil {
 		return "", err
 	}
-	logMsg("cwd %q", cwd)
+	logMsg("cwd %q", originalCwd)
 
-	projectPath, err := matchProjectPath(cwd)
-	if err == nil {
-		return projectPath, nil
+	// regular go package
+	{
+		projectPath, err := matchProjectPath(originalCwd)
+		if err == nil {
+			return projectPath, nil
+		}
 	}
 
-	cwd, err = filepath.EvalSymlinks(cwd)
-	if err != nil {
-		return "", err
+	// symlinked go package
+	{
+		cwd, err := filepath.EvalSymlinks(originalCwd)
+		if err == nil {
+			projectPath, err := matchProjectPath(cwd)
+			if err == nil {
+				return projectPath, nil
+			}
+		}
 	}
 
-	projectPath, err = matchProjectPath(cwd)
-	if err != nil {
-		return "", err
-	}
-
-	return projectPath, nil
+	// all other cases
+	return originalCwd, nil
 }
 
 var re = regexp.MustCompile("(src/[^/]+[.](com|org|net)/.+)")
@@ -219,9 +224,6 @@ func matchProjectPath(p string) (string, error) {
 
 func getData(cwd string) (map[string]interface{}, error) {
 	p := provider.Default(cwd)
-	if p.Match() == false {
-		return nil, fmt.Errorf("Failed to identify this path %q\n", cwd)
-	}
 	return map[string]interface{}{
 		"Name":         p.GetProjectName(),
 		"User":         p.GetUserName(),
