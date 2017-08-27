@@ -337,6 +337,17 @@ curl -L https://raw.githubusercontent.com/mh-cbon/latest/master/source.sh \
 ` + "```" + `
 {{- end}}`
 
+// InstructionBintrayRepo is a template to show instructions to install the rpm/deb repositories via bintray.
+var InstructionBintrayRepo = `{{define "linux/bintray_repo" -}}
+` + "```sh" + `
+wget -O - https://raw.githubusercontent.com/mh-cbon/latest/master/bintray.sh \
+| GH={{.User}}/{{.Name}} sh -xe
+# or
+curl -L https://raw.githubusercontent.com/mh-cbon/latest/master/bintray.sh \
+| GH={{.User}}/{{.Name}} sh -xe
+` + "```" + `
+{{- end}}`
+
 // InstructionGhPkg is a template to show instructions to install the rpm/deb package with gh-pages.
 var InstructionGhPkg = `{{define "linux/gh_pkg" -}}
 ` + "```sh" + `
