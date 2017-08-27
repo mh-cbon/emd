@@ -398,6 +398,7 @@ func Register(g *emd.Generator) error {
 	g.AddTemplate(InstructionChocoInstall)
 	g.AddTemplate(InstructionGhRepo)
 	g.AddTemplate(InstructionGhPkg)
+	g.AddTemplate(InstructionBintrayRepo)
 	g.AddTemplate(BadgeLicense)
 
 	return nil

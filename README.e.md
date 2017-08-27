@@ -164,7 +164,7 @@ emd_shell_pre: "### $ "
 | __badge/codeship__ | Show a codeship badge. | __CsProjectID__: The codeship project ID (*123465*).<br/> __CsUUID__: the codeship project UUID (*654654-6465-54...*).<br/>Within your `e.md` file use the `render` function, `{{echo "{{render \"badge/codeship\" . \"CsUUID\" \"xx\" \"CsProjectID\" \"yyy\"}}"}}`.<br/>Via cli, add it with `--data '{"CsUUID": "xx", "CsProjectID":"yy"}'`. |
 | __choco/install__ | Show an sh snippet to install the package with chocolatey. | |
 | __linux/gh_src_repo__ | Show an sh snippet to install the package via `rpm|deb|apt` repositories hosted on gh-pages. | |
-| __linux/bintray_repo | Show an sh snippet to install the package via `rpm|deb|apt` repositories hosted on bintray. | |
+| __linux/bintray_repo__ | Show an sh snippet to install the package via `rpm|deb|apt` repositories hosted on bintray. | |
 | __linux/gh_pkg__ | Show an sh snippet to install the package via standalone packages (deb/rpm). | |
 | __license/shields__ | Show a license badge. | __License__: The license name like `MIT`, `BSD`.<br/>__LicenseFile__: The path to the license file.<br/>__LicenseColor__: The color of the badge (defaults t o blue). |
 
