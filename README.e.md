@@ -21,7 +21,7 @@ See [emd README file](https://raw.githubusercontent.com/mh-cbon/emd/master/READM
 {{template "glide/install" .}}
 
 #### Bintray
-{{template "choco/install" .}}
+{{template "choco_bintray/install" .}}
 
 #### Chocolatey
 {{template "choco/install" .}}

@@ -10,6 +10,7 @@ See [emd README file](https://raw.githubusercontent.com/mh-cbon/emd/master/READM
 # TOC
 - [Install](#install)
   - [glide](#glide)
+  - [Bintray](#bintray)
   - [Chocolatey](#chocolatey)
   - [linux rpm/deb repository](#linux-rpmdeb-repository)
   - [linux rpm/deb standalone package](#linux-rpmdeb-standalone-package)
@@ -49,9 +50,14 @@ glide install
 go install
 ```
 
-#### Chocolatey
+#### Bintray
 ```sh
 choco source add -n=mh-cbon -s="https://api.bintray.com/nuget/mh-cbon/choco"
+choco install emd
+```
+
+#### Chocolatey
+```sh
 choco install emd
 ```
 
