@@ -20,6 +20,9 @@ See [emd README file](https://raw.githubusercontent.com/mh-cbon/emd/master/READM
 #### glide
 {{template "glide/install" .}}
 
+#### Bintray
+{{template "choco/install" .}}
+
 #### Chocolatey
 {{template "choco/install" .}}
 
@@ -162,7 +165,8 @@ emd_shell_pre: "### $ "
 | __badge/travis__ | Show a travis badge. | |
 | __badge/appveyor__ | Show an appveyor badge. | |
 | __badge/codeship__ | Show a codeship badge. | __CsProjectID__: The codeship project ID (*123465*).<br/> __CsUUID__: the codeship project UUID (*654654-6465-54...*).<br/>Within your `e.md` file use the `render` function, `{{echo "{{render \"badge/codeship\" . \"CsUUID\" \"xx\" \"CsProjectID\" \"yyy\"}}"}}`.<br/>Via cli, add it with `--data '{"CsUUID": "xx", "CsProjectID":"yy"}'`. |
-| __choco/install__ | Show an sh snippet to install the package with chocolatey. | |
+| __choco_bintray/install__ | Show a snippet to install the package with chocolatey from bintray repos. | __BintrayRepo__: the name of the bintray repo (default: `choco`) |
+| __choco/install__ | Show a snippet to install the package with chocolatey. | |
 | __linux/gh_src_repo__ | Show an sh snippet to install the package via `rpm|deb|apt` repositories hosted on gh-pages. | |
 | __linux/bintray_repo__ | Show an sh snippet to install the package via `rpm|deb|apt` repositories hosted on bintray. | |
 | __linux/gh_pkg__ | Show an sh snippet to install the package via standalone packages (deb/rpm). | |

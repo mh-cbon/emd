@@ -326,6 +326,14 @@ choco install {{.Name}}
 ` + "```" + `
 {{- end}}`
 
+// InstructionChocoBintrayInstall is a template to show instructions to install the package with chocolatey from bintray repo.
+var InstructionChocoBintrayInstall = `{{define "choco_bintray/install" -}}
+` + "```sh" + `
+choco source add -n={{.User}} -s="https://api.bintray.com/nuget/{{.User}}/{{or .BintrayRepo "choco"}}"
+choco install {{.Name}}
+` + "```" + `
+{{- end}}`
+
 // InstructionGhRepo is a template to show instructions to install the rpm/deb repositories with gh-pages.
 var InstructionGhRepo = `{{define "linux/gh_src_repo" -}}
 ` + "```sh" + `
@@ -395,6 +403,7 @@ func Register(g *emd.Generator) error {
 	g.AddTemplate(BadgeTravis)
 	g.AddTemplate(BadgeAppveyor)
 	g.AddTemplate(BadgeCodeship)
+	g.AddTemplate(InstructionChocoBintrayInstall)
 	g.AddTemplate(InstructionChocoInstall)
 	g.AddTemplate(InstructionGhRepo)
 	g.AddTemplate(InstructionGhPkg)
