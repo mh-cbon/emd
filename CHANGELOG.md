@@ -1,5 +1,23 @@
 # Changelog - emd
 
+### 1.0.1
+
+__Changes__
+
+- templates:
+  - `choco_bintray/install` to show a snippet to install the app from bintray using chocolatey
+  - `linux/bintray_repo` to show a snippet to install the app from bintray `apt/dnf` repository.
+
+
+
+__Contributors__
+
+- mh-cbon
+
+Released by mh-cbon, Tue 29 Aug 2017 -
+[see the diff](https://github.com/mh-cbon/emd/compare/1.0.0...1.0.1#diff)
+______________
+
 ### 1.0.0
 
 __Changes__
@@ -36,6 +54,8 @@ __Changes__
 
 
 
+
+
 __Contributors__
 
 - mh-cbon
@@ -63,6 +83,8 @@ __Changes__
 
 - __dev__:
   - Largely improved tests.
+
+
 
 
 
@@ -123,6 +145,8 @@ __Changes__
 
 
 
+
+
 __Contributors__
 
 - mh-cbon
@@ -153,6 +177,8 @@ __Changes__
   - __img__(url string, alt ...string) string: Prints markdown image.
   - __concat__(x ...string) string: Concat given arguments.
   - __pathjoin__(x ...string) string: Join given arguments with `/`.
+
+
 
 
 
