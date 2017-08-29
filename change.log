@@ -1,4 +1,17 @@
 
+1.0.1
+
+  * templates:
+    - `choco_bintray/install` to show a snippet to install the app from bintray using chocolatey
+    - `linux/bintray_repo` to show a snippet to install the app from bintray `apt/dnf` repository.
+
+
+  - mh-cbon <mh-cbon@users.noreply.github.com>
+
+-- mh-cbon <mh-cbon@users.noreply.github.com>; Tue, 29 Aug 2017 19:51:46 +0200
+
+
+
 1.0.0
 
   * toc: fix link generator to remove colon
@@ -28,6 +41,8 @@
 
 
 
+
+
   - mh-cbon <mh-cbon@users.noreply.github.com>
 
 -- mh-cbon <mh-cbon@users.noreply.github.com>; Wed, 10 May 2017 11:30:14 +0200
@@ -51,6 +66,8 @@
 
   * __dev__:
     - Largely improved tests.
+
+
 
 
 
@@ -105,6 +122,8 @@
 
 
 
+
+
   - mh-cbon <mh-cbon@users.noreply.github.com>
   - suntong <suntong@users.noreply.github.com>
 
@@ -131,6 +150,8 @@
     - __img__(url string, alt ...string) string: Prints markdown image.
     - __concat__(x ...string) string: Concat given arguments.
     - __pathjoin__(x ...string) string: Join given arguments with `/`.
+
+
 
 
 
