@@ -63,10 +63,10 @@ choco install emd
 
 #### linux rpm/deb repository
 ```sh
-wget -O - https://raw.githubusercontent.com/mh-cbon/latest/master/source.sh \
+wget -O - https://raw.githubusercontent.com/mh-cbon/latest/master/bintray.sh \
 | GH=mh-cbon/emd sh -xe
 # or
-curl -L https://raw.githubusercontent.com/mh-cbon/latest/master/source.sh \
+curl -L https://raw.githubusercontent.com/mh-cbon/latest/master/bintray.sh \
 | GH=mh-cbon/emd sh -xe
 ```
 

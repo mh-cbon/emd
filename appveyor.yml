@@ -1,42 +1,96 @@
-version: "{build}"
-os: Windows Server 2012 R2
-clone_folder: c:\gopath\src\github.com\mh-cbon\emd
+image: Visual Studio 2017
+clone_folder: c:\gopath\src\github.com\%APPVEYOR_REPO_NAME%
 skip_non_tags: true
 
 environment:
   GOPATH: c:\gopath
-  GO15VENDOREXPERIMENT: 1
-  CHOCOKEY:
-    secure: HRc9tf57V3c3dVyn8hvMkKeiwK2oyWvOSjNXembIAQctNx+GTGBBaHI3bh+8cIgy
-  GHTOKEN:
+  JFROG_CLI_OFFER_CONFIG: false
+  VCS_URL: https://github.com/%APPVEYOR_REPO_NAME%
+  BT_KEY:
+    secure: P9xGXGG38T4AvO8XXXXcbaDG2sSN4t6KH92zssGp0nrbyQAZuxHD9F84s6PM9mOD
+  # CHOCOKEY:
+  #   secure: HRc9tf57V3c3dVyn8hvMkKeiwK2oyWvOSjNXembIAQctNx+GTGBBaHI3bh+8cIgy
+  GH_TOKEN:
     secure: WVMaMjrLzXN8YNcnFRfcucTYWtvoDeE/4b2TUGQBZDvv7u+ERBQ///z5Q8qYSt0L
 
+# environment:
+#   GOPATH: c:\gopath
+#   GO15VENDOREXPERIMENT: 1
+#   CHOCOKEY:
+#     secure: HRc9tf57V3c3dVyn8hvMkKeiwK2oyWvOSjNXembIAQctNx+GTGBBaHI3bh+8cIgy
+#   GHTOKEN:
+#     secure: WVMaMjrLzXN8YNcnFRfcucTYWtvoDeE/4b2TUGQBZDvv7u+ERBQ///z5Q8qYSt0L
+
 install:
-  - ps: if (-not (Test-Path env:APPVEYOR_REPO_TAG_NAME)) { $env:APPVEYOR_REPO_TAG_NAME = '0.0.2' }
-  - curl -fsSL -o C:\wix310-binaries.zip http://static.wixtoolset.org/releases/v3.10.3.3007/wix310-binaries.zip
-  - 7z x C:\wix310-binaries.zip -y -r -oC:\wix310
-  - set PATH=C:\wix310;%PATH%
-  - set PATH=%GOPATH%\bin;c:\go\bin;%PATH%
-  - go version
-  - go env
-  - curl -fsSL -o C:\latest.bat https://raw.githubusercontent.com/mh-cbon/latest/master/latest.bat?a=1
-  - cmd /C C:\latest.bat mh-cbon go-msi amd64
-  - set PATH=C:\Program Files\go-msi\;%PATH%
+  - choco install changelog gh-api-cli go-msi -y
+  - refreshenv
+  - set GH_APP=%APPVEYOR_PROJECT_NAME%
+  - set GH_USER=%APPVEYOR_ACCOUNT_NAME%
+  - set VERSION=%APPVEYOR_REPO_TAG_NAME%
+  - if "%x%"=="%VERSION%" set VERSION=1.0.2
+  - set PATH=%WIX%\bin;%PATH%
+  - set PATH=%GOPATH%\bin;%PATH%
+  - curl -fsSk -o jfrog.exe -L "https://api.bintray.com/content/jfrog/jfrog-cli-go/$latest/jfrog-cli-windows-amd64/jfrog.exe?bt_package=jfrog-cli-windows-amd64"
+  - go get -u github.com/mh-cbon/never-fail
   - go get -u github.com/Masterminds/glide
   - glide install
-  - go test github.com/mh-cbon/emd -v
 
+# install:
+#   - ps: if (-not (Test-Path env:APPVEYOR_REPO_TAG_NAME)) { $env:APPVEYOR_REPO_TAG_NAME = '0.0.2' }
+#   - curl -fsSL -o C:\wix310-binaries.zip http://static.wixtoolset.org/releases/v3.10.3.3007/wix310-binaries.zip
+#   - 7z x C:\wix310-binaries.zip -y -r -oC:\wix310
+#   - set PATH=C:\wix310;%PATH%
+#   - set PATH=%GOPATH%\bin;c:\go\bin;%PATH%
+#   - go version
+#   - go env
+#   - curl -fsSL -o C:\latest.bat https://raw.githubusercontent.com/mh-cbon/latest/master/latest.bat?a=1
+#   - cmd /C C:\latest.bat mh-cbon go-msi amd64
+#   - set PATH=C:\Program Files\go-msi\;%PATH%
+#   - go get -u github.com/Masterminds/glide
+#   - glide install
+  # - go test github.com/mh-cbon/emd -v
+
+# build msi artifacts
 build_script:
+  - go test github.com/mh-cbon/emd -v
+  # x386
   - set GOARCH=386
-  - go build -o %APPVEYOR_PROJECT_NAME%.exe --ldflags "-X main.VERSION=%APPVEYOR_REPO_TAG_NAME%" main.go
-  - go-msi.exe make --msi %APPVEYOR_BUILD_FOLDER%\%APPVEYOR_PROJECT_NAME%-%GOARCH%.msi --version %APPVEYOR_REPO_TAG_NAME% --arch %GOARCH%
+  - go build -o %GH_APP%.exe --ldflags "-X main.VERSION=%VERSION%" main.go
+  - go-msi make --msi %GH_APP%-%GOARCH%-%VERSION%.msi --version %VERSION% --arch %GOARCH%
+  - cp %GH_APP%-%GOARCH%-%VERSION%.msi %GH_APP%-%GOARCH%.msi
+  # nuget package is built only for the x86 arch.
+  - go-msi choco --path wix.json --version %VERSION% --input %GH_APP%-%GOARCH%-%VERSION%.msi --changelog-cmd "changelog ghrelease --version %VERSION%"
+  # amd64
   - set GOARCH=amd64
-  - go build -o %APPVEYOR_PROJECT_NAME%.exe --ldflags "-X main.VERSION=%APPVEYOR_REPO_TAG_NAME%" main.go
-  - go-msi.exe make --msi %APPVEYOR_BUILD_FOLDER%\%APPVEYOR_PROJECT_NAME%-%GOARCH%.msi --version %APPVEYOR_REPO_TAG_NAME% --arch %GOARCH%
+  - go build -o %GH_APP%.exe --ldflags "-X main.VERSION=%VERSION%" main.go
+  - go-msi make --msi %GH_APP%-%GOARCH%-%VERSION%.msi --version %VERSION% --arch %GOARCH%
+  - cp %GH_APP%-%GOARCH%-%VERSION%.msi %GH_APP%-%GOARCH%.msi
 
-after_deploy:
-  - go-msi.exe choco --input %APPVEYOR_BUILD_FOLDER%\%APPVEYOR_PROJECT_NAME%-%GOARCH%.msi --version %APPVEYOR_REPO_TAG_NAME%
-  - choco push -k="'%CHOCOKEY%'" %APPVEYOR_PROJECT_NAME%.%APPVEYOR_REPO_TAG_NAME%.nupkg
+# build_script:
+#   - set GOARCH=386
+#   - go build -o %APPVEYOR_PROJECT_NAME%.exe --ldflags "-X main.VERSION=%APPVEYOR_REPO_TAG_NAME%" main.go
+#   - go-msi.exe make --msi %APPVEYOR_BUILD_FOLDER%\%APPVEYOR_PROJECT_NAME%-%GOARCH%.msi --version %APPVEYOR_REPO_TAG_NAME% --arch %GOARCH%
+#   - set GOARCH=amd64
+#   - go build -o %APPVEYOR_PROJECT_NAME%.exe --ldflags "-X main.VERSION=%APPVEYOR_REPO_TAG_NAME%" main.go
+#   - go-msi.exe make --msi %APPVEYOR_BUILD_FOLDER%\%APPVEYOR_PROJECT_NAME%-%GOARCH%.msi --version %APPVEYOR_REPO_TAG_NAME% --arch %GOARCH%
+
+# after_deploy:
+#   - go-msi.exe choco --input %APPVEYOR_BUILD_FOLDER%\%APPVEYOR_PROJECT_NAME%-%GOARCH%.msi --version %APPVEYOR_REPO_TAG_NAME%
+#   - choco push -k="'%CHOCOKEY%'" %APPVEYOR_PROJECT_NAME%.%APPVEYOR_REPO_TAG_NAME%.nupkg
+
+
+deploy_script:
+  - never-fail jfrog bt pc --user %GH_USER% --key %BT_KEY% --licenses=MIT --vcs-url=https://github.com/%APPVEYOR_REPO_NAME% %GH_USER%/msi/%GH_APP%
+  - never-fail jfrog bt pc --user %GH_USER% --key %BT_KEY% --licenses=MIT --vcs-url=https://github.com/%APPVEYOR_REPO_NAME% %GH_USER%/choco/%GH_APP%
+  - never-fail curl -X "DELETE" -u%GH_USER%:%BT_KEY% https://api.bintray.com/content/%GH_USER%/choco/%GH_APP%.%VERSION%.nupkg # workaround until --override=true is honored in next upload
+  - jfrog bt upload --user %GH_USER% --key %BT_KEY%  --override=true --publish=true %GH_APP%.%VERSION%.nupkg %GH_USER%/choco/%GH_APP%/%VERSION%
+  - set GOARCH=386
+  - jfrog bt upload --user %GH_USER% --key %BT_KEY%  --override=true --publish=true %GH_APP%-%GOARCH%-%VERSION%.msi %GH_USER%/msi/%GH_APP%/%VERSION%
+  - set GOARCH=amd64
+  - jfrog bt upload --user %GH_USER% --key %BT_KEY%  --override=true --publish=true %GH_APP%-%GOARCH%-%VERSION%.msi %GH_USER%/msi/%GH_APP%/%VERSION%
+  # next section is a workaround for https://github.com/appveyor/ci/issues/1752
+  - gh-api-cli upload-release-asset -t %GH_TOKEN% -g "*-386.msi" -o %GH_USER% -r %GH_APP% --ver %VERSION%
+  - gh-api-cli upload-release-asset -t %GH_TOKEN% -g "*-amd64.msi" -o %GH_USER% -r %GH_APP% --ver %VERSION%
 
 test: off
 
@@ -55,8 +109,4 @@ deploy:
     auth_token:
       secure: WVMaMjrLzXN8YNcnFRfcucTYWtvoDeE/4b2TUGQBZDvv7u+ERBQ///z5Q8qYSt0L
     on:
-      branch:
-        - master
-        - /v\d\.\d\.\d/
-        - /\d\.\d\.\d/
       appveyor_repo_tag: true

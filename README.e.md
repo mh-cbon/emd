@@ -27,7 +27,7 @@ See [emd README file](https://raw.githubusercontent.com/mh-cbon/emd/master/READM
 {{template "choco/install" .}}
 
 #### linux rpm/deb repository
-{{template "linux/gh_src_repo" .}}
+{{template "linux/bintray_repo" .}}
 
 #### linux rpm/deb standalone package
 {{template "linux/gh_pkg" .}}
