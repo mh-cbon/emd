@@ -39,7 +39,7 @@ env:
 #   - gem --version
 
 before_install:
-  - sudo add-apt-repository 'deb https://dl.bintray.com/bincrafters/public-deb unstable main'
+  - sudo add-apt-repository 'deb https://dl.bintray.com/mh-cbon/deb unstable main'
   - sudo apt-get -qq update
   - sudo apt-get install --allow-unauthenticated changelog go-bin-deb fakeroot
   - mkdir -p ${GOPATH}/bin
@@ -86,7 +86,7 @@ before_deploy:
   # create the package in the docker
   - >
     docker run -v $PWD:/mnt/travis fedora /bin/sh -c
-    "cd /mnt/travis && (curl -s -L https://bintray.com/bincrafters/public-rpm/rpm > /etc/yum.repos.d/w.repo) && dnf install go-bin-rpm changelog rpm-build -y --quiet && go-bin-rpm generate --file rpm.json -a $OSARCH --version $VERSION -o $GH_APP-$OSARCH-$VERSION.rpm"
+    "cd /mnt/travis && (curl -s -L https://bintray.com/mh-cbon/rpm/rpm > /etc/yum.repos.d/w.repo) && dnf install go-bin-rpm changelog rpm-build -y --quiet && go-bin-rpm generate --file rpm.json -a $OSARCH --version $VERSION -o $GH_APP-$OSARCH-$VERSION.rpm"
   # copy the rpm for gh release (backward compatibility)
   - cp $GH_APP-$OSARCH-$VERSION.rpm $GH_APP-$OKARCH.rpm
   # upload to bintray
