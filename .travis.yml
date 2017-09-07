@@ -19,25 +19,6 @@ env:
     # bintray token
     - secure: uUsxcTceYD5fMyCm1YaDbOwdDuAUn4MjX861d/EcwpVcuQcWdawewYwg8mAoy+0ast1nJBWZWaJfn3Rj0pBWRaZDmL3A69zs5VJMVOIxlRT4qYvBPaM4nkFBIRaHpY52Ahyzh9Gkfbsl9jWavYvI4LQKKDssygDfsbEu/P9FwYUl3ojCeyvenVjUoXeLZ7bHDPKEizQDfSiHlTerXOHbnv7E0s43awRHsFxPiH81Vv30isyQmkDWwrOQ8CQmIE7wrjooqZQYwbUVejn4h0wywdadN/tvrAjMOynL7cekGtcynqp8tLxY94XPW0jAZaZovwCnu6T2O4JRc9rzEEYMIDBy79P/WYcCTdxo/r61mua8eMOcZxsLdgPnky6dZYFGM5yiDlicJPYJZEAmz6OA+7WnkXfK0CjuX92iDHj5s/5mJivg1n6k2++91MYAmpc+5yIJiDiSumWddZg5UoovCeHK58+DYTDtfaovB7bEUcIWmr4xv5XcXZ8fRZX6CJJPayFcKfEtvNYthOL91/tGGUwjillMtM3OvC0aJb8vZtrXYavD/3Li2TirMLMN0+RDjg3DjCEMvLClfJLtM2aG2+ISFCcn6awsUx8ThwQlrLIKmzXXq+tnUNlcUcb7HhHUQD96WqSKuk38wvM3NS1OGR3ckCo/kfgouQMd+h3BcKE=
 
-# env:
-#   global:
-#     - GH=mh-cbon/emd
-#     - JEKYLL=pietromenna/jekyll-cayman-theme
-#     - APP=emd
-#     - EMAIL=mh-cbon@users.noreply.github.com
-#     - MYAPP=emd
-#     - MYEMAIL=mh-cbon@users.noreply.github.com
-#     - secure: QiBssphPtB7fpD1l7t/58dccYNuzwb9IFHJbqxrEBB3ObCsXL0FsT1wJd7lI9f/N1x+LSI5qLVVTWTOmKNdpMbZoKko1OjqWPGyJk/QvQObALf/MB/doRu1QtGOO0B09YwT0k2s+OMkGWNy2XHZDEV60m0J+rLQ0AIfoS5wkL+3Qt8Yw1rzMBDQQbZMeoYCaa/G2BJI6mf34dJmTJ2c+/X5JKZsMtH9D1dKQDFBIN2aMDj4L5KfIhH55+IEAZx5F5/HVZVSxD4Xu0ialap81HL8aj4b5ikf05VuTZP6s1m6gORy4cUfrBAdiOJN/ebVuiflmQ0FAN9gtnyTdhuE2LpLHTRkA9MFXBhHA2Dmw9ZYOGLdArkRtZOdSM2PcXkIQI431TPLeajVWz3UD2L706HFZE8RKudbxuTmXkrk2SAZntz+wATU4mhkvAkew09GYSDNux9Y80+sjP0gcONGOSkMT/adQEFserrDMLKqa655wyUNJvVea63IdB1gv5P5VulIq+DGhghpv+Q+0wHsStg7/E1Ai74c/78Ok+8yShv2wb6glp63fhbys5zFTM0eR9uf6on7cnzDCm3NaxEHZiLt13pN4Numn3amrzbiGVVyyV4jpHgjGVYzJG264uZb9b60E1QdjMGDDxiJasIKPfkZrhLi1nEu9Br/Lqh65X74=
-#
-# before_install:
-#   - sudo apt-get -qq update
-#   - mkdir -p ${GOPATH}/bin
-#   - curl https://glide.sh/get | sh
-#   - cd ~
-#   - rvm use 2.2 --install --binary --fuzzy
-#   - gem update --system
-#   - gem --version
-
 before_install:
   - sudo add-apt-repository 'deb https://dl.bintray.com/mh-cbon/deb unstable main'
   - sudo apt-get -qq update
@@ -54,19 +35,6 @@ install:
 script:
   - go test emd/*
   - sh test.sh
-
-# before_deploy:
-#   - mkdir -p build/{386,amd64}
-#   - GOOS=linux GOARCH=386 go build --ldflags "-X main.VERSION=${TRAVIS_TAG}" -o build/386/$APP main.go
-#   - GOOS=linux GOARCH=amd64 go build --ldflags "-X main.VERSION=${TRAVIS_TAG}" -o build/amd64/$APP main.go
-#   - curl -L https://raw.githubusercontent.com/mh-cbon/go-bin-deb/master/create-pkg.sh | GH=$GH sh -xe
-#   - curl -L https://raw.githubusercontent.com/mh-cbon/go-bin-rpm/master/create-pkg.sh | GH=$GH sh -xe
-#
-# after_deploy:
-#   - wget -O - https://raw.githubusercontent.com/mh-cbon/gh-pages/master/all.sh | sh -x
-#   - curl -L https://raw.githubusercontent.com/mh-cbon/go-bin-deb/master/setup-repository.sh | GH=$GH EMAIL=$EMAIL sh -xe
-#   - curl -L https://raw.githubusercontent.com/mh-cbon/go-bin-rpm/master/setup-repository.sh | GH=$GH EMAIL=$EMAIL sh -xe
-
 
 before_deploy:
   # create the deb package
@@ -91,8 +59,10 @@ before_deploy:
   - cp $GH_APP-$OSARCH-$VERSION.rpm $GH_APP-$OKARCH.rpm
   # upload to bintray
   - ./jfrog bt pc --key=$BTKEY --user=$GH_USER --licenses=MIT --vcs-url=https://github.com/$GH_USER/rpm $GH_USER/rpm/$GH_APP || echo "package already exists"
-  - ./jfrog bt upload --override=true --key $BTKEY --publish=true --deb=unstable/main/$OSARCH $GH_APP-$OSARCH-$VERSION.rpm $GH_USER/rpm/$GH_APP/$VERSION pool/g/$GH_APP/
-
+  - ./jfrog bt upload --override=true --key $BTKEY --publish=true $GH_APP-$OSARCH-$VERSION.rpm $GH_USER/rpm/$GH_APP/$VERSION pool/$POOL/$GH_APP/
+  # generate the repo metadata
+  - curl -X POST -u ${GH_USER}:${BTKEY} https://api.bintray.com/calc_metadata/${GH_USER}/rpm
+  
 deploy:
   provider: releases
   api_key:
