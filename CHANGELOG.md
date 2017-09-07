@@ -10,6 +10,7 @@ __Changes__
 
 
 
+
 __Contributors__
 
 - mh-cbon
@@ -51,11 +52,6 @@ __Changes__
 
 
 
-
-
-
-
-
 __Contributors__
 
 - mh-cbon
@@ -83,13 +79,6 @@ __Changes__
 
 - __dev__:
   - Largely improved tests.
-
-
-
-
-
-
-
 
 
 
@@ -138,15 +127,6 @@ __Changes__
 
 
 
-
-
-
-
-
-
-
-
-
 __Contributors__
 
 - mh-cbon
@@ -177,17 +157,6 @@ __Changes__
   - __img__(url string, alt ...string) string: Prints markdown image.
   - __concat__(x ...string) string: Concat given arguments.
   - __pathjoin__(x ...string) string: Join given arguments with `/`.
-
-
-
-
-
-
-
-
-
-
-
 
 
 
