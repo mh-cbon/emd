@@ -90,6 +90,7 @@ Usage
   -h	Show help
   -help
     	Show help
+  -v	Show version
   -version
     	Show version
 
