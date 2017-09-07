@@ -5,9 +5,12 @@
     - `choco_bintray/install` to show a snippet to install the app from bintray using chocolatey
     - `linux/bintray_repo` to show a snippet to install the app from bintray `apt/dnf` repository.
 
+
+
   - mh-cbon <mh-cbon@users.noreply.github.com>
 
 -- mh-cbon <mh-cbon@users.noreply.github.com>; Tue, 29 Aug 2017 19:51:46 +0200
+
 
 
 1.0.0
@@ -22,6 +25,7 @@
 -- mh-cbon <mh-cbon@users.noreply.github.com>; Thu, 24 Aug 2017 18:46:21 +0200
 
 
+
 0.0.12
 
   * __cli__:
@@ -33,9 +37,12 @@
   * __dev__:
     - Add provider tests
 
+
+
   - mh-cbon <mh-cbon@users.noreply.github.com>
 
 -- mh-cbon <mh-cbon@users.noreply.github.com>; Wed, 10 May 2017 11:30:14 +0200
+
 
 
 0.0.11
@@ -56,10 +63,13 @@
   * __dev__:
     - Largely improved tests.
 
+
+
   - mh-cbon <mh-cbon@users.noreply.github.com>
   - suntong <suntong@users.noreply.github.com>
 
 -- mh-cbon <mh-cbon@users.noreply.github.com>; Sun, 07 May 2017 16:05:48 +0200
+
 
 
 0.0.10
@@ -92,10 +102,13 @@
   * __dev__:
     - added small test suites into `test.sh`
 
+
+
   - mh-cbon <mh-cbon@users.noreply.github.com>
   - suntong <suntong@users.noreply.github.com>
 
 -- mh-cbon <mh-cbon@users.noreply.github.com>; Sat, 06 May 2017 09:09:10 +0200
+
 
 
 0.0.10-beta
@@ -118,9 +131,12 @@
     - __concat__(x ...string) string: Concat given arguments.
     - __pathjoin__(x ...string) string: Join given arguments with `/`.
 
+
+
   - mh-cbon <mh-cbon@users.noreply.github.com>
 
 -- mh-cbon <mh-cbon@users.noreply.github.com>; Mon, 24 Apr 2017 14:54:07 +0200
+
 
 
 0.0.9
@@ -158,6 +174,7 @@
 -- mh-cbon <mh-cbon@users.noreply.github.com>; Sat, 22 Apr 2017 10:51:03 +0200
 
 
+
 0.0.9-beta9
 
   * fix default reading of the md file
@@ -165,6 +182,7 @@
   - mh-cbon <mh-cbon@users.noreply.github.com>
 
 -- mh-cbon <mh-cbon@users.noreply.github.com>; Tue, 18 Apr 2017 10:51:03 +0200
+
 
 
 0.0.9-beta8
@@ -177,6 +195,7 @@
 -- mh-cbon <mh-cbon@users.noreply.github.com>; Tue, 18 Apr 2017 10:46:56 +0200
 
 
+
 0.0.9-beta7
 
   * fix wrong import path
@@ -186,6 +205,7 @@
 -- mh-cbon <mh-cbon@users.noreply.github.com>; Mon, 17 Apr 2017 16:35:09 +0200
 
 
+
 0.0.9-beta6
 
   * ci: fix scripts to add glide support
@@ -193,6 +213,7 @@
   - mh-cbon <mh-cbon@users.noreply.github.com>
 
 -- mh-cbon <mh-cbon@users.noreply.github.com>; Mon, 17 Apr 2017 16:26:18 +0200
+
 
 
 0.0.9-beta5
@@ -221,6 +242,7 @@
 -- mh-cbon <mh-cbon@users.noreply.github.com>; Mon, 17 Apr 2017 16:09:41 +0200
 
 
+
 0.0.9-beta4
 
   * toc: improve toc parser, refactored, added tests
@@ -228,6 +250,7 @@
   - mh-cbon <mh-cbon@users.noreply.github.com>
 
 -- mh-cbon <mh-cbon@users.noreply.github.com>; Fri, 14 Apr 2017 15:15:52 +0200
+
 
 
 0.0.9-beta3
@@ -244,6 +267,7 @@
 -- mh-cbon <mh-cbon@users.noreply.github.com>; Fri, 14 Apr 2017 11:58:55 +0200
 
 
+
 0.0.9-beta2
 
   * fix some bugs in TOC title evaluation and generation
@@ -254,6 +278,7 @@
 -- mh-cbon <mh-cbon@users.noreply.github.com>; Thu, 13 Apr 2017 15:09:44 +0200
 
 
+
 0.0.9-beta1
 
   * deprecation: improve error messages
@@ -261,6 +286,7 @@
   - mh-cbon <mh-cbon@users.noreply.github.com>
 
 -- mh-cbon <mh-cbon@users.noreply.github.com>; Wed, 12 Apr 2017 17:15:39 +0200
+
 
 
 0.0.9-beta
@@ -304,6 +330,7 @@
 -- mh-cbon <mh-cbon@users.noreply.github.com>; Wed, 12 Apr 2017 14:36:51 +0200
 
 
+
 0.0.8
 
   * fix goreport badge template
@@ -311,6 +338,7 @@
   - mh-cbon <mh-cbon@users.noreply.github.com>
 
 -- mh-cbon <mh-cbon@users.noreply.github.com>; Sun, 12 Mar 2017 01:28:04 +0100
+
 
 
 0.0.7
@@ -321,6 +349,7 @@
   - mh-cbon <mh-cbon@users.noreply.github.com>
 
 -- mh-cbon <mh-cbon@users.noreply.github.com>; Sun, 12 Mar 2017 01:23:58 +0100
+
 
 
 0.0.6
@@ -336,6 +365,7 @@
 -- mh-cbon <mh-cbon@users.noreply.github.com>; Mon, 06 Mar 2017 19:18:04 +0100
 
 
+
 0.0.5
 
   * badges: add codeship
@@ -349,6 +379,7 @@
 -- mh-cbon <mh-cbon@users.noreply.github.com>; Mon, 06 Mar 2017 15:20:40 +0100
 
 
+
 0.0.4
 
   * changelog: typos
@@ -359,6 +390,7 @@
 -- mh-cbon <mh-cbon@users.noreply.github.com>; Wed, 22 Feb 2017 22:18:19 +0100
 
 
+
 0.0.3
 
   * travis(token): update ghtoken
@@ -366,6 +398,7 @@
   - mh-cbon <mh-cbon@users.noreply.github.com>
 
 -- mh-cbon <mh-cbon@users.noreply.github.com>; Wed, 22 Feb 2017 22:05:07 +0100
+
 
 
 0.0.2
@@ -384,6 +417,7 @@
 -- mh-cbon <mh-cbon@users.noreply.github.com>; Wed, 22 Feb 2017 21:26:29 +0100
 
 
+
 0.0.1
 
   * project initialization
@@ -391,3 +425,5 @@
   - mh-cbon <mh-cbon@users.noreply.github.com>
 
 -- mh-cbon <mh-cbon@users.noreply.github.com>; Wed, 22 Feb 2017 21:07:17 +0100
+
+
