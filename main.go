@@ -23,7 +23,7 @@ import (
 )
 
 // VERSION defines the running build id.
-var VERSION = "0.0.0"
+var VERSION = "1.0.2"
 
 var program = cli.NewProgram("emd", VERSION)
 
@@ -46,7 +46,7 @@ func main() {
 // gen sub command
 type gencommand struct {
 	*cli.Command
-	in        string
+	in        mFlags
 	out       string
 	data      string
 	help      bool
@@ -64,7 +64,7 @@ type initcommand struct {
 
 func init() {
 	gen := &gencommand{Command: cli.NewCommand("gen", "Process an emd file.", Generate)}
-	gen.Set.StringVar(&gen.in, "in", "", "Input src file")
+	gen.Set.Var(&gen.in, "in", "Input src file")
 	gen.Set.StringVar(&gen.out, "out", "-", "Output destination, defaults to stdout")
 	gen.Set.StringVar(&gen.data, "data", "", "JSON map of data")
 	gen.Set.BoolVar(&gen.help, "help", false, "Show help")
@@ -117,11 +117,7 @@ func Generate(s cli.Commander) error {
 
 	gen.SetDataMap(data)
 
-	if cmd.in != "" {
-		if err := gen.AddFileTemplate(cmd.in); err != nil {
-			return err
-		}
-	} else {
+	if len(cmd.in) == 0 {
 		b := tryReadOsStdin()
 		if b != nil && b.Len() > 0 {
 			gen.AddTemplate(b.String())
@@ -152,8 +148,19 @@ func Generate(s cli.Commander) error {
 		gen.SetDataMap(jData)
 	}
 
-	if err := gen.Execute(out); err != nil {
-		return fmt.Errorf("Generator failed: %v", err)
+	if len(cmd.in) == 0 {
+		if err := gen.Execute(out); err != nil {
+			return fmt.Errorf("Generator failed: %v", err)
+		}
+	} else {
+		for _, val := range cmd.in {
+			if err := gen.AddFileTemplate(val); err != nil {
+				return err
+			}
+			if err := gen.Execute(out); err != nil {
+				return fmt.Errorf("Generator failed: %v", err)
+			}
+		}
 	}
 
 	return nil
